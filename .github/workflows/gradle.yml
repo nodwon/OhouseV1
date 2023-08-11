@@ -19,7 +19,8 @@ permissions:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+#    runs-on: ubuntu-latest
+    run: ./gradlew build
 
     steps:
     - uses: actions/checkout@v3
