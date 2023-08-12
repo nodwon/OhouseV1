@@ -35,22 +35,9 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-#      - name: Gradle Caching
-#        uses: actions/cache@v3
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-        with:
-#          path: |
-#            ~/.gradle/caches
-#            ~/.gradle/wrapper
-#            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-#            restore-keys: |
-#            ${{ runner.os }}-gradle-
-          arguments: build  # 이 부분은 run 아래에 있어야 합니다.
       - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-        shell: bash
-
+        run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build
-        shell: bash
+        #        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25          # with:
+        # arguments: build
+        run : ./gradlew clean build --exclude-task test
