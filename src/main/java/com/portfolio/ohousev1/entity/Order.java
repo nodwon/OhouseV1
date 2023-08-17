@@ -1,9 +1,6 @@
 package com.portfolio.ohousev1.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,10 +24,21 @@ public class Order {
     @Column(name = "member_no")
     private Long memberNo;
 
-
-
-
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL) // persist를 전파함
     private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING) // 무조건 String
+    private  OrderStatus status; // 주문 상태  order cancel
+
+    @Builder
+    public Order(Long id, Member member, Long memberNo, OrderStatus status){
+        this.id =id;
+        this.member = member;
+        this.memberNo = memberNo;
+        this.status = status;
+
+    }
+
+
 
 }

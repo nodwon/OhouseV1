@@ -1,4 +1,4 @@
-//package com.portfolio.ohousev1.member;
+//package com.portfolio.ohousev1.repository;
 //
 //import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.stereotype.Repository;

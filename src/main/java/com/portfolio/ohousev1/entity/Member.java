@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class Member {
     private String name;
 
     @Column
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -51,5 +52,15 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @Builder
+    public Member(String email, String password, String nickname,
+                  String name,LocalDate birthday){
+        this.email =email;
+        this.password =password;
+        this.nickname = nickname;
+        this.name = name;
+        this.birthday = birthday;
+
+    }
 
 }

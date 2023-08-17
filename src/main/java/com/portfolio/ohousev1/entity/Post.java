@@ -20,6 +20,10 @@ public class Post extends AuditingFields{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_type_no")
+    private PostType postTypeId;
+
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_no")
@@ -45,7 +49,15 @@ public class Post extends AuditingFields{
     private  final Set<PostComment> postComments = new LinkedHashSet<>();
 
 
+    @Builder
+    public Post(PostType postTypeId, Member member,String title,
+                String content) {
+        this.postTypeId = postTypeId;
+        this.member = member;
+        this.title = title;
+        this.content = content;
 
+    }
 
 
 }

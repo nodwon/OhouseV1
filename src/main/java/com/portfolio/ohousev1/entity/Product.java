@@ -1,15 +1,12 @@
 package com.portfolio.ohousev1.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "item")
+@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,13 +25,22 @@ public class Product {
     private Long stock;
 
     @Column
-    private Long title;
+    private String title;
 
     @Column(name = "description")
-    private String Description;
+    private String description;
 
 
     @Column(name = "created_at")
     @Setter
     private LocalDateTime createdAt;
+
+    @Builder
+    public Product(Long id, Long price, Long stock, String title, String description){
+        this.id=id;
+        this.price =price;
+        this.stock = stock;
+        this.title = title;
+        this.description =description;
+    }
 }
