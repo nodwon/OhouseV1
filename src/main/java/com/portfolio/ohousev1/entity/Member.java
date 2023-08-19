@@ -19,12 +19,13 @@ import java.util.List;
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Member {
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_no")
     private Long memberNo;
 
-    @Column(name = "email")
+    @Id
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column
@@ -51,6 +52,7 @@ public class Member {
     @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
 
     @Builder
     public Member(String email, String password, String nickname,

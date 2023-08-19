@@ -32,10 +32,8 @@ public class Post extends AuditingFields{
     private Long productNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_no")
+    @JoinColumn(name = "member_email")
     private Member member;
-    @Column(name = "member_no", updatable = false, insertable = false)
-    private Long memberNo;
 
     @Setter
     @Column
@@ -50,13 +48,11 @@ public class Post extends AuditingFields{
 
 
     @Builder
-    public Post(PostType postTypeId, Member member,String title,
-                String content) {
+    public Post(PostType postTypeId, Member member, String title, String content) {
         this.postTypeId = postTypeId;
-        this.member = member;
+        this.member = member; // 이메일 값 설정
         this.title = title;
         this.content = content;
-
     }
 
 
