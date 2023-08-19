@@ -51,6 +51,6 @@ public class PostService {
     }
     public void deletePost(Long postId, String email){
         postRepository.getReferenceById(postId);
-        postRepository.deleteByIdAndUserAccount_UserId(postId, email);
+        postRepository.deleteByIdAndMember_Email(postId, email);
     }
 }

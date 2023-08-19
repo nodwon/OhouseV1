@@ -15,14 +15,16 @@ public interface PostRepository extends
         JpaRepository<Post, Long>,
         QuerydslPredicateExecutor<Post>,
         QuerydslBinderCustomizer<QPost> // querydsl 제작
-        {
+{
 
     Page<Post> findByTitleContaining(String title, Pageable pageable);
+
     Page<Post> findByContentContaining(String content, Pageable pageable);
-    void deleteByIdAndUserAccount_UserId(Long articleId, String userid);
+
+    void deleteByIdAndMember_Email(Long id, String email);
 
 
-            @Override
+    @Override
     default void customize(QuerydslBindings bindings, QPost root) {
         bindings.excludeUnlistedProperties(true);
         bindings.including(root.title, root.content, root.createdAt, root.createdBy);
