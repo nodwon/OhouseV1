@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostsResponseDto {
     Long postId;
-    Integer postTypeNo;
     Long memberNo;
     Long productNo;
     String title;
@@ -20,7 +19,6 @@ public class PostsResponseDto {
 
     public PostsResponseDto(Post posts){
         this.postId = posts.getId();
-        this.postTypeNo = posts.getPostTypeId().getPostTypeId();
         this.memberNo = posts.getMember().getMemberNo();
         this.productNo = posts.getProductId().getId();
         this.title = posts.getTitle();

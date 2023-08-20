@@ -1,4 +1,4 @@
-package com.portfolio.ohousev1.api;
+package com.portfolio.ohousev1.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,5 +13,9 @@ public class HomeController {
         log.info("home controller");
         return "main";
     }
-
+    @RequestMapping("/login")
+    public String login() {
+        log.info("home controller");
+        return "main";
+    }
 }

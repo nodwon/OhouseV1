@@ -1,8 +1,5 @@
 package com.portfolio.ohousev1.exception;
 
-import com.portfolio.ohousev1.entity.Member;
-import com.portfolio.ohousev1.entity.PostType;
-
 public class NotFoundException extends RuntimeException {
     public <T> NotFoundException(Class<T> type, String message)  {
         super(type.getName() + message);

@@ -44,8 +44,6 @@ public class QPost extends EntityPathBase<Post> {
 
     public final SetPath<PostComment, QPostComment> postComments = this.<PostComment, QPostComment>createSet("postComments", PostComment.class, QPostComment.class, PathInits.DIRECT2);
 
-    public final QPostType postTypeId;
-
     public final QProduct productId;
 
     public final NumberPath<Long> productNo = createNumber("productNo", Long.class);
@@ -71,7 +69,6 @@ public class QPost extends EntityPathBase<Post> {
     public QPost(Class<? extends Post> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
-        this.postTypeId = inits.isInitialized("postTypeId") ? new QPostType(forProperty("postTypeId")) : null;
         this.productId = inits.isInitialized("productId") ? new QProduct(forProperty("productId")) : null;
     }
 

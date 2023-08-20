@@ -20,11 +20,7 @@ public class Post extends AuditingFields{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_type_no")
-    private PostType postTypeId;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_no")
     private Product productId;
@@ -35,24 +31,25 @@ public class Post extends AuditingFields{
     @JoinColumn(name = "member_email")
     private Member member;
 
-    @Setter
     @Column
     private String title;
 
-    @Setter
     @Column(name = "content", length = 10000)
     private String content;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private  final Set<PostComment> postComments = new LinkedHashSet<>();
 
-
     @Builder
-    public Post(PostType postTypeId, Member member, String title, String content) {
-        this.postTypeId = postTypeId;
+    public Post( Member member, String title, String content) {
         this.member = member; // 이메일 값 설정
         this.title = title;
         this.content = content;
+    }
+
+    public void update(String title, String content){
+        this.title = title;
+        this.content =content;
     }
 
 

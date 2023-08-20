@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<header class="container" th:replace="fragments/header :: header"/>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/header :: header" />
+<title></title>
+<meta charset="utf-8">
+    <body>
+    <div class="container">
+        <header class="py-5 text-center" id="post header">
+            <h1>게시글 작성</h1>
+        </header>
 
-<div class="container">
-    <header id="article-form-header" class="py-5 text-center">
-        <h1>게시글 작성</h1>
-    </header>
-
-    <form id="article-form" method="post" th:action="@{/posts}">
-        <div class="row mb-3 justify-content-md-center">
-            <label for="title" class="col-sm-2 col-lg-1 col-form-label text-sm-end">제목</label>
-            <div class="col-sm-8 col-lg-9">
-                <input type="text" class="form-control" id="title" name="title" required>
+        <form role="post_form" action="/form/new" method="post" th:object="${PostsSaveRequestDto}">
+            <div class="row mb-3 justify-content-md-center">
+                <label class="col-sm-2 col-lg-1 col-form-label text-sm-end" th:for="title">제목</label>
+                <div class="col-sm-8 col-lg-9">
+                    <input class="form-control" id="title" name="title" placeholder="제목을 입력하세요" type="text" >
+                </div>
             </div>
-        </div>
-        <div class="row mb-3 justify-content-md-center">
-            <label for="content" class="col-sm-2 col-lg-1 col-form-label text-sm-end">본문</label>
-            <div class="col-sm-8 col-lg-9">
-                <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+            <div class="row mb-3 justify-content-md-center">
+                <label class="col-sm-2 col-lg-1 col-form-label text-sm-end" th:for="content">본문</label>
+                <div class="col-sm-8 col-lg-9">
+                    <textarea class="form-control" id="content" name="content" required rows="5"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="row mb-5 justify-content-md-center">
-            <div class="col-sm-10 d-grid gap-2 d-sm-flex justify-content-sm-end">
-                <button type="submit" class="btn btn-primary" id="submit-button">저장</button>
-                <button type="button" class="btn btn-secondary" id="cancel-button">취소</button>
+            <div class="row mb-5 justify-content-md-center">
+                <div class="col-sm-10 d-grid gap-2 d-sm-flex justify-content-sm-end">
+                    <button class="btn btn-primary" id="submit-button" type="submit">저장</button>
+                    <button class="btn btn-secondary" id="cancel-button" type="button">취소</button>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
-</body>
+        </form>
+    </div>
+    </body>
+<div th:replace="fragments/footer :: footer" />
 </html>

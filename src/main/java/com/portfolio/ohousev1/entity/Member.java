@@ -1,14 +1,11 @@
 package com.portfolio.ohousev1.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +15,18 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Member {
+public class Member extends AuditingFields{
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_no")
-    private Long memberNo;
+    private Long MemberNo;
 
     @Id
     @Column(name = "email", unique = true)
     private String email;
 
     @Column
-    private String password;
+    private String Password;
 
     @Column
     private String nickname;
@@ -40,10 +37,9 @@ public class Member {
     @Column
     private LocalDate birthday;
 
-    @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")
@@ -53,16 +49,27 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-
     @Builder
     public Member(String email, String password, String nickname,
-                  String name,LocalDate birthday){
+                  String name,LocalDate birthday, String createBy){
         this.email =email;
-        this.password =password;
+        this.Password =password;
         this.nickname = nickname;
         this.name = name;
         this.birthday = birthday;
+        this.createdBy = createBy;
+        this.modifiedBy = createBy;
 
+    }
+    public  Member update(String name, String nickname, String password){
+        this.name =name;
+        this.nickname = nickname;
+        this.Password = password;
+
+        return this;
+    }
+    public String getRoleKey(){
+        return this.role.getKey();
     }
 
 }
