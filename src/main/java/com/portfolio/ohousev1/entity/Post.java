@@ -11,7 +11,6 @@ import java.util.Set;
 @Table(name = "post")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Post extends AuditingFields{
 
@@ -37,20 +36,21 @@ public class Post extends AuditingFields{
     @Column(name = "content", length = 10000)
     private String content;
 
+    @Column(nullable = false)
+    private String imgPath;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private  final Set<PostComment> postComments = new LinkedHashSet<>();
 
     @Builder
-    public Post( Member member, String title, String content) {
+    public Post(Member member, String title, String content) {
         this.member = member; // 이메일 값 설정
         this.title = title;
         this.content = content;
     }
-
     public void update(String title, String content){
         this.title = title;
         this.content =content;
     }
-
 
 }

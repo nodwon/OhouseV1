@@ -21,11 +21,7 @@ public class QAuditingFields extends EntityPathBase<AuditingFields> {
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
-    public final StringPath createdBy = createString("createdBy");
-
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = createDateTime("modifiedAt", java.time.LocalDateTime.class);
-
-    public final StringPath modifiedBy = createString("modifiedBy");
 
     public QAuditingFields(String variable) {
         super(AuditingFields.class, forVariable(variable));

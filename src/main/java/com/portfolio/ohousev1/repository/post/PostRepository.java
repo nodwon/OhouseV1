@@ -17,20 +17,18 @@ public interface PostRepository extends
         QuerydslBinderCustomizer<QPost> // querydsl 제작
 {
 
+
     Page<Post> findByTitleContaining(String title, Pageable pageable);
 
     Page<Post> findByContentContaining(String content, Pageable pageable);
 
-    void deleteByIdAndMember_Email(Long id, String email);
-
-
     @Override
     default void customize(QuerydslBindings bindings, QPost root) {
         bindings.excludeUnlistedProperties(true);
-        bindings.including(root.title, root.content, root.createdAt, root.createdBy);
+        bindings.including(root.title, root.content, root.createdAt, root.member);
         bindings.bind(root.title).first(StringExpression::containsIgnoreCase); //대소문자 구분 없이 찾기
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase); //대소문자 구분 없이 찾기
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
-        bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
+//        bindings.bind(root.member).first(StringExpression::e);
     }
 }

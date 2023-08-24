@@ -1,6 +1,7 @@
 package com.portfolio.ohousev1.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.portfolio.ohousev1.dto.member.request.MemberCreateRequest;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -57,10 +58,10 @@ public class Member extends AuditingFields{
         this.nickname = nickname;
         this.name = name;
         this.birthday = birthday;
-        this.createdBy = createBy;
-        this.modifiedBy = createBy;
-
     }
+
+
+
     public  Member update(String name, String nickname, String password){
         this.name =name;
         this.nickname = nickname;
@@ -68,8 +69,11 @@ public class Member extends AuditingFields{
 
         return this;
     }
-    public String getRoleKey(){
-        return this.role.getKey();
-    }
+   public void setNickname(String name){
+        this.nickname =name;
+   }
+   public void setOauthAccessToken(String name){
+        this.nickname = name;
+   }
 
 }

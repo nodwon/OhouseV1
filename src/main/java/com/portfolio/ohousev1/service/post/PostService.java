@@ -24,20 +24,33 @@ public class PostService {
 
     @Transactional
     public Long CreatePost(PostsSaveRequestDto request){ //게시물 생성
+        Member writer = memberRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new NotFoundException(Member.class, "member not found"));
+        Post post = Post.builder()
+                .member(writer)
+                .title(request.getTitle())
+                .content(request.getContent())
+                .build();
 
-        Post savedPost = postRepository.save(request.toEntity());
+        Post savedPost = postRepository.save(post);
         return savedPost.getId();
     }
-    public void updatePost(Long postId, PostsUpdateRequestDto dto){
+    @Transactional
+    public long updatePost(Long postId, PostsUpdateRequestDto dto){
 
         Post posts = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당게시글은 없습니다. id"+postId));
 
         posts.update(dto.getTitle(), dto.getContent());
         postRepository.save(posts);
+        return posts.getId();
+
     }
-    public void deletePost(Long postId, String email){
-        postRepository.getReferenceById(postId);
-        postRepository.deleteByIdAndMember_Email(postId, email);
+    public void deletePost(Long postNo) {
+        postRepository.getReferenceById(postNo);
+        postRepository.deleteById(postNo);
     }
+
+    // 게시글 조회
+
 
 }

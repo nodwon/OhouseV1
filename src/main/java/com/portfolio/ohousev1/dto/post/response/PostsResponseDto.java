@@ -1,6 +1,7 @@
 package com.portfolio.ohousev1.dto.post.response;
 
 import com.portfolio.ohousev1.entity.Post;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class PostsResponseDto {
-    Long postId;
+    Long postNo;
     Long memberNo;
     Long productNo;
     String title;
@@ -17,8 +18,9 @@ public class PostsResponseDto {
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
 
+    @QueryProjection
     public PostsResponseDto(Post posts){
-        this.postId = posts.getId();
+        this.postNo = posts.getId();
         this.memberNo = posts.getMember().getMemberNo();
         this.productNo = posts.getProductId().getId();
         this.title = posts.getTitle();

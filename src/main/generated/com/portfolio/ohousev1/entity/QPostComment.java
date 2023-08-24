@@ -24,21 +24,21 @@ public class QPostComment extends EntityPathBase<PostComment> {
 
     public final QAuditingFields _super = new QAuditingFields(this);
 
+    public final SetPath<PostComment, QPostComment> childComments = this.<PostComment, QPostComment>createSet("childComments", PostComment.class, QPostComment.class, PathInits.DIRECT2);
+
     public final StringPath content = createString("content");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
-    //inherited
-    public final StringPath createdBy = _super.createdBy;
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final QMember member;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
-    //inherited
-    public final StringPath modifiedBy = _super.modifiedBy;
+    public final NumberPath<Long> parentCommentId = createNumber("parentCommentId", Long.class);
 
     public final QPost post;
 
@@ -60,6 +60,7 @@ public class QPostComment extends EntityPathBase<PostComment> {
 
     public QPostComment(Class<? extends PostComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
         this.post = inits.isInitialized("post") ? new QPost(forProperty("post"), inits.get("post")) : null;
     }
 
