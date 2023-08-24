@@ -29,24 +29,16 @@ public class QPost extends EntityPathBase<Post> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
-    //inherited
-    public final StringPath createdBy = _super.createdBy;
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final StringPath imgPath = createString("imgPath");
 
     public final QMember member;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
-    //inherited
-    public final StringPath modifiedBy = _super.modifiedBy;
-
     public final SetPath<PostComment, QPostComment> postComments = this.<PostComment, QPostComment>createSet("postComments", PostComment.class, QPostComment.class, PathInits.DIRECT2);
-
-    public final QProduct productId;
-
-    public final NumberPath<Long> productNo = createNumber("productNo", Long.class);
 
     public final StringPath title = createString("title");
 
@@ -69,7 +61,6 @@ public class QPost extends EntityPathBase<Post> {
     public QPost(Class<? extends Post> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
-        this.productId = inits.isInitialized("productId") ? new QProduct(forProperty("productId")) : null;
     }
 
 }

@@ -1,9 +1,10 @@
 package com.portfolio.ohousev1.entity;
 
+import com.portfolio.ohousev1.dto.member.MemberDto;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -11,7 +12,6 @@ import java.util.Set;
 @Table(name = "post")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Post extends AuditingFields{
 
@@ -21,11 +21,11 @@ public class Post extends AuditingFields{
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_no")
-    private Product productId;
-    @Column(name = "product_no", updatable = false, insertable = false)
-    private Long productNo;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "product_no")
+//    private Product productId;
+//    @Column(name = "product_no", updatable = false, insertable = false)
+//    private Long productNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_email")
@@ -37,20 +37,24 @@ public class Post extends AuditingFields{
     @Column(name = "content", length = 10000)
     private String content;
 
+    @Column(nullable = false)
+    private String imgPath;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private  final Set<PostComment> postComments = new LinkedHashSet<>();
 
     @Builder
-    public Post( Member member, String title, String content) {
+    public Post(Member member, String title, String content) {
         this.member = member; // 이메일 값 설정
         this.title = title;
         this.content = content;
     }
-
     public void update(String title, String content){
         this.title = title;
         this.content =content;
     }
-
+    public static Post of(Member member, String title, String content) {
+        return new Post(member, title, content);
+    }
 
 }

@@ -1,10 +1,10 @@
 package com.portfolio.ohousev1.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +37,9 @@ public class Member extends AuditingFields{
     @Column
     private LocalDate birthday;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+//    @Enumerated(EnumType.STRING)
+//    @Column(nullable = false)
+//    private Role role;
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")
@@ -57,10 +57,13 @@ public class Member extends AuditingFields{
         this.nickname = nickname;
         this.name = name;
         this.birthday = birthday;
-        this.createdBy = createBy;
-        this.modifiedBy = createBy;
-
     }
+
+    public static Member of(String email, String password, String name, String nickname, LocalDate birthday) {
+        return new Member(null,email,password,name,nickname,birthday,null,null);
+    }
+
+
     public  Member update(String name, String nickname, String password){
         this.name =name;
         this.nickname = nickname;
@@ -68,8 +71,17 @@ public class Member extends AuditingFields{
 
         return this;
     }
-    public String getRoleKey(){
-        return this.role.getKey();
-    }
+   public void setNickname(String name){
+        this.nickname =name;
+   }
+   public void setOauthAccessToken(String name){
+        this.nickname = name;
+   }
 
+    public  static Member of(Long member_no, String email, String nickname, String password, String name, LocalDate birthday){
+        return new Member(member_no, email, nickname,password,name,birthday,null,null);
+    }
+    public  static Member of(Long id, String email, String nickname, String password, String name, LocalDate birthday,List<Post> posts,List<Order> orders){
+        return new Member(id, email, nickname,password,name,birthday,posts,orders);
+    }
 }

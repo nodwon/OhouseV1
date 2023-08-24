@@ -1,11 +1,10 @@
 package com.portfolio.ohousev1.entity;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Table(name = "order_product")
 @Entity
@@ -37,15 +36,14 @@ public class OrderProduct {
     private int price;
 
     @Builder
-    public OrderProduct(Order order, Long orderNo, Product product, Long productNo, int count, int price ){
-        this.order =order;
-        this.orderNo =orderNo;
-        this.product =product;
+    public OrderProduct(Order order, Long orderNo, Product product, Long productNo, int count, int price) {
+        this.order = order;
+        this.orderNo = orderNo;
+        this.product = product;
         this.productNo = productNo;
         this.count = count;
-        this.price =price;
+        this.price = price;
     }
-
 
 
 }

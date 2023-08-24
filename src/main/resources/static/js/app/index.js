@@ -1,36 +1,77 @@
-$(() => {
-    new Form();
-});
+const main = {
+    init() {
+        const _this = this;
+        const btnSave = document.getElementById('btn-save');
+        const btnUpdate = document.getElementById('btn-update');
+        const btnDelete = document.getElementById('btn-delete');
 
-export class Form {
-    constructor() {
-        this.savePost();
-    }
+        btnSave.addEventListener('click', () => {
+            _this.save();
+        });
 
-    savePost() {
-        $('#submit-button').on('click', (e) => {
-            e.preventDefault(); // 기본 동작 중단
+        btnUpdate.addEventListener('click', () => {
+            _this.update();
+        });
 
-            let title = $('#title').val();
-            let content = $('#content').val();
+        btnDelete.addEventListener('click', () => {
+            _this.delete();
+        });
+    },
 
-            let data = {
-                title: title,
-                content: content
-            };
+    save() {
+        const data = {
+            title: document.getElementById('title').value,
+            content: document.getElementById('content').value
+        };
 
-            $.ajax({
-                type: 'POST',
-                url: '/form/new',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data)
-            }).done(function () {
-                alert('글이 등록되었습니다.');
-                window.location.href = '/';
-            }).fail(function (error) {
+        axios({
+            method: 'POST',
+            url: '/posts',
+            data: data
+        }).then(function(response) {
+            alert('글이 등록되었습니다.');
+            window.location.href = '/';
+        })
+            .catch(function(error) {
                 alert(JSON.stringify(error));
             });
-        });
+    },
+
+    update() {
+        const data = {
+            title: document.getElementById('title').value,
+            content: document.getElementById('content').value
+        };
+
+        const id = document.getElementById('id').value;
+
+        axios({
+            method: 'PUT',
+            url: '/posts/' + id,
+            data: data
+        }).then(function(response) {
+            alert('글이 수정되었습니다.');
+            window.location.href = '/';
+        })
+            .catch(function(error) {
+                alert(JSON.stringify(error));
+            });
+    },
+
+    delete() {
+        const id = document.getElementById('id').value;
+
+        axios({
+            method: 'DELETE',
+            url: '/posts/' + id
+        }).then(function(response) {
+            alert('글이 삭제되었습니다.');
+            window.location.href = '/';
+        })
+            .catch(function(error) {
+                alert(JSON.stringify(error));
+            });
     }
-}
+};
+
+main.init();
