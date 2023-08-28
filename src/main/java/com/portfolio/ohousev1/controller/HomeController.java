@@ -12,15 +12,17 @@ public class HomeController {
     @RequestMapping("/")
     public String home() {
         log.info("home controller");
-        return "main";
+        return "fragments/main";
     }
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String login() {
-        log.info("home controller");
-        return "main";
+        log.info("login controller");
+        return "fragments/login";
     }
-    @GetMapping("/example")
-    public void getTest(){
-        log.info("테스트 컨트롤러");
-    }
+//    @GetMapping("/signup")
+//    public String signup() {
+//        log.info("signup controller");
+//        return "fragments/signup";
+//    }
+
 }

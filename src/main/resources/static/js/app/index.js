@@ -28,11 +28,11 @@ const main = {
             method: 'POST',
             url: '/posts',
             data: data
-        }).then(function(response) {
+        }).then(function (response) {
             alert('글이 등록되었습니다.');
             window.location.href = '/';
         })
-            .catch(function(error) {
+            .catch(function (error) {
                 alert(JSON.stringify(error));
             });
     },
@@ -49,11 +49,11 @@ const main = {
             method: 'PUT',
             url: '/posts/' + id,
             data: data
-        }).then(function(response) {
+        }).then(function (response) {
             alert('글이 수정되었습니다.');
             window.location.href = '/';
         })
-            .catch(function(error) {
+            .catch(function (error) {
                 alert(JSON.stringify(error));
             });
     },
@@ -64,14 +64,22 @@ const main = {
         axios({
             method: 'DELETE',
             url: '/posts/' + id
-        }).then(function(response) {
+        }).then(function (response) {
             alert('글이 삭제되었습니다.');
             window.location.href = '/';
         })
-            .catch(function(error) {
+            .catch(function (error) {
                 alert(JSON.stringify(error));
             });
     }
-};
 
+};
+// $('.message a').click(function() {
+//     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+// });
+// $(document).ready(function() {
+//     $('.message a').click(function() {
+//         $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+//     });
+// })
 main.init();

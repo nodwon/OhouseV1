@@ -1,4 +1,5 @@
 /* stylelint-disable stylistic/selector-list-comma-newline-after */
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .blog-header-logo {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
@@ -36,4 +37,11 @@ h1, h2, h3, h4, h5, h6 {
 .blog-post-meta {
   margin-bottom: 1.25rem;
   color: #727272;
+}
+.login_logo{
+    color: #1a1d20;
+}
+.btn-login {
+  width: 100px;
+  height: 50px;
 }

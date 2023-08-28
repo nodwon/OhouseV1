@@ -20,11 +20,5 @@ public class PostsSaveRequestDto {
     private String email;
     private String imgPath;
 
-    public Post toEntity(){
-        return Post.builder()
-                .title(title)
-                .content(content)
-                .build();
-    }
 
 }

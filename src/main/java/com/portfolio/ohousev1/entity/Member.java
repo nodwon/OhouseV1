@@ -59,6 +59,10 @@ public class Member extends AuditingFields{
         this.birthday = birthday;
     }
 
+    public Member(long member) {
+        super();
+    }
+
     public static Member of(String email, String password, String name, String nickname, LocalDate birthday) {
         return new Member(null,email,password,name,nickname,birthday,null,null);
     }
