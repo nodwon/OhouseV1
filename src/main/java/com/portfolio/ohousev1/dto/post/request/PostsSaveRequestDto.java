@@ -1,13 +1,12 @@
 package com.portfolio.ohousev1.dto.post.request;
 
 import com.portfolio.ohousev1.entity.Post;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor

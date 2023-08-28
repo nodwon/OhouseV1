@@ -8,11 +8,17 @@ import com.portfolio.ohousev1.service.PaginationService;
 import com.portfolio.ohousev1.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/posts")
@@ -23,20 +29,22 @@ public class PostApiController {
 
     private final PaginationService paginationService;
 
+//    @GetMapping("/postList")
+//    public  String posts(
+//            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)Pageable pageable,
+//            ModelMap map
+//    ){
+//        Page<PostsResponse> postsResponses = postService.searchArticles(pageable).map(PostsResponse::from);
+//        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(),posts.getTotalPages());
+//        return "posts/index";
+//    }
+
     //게시글 form 가져오기
     @GetMapping("/form")
     public String postForm(ModelMap map){
         map.addAttribute("formStatus", FormStatus.CREATE);
         return "posts/form";
 
-    }
-    // 게시글 업데이트 form
-    @GetMapping("form/{postId}")
-    public String updatePostForm(@PathVariable Long postId, ModelMap map) {
-        PostsResponse post = PostsResponse.from(postService.getPost(postId));
-        map.addAttribute("post", post);
-        map.addAttribute("formStatus", FormStatus.UPDATE);
-        return "posts/form";
     }
     //게시글 등록
     @PostMapping
@@ -46,7 +54,14 @@ public class PostApiController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(result);
     }
-
+    // 게시글 업데이트 form
+    @GetMapping("form/{postId}")
+    public String updatePostForm(@PathVariable Long postId, ModelMap map) {
+        PostsResponse post = PostsResponse.from(postService.getPost(postId));
+        map.addAttribute("post", post);
+        map.addAttribute("formStatus", FormStatus.UPDATE);
+        return "posts/form";
+    }
 
     //게시글 업데이트
     @GetMapping("/{postId}")

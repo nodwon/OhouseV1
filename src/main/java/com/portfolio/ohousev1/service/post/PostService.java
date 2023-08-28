@@ -63,4 +63,8 @@ public class PostService {
     public long getPostCount(){
         return  postRepository.count();
     }
+
+//    @Transactional
+//    public Page<PostDto> searchArticles(Pageable pageable) {
+//    }
 }

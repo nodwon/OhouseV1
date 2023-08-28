@@ -3,7 +3,6 @@ package com.portfolio.ohousev1.entity;
 import lombok.*;
 import jakarta.persistence.*;
 import java.io.Serializable;
-
 @Table(name = "cart")
 @Entity
 @Getter

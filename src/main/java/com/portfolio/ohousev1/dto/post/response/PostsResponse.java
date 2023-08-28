@@ -1,6 +1,8 @@
 package com.portfolio.ohousev1.dto.post.response;
 
 import com.portfolio.ohousev1.dto.post.PostDto;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 
