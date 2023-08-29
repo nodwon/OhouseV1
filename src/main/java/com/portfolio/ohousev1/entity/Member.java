@@ -67,7 +67,10 @@ public class Member extends AuditingFields{
         return new Member(null,email,password,name,nickname,birthday,null,null);
     }
 
-
+    public Member update(String password){
+         this.Password =password;
+         return this;
+    }
     public  Member update(String name, String nickname, String password){
         this.name =name;
         this.nickname = nickname;

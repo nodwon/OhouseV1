@@ -17,7 +17,7 @@ public interface PostRepository extends
         QuerydslBinderCustomizer<QPost> // querydsl 제작
 {
 
-    Page<Post> findByContentContaining(String content, Pageable pageable);
+   // Page<Post> findByContentContaining(String content, Pageable pageable);
 
     @Override
     default void customize(QuerydslBindings bindings, QPost root) {

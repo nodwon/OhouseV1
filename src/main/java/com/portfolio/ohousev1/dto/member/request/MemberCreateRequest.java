@@ -21,9 +21,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class MemberCreateRequest {
     @NotBlank
-    @Email(message = "email입력해주세요")
+    @Email(message = "email 입력해주세요")
     private String email;
-    @NotBlank
+    @NotBlank(message = "비밀번호는 8자 이상입니다.")
     private String password;
     @NotBlank
     private String nickname;

@@ -7,6 +7,7 @@ import com.portfolio.ohousev1.dto.post.request.PostsUpdateRequestDto;
 import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.Post;
 import com.portfolio.ohousev1.repository.MemberRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +26,10 @@ public class memberService {
     }
     @Transactional
     public long createMember(MemberCreateRequest request){
-        Member savemember = memberRepository.save(request.toEntity());
-        validateEmail(savemember);
-        validatePassword(savemember);
-        return  savemember.getMemberNo();
+        Member member = memberRepository.save(request.toEntity());
+        validate(member);
+        member.update(passwordEncoder.encode(request.getPassword()));
+        return member.getMemberNo();
     }
     @Transactional
     public long updateMember(String email, MemberUpdateRequest dto){
@@ -38,27 +39,18 @@ public class memberService {
         member.update(dto.getName(), dto.getNickname(), dto.getPassword());
         memberRepository.save(member);
         return member.getMemberNo();
-
     }
     public void deleteMember(String email){
         memberRepository.deleteByEmail(email);
     }
-    private void validateEmail(Member member){ // 이메일 @확인
+    private void validate(Member member){ // 이메일 @확인
         String email = member.getEmail();
+        String password = member.getPassword();
         if(!email.contains("@")){
             throw new IllegalStateException("@포함되어 있지 않습니다.");
         }
-    }
-    private void validatePassword (Member member){ // 비밀번호 8자이상인지랑 b
-        String password = member.getPassword();
         if(password.length() <8){
             throw new IllegalStateException("비밀번호가 8자이상이 아닙니다.");
         }
-        else {
-            String encodedPassword = passwordEncoder.encode(password);
-            member.update(member.getName(), member.getNickname(), encodedPassword);
-            memberRepository.save(member);
-        }
-
     }
 }

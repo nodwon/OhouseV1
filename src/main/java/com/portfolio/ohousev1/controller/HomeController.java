@@ -19,10 +19,5 @@ public class HomeController {
         log.info("login controller");
         return "fragments/login";
     }
-//    @GetMapping("/signup")
-//    public String signup() {
-//        log.info("signup controller");
-//        return "fragments/signup";
-//    }
 
 }
