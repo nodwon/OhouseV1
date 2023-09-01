@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/header :: header" />
+<div th:replace="~{fragments/header :: header}"></div>
 <title>게시글 작성</title>
 <meta charset="utf-8">
-</head>
 <body>
 <div class="container">
     <header class="py-5 text-center" id="post header">
@@ -34,5 +33,5 @@
     </form>
 </div>
 </body>
-<div th:replace="fragments/footer :: footer" />
+<div th:replace="~{fragments/footer :: footer}"/>
 </html>

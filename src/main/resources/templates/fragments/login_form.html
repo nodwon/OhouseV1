@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<th:block xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<th:block xmlns:th="http://www.thymeleaf.org">
 <header>
     <meta charset="utf-8">
     <meta content="webkit" name="renderer">
@@ -25,24 +25,39 @@
                 $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
             });
         });
+        const url = '/signup';
+        const data = {
+            // Your JSON data here
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+
     </script>
 </header>
-    <html layout:decorate="~{layout}">
     <div class="login-page">
     <a aria-label="오늘의집" class="login_logo" href="#">
         <img alt="path" height="100" width="360" src="../img/ohouse_logo.jpg"/>
     </a>
-    <div layout:fragment="content" class="form">
-        <form class="register-form" th:action="@{/members/signup}"th:object="${MemberCreateRequest}" method="post">
-            <input type="text" placeholder="email address" th:field="*{email}"/>
-            <input type="password" placeholder="password" th:field="*{password}"/>
-            <input type="text" placeholder="name" th:field="*{name}"/>
-            <input type="text" placeholder="nickname" th:field="*{nickname}"/>
-            <input type="date" placeholder="birthday" th:field="*{brithday}"/>
+    <div class="form">
+        <form class="register-form" action="members/signup" object="MemberCreateRequest" method="post">
+            <input type="text" placeholder="email address" field="*{email}"/>
+            <input type="password" placeholder="password" field="*{password}"/>
+            <input type="text" placeholder="name" field="*{name}"/>
+            <input type="text" placeholder="nickname" field="*{nickname}"/>
+            <input type="date" placeholder="birthday" field="*{birthday}"/>
             <button type="submit" class="btn btn-primary">생성</button>
             <p class="message">Already registered? <a href="#" class="toggle-form" data-target=".login-form">Sign In</a></p>
         </form>
-        <form class="login_form" th:action="@{/login}" method="post">
+        <form class="login_form" th:action="@{/login}" method="post" th:object="${login_form}">
             <div th:if="${param.error}">
                 <div class="alert alert-danger">
                     사용자ID 또는 비밀번호를 확인해 주세요.
@@ -50,7 +65,7 @@
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">이메일 ID</label>
-            <input type="text" placeholder="email" name="email", id="email" class ="form-control"/>
+            <input type="text" placeholder="email" name="email" id="email" class ="form-control"/>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">비밀번호</label>
@@ -64,5 +79,4 @@
         </form>
     </div>
 </div>
-    </html>
 </th:block>

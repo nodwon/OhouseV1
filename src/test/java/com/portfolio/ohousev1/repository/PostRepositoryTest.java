@@ -1,7 +1,6 @@
 package com.portfolio.ohousev1.repository;
 
 import com.portfolio.ohousev1.entity.Post;
-import com.portfolio.ohousev1.repository.post.PostRepository;
 import org.junit.After;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -31,9 +30,7 @@ public class PostRepositoryTest {
         String title ="테스트게시글";
         String content ="테스트 본문";
         //when
-        postRepository.save(Post.builder()
-                .title(title)
-                .content(content).build());
+
         //then
         List<Post> postList = postRepository.findAll();
         Post post = postList.get(0);

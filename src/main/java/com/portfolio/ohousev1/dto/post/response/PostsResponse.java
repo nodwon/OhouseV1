@@ -1,7 +1,6 @@
 package com.portfolio.ohousev1.dto.post.response;
 
 import com.portfolio.ohousev1.dto.post.PostDto;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -24,7 +23,7 @@ public record PostsResponse(
 
         return new PostsResponse(
                 dto.postId(),
-                dto.memberDto().member_no(),
+                dto.memberDto().toEntity().getMemberNo(),
                 dto.title(),
                 dto.content(),
                 dto.img_path(),

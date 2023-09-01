@@ -26,27 +26,26 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
+                        .requestMatchers(new AntPathRequestMatcher("/**"), new AntPathRequestMatcher("/signup")).permitAll())
                 .csrf((csrf) -> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mysql/**")))
                 .headers((headers) -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
         // login 설정
         http
-                .formLogin()
-                .loginPage("/login")    // GET 요청 (login form을 보여줌)
-                .loginProcessingUrl("/members/login")    // POST 요청 (login 창에 입력한 데이터를 처리)
-                .usernameParameter("email")    // login에 필요한 id 값을 email로 설정 (default는 username)
-                .passwordParameter("password")    // login에 필요한 password 값을 password(default)로 설정
-                .defaultSuccessUrl("/main");    // login에 성공하면 /로 redirect
-
-        // logout 설정
+                .formLogin((formLogin) -> formLogin
+                        .loginPage("/login")
+                        .usernameParameter("email")    // login에 필요한 id 값을 email로 설정 (default는 username)
+                        .passwordParameter("password")    // login에 필요한 password 값을 password(default)로 설정
+                        .defaultSuccessUrl("/"));    // login에 성공하면 /로 redirect
+//
+// logout 설정
         http
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/");    // logout에 성공하면 /로 redirect
-
+                .logout((logout) -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                        .logoutSuccessUrl("/")// logout에 성공하면 /로 redirect
+                        .invalidateHttpSession(true));
         return http.build();
     }
 }

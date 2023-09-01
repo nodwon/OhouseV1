@@ -1,13 +1,11 @@
 package com.portfolio.ohousev1.service.post;
 
 import com.portfolio.ohousev1.dto.post.PostDto;
-import com.portfolio.ohousev1.dto.post.request.PostsSaveRequestDto;
 import com.portfolio.ohousev1.dto.post.request.PostsUpdateRequestDto;
 import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.Post;
-import com.portfolio.ohousev1.exception.NotFoundException;
 import com.portfolio.ohousev1.repository.MemberRepository;
-import com.portfolio.ohousev1.repository.post.PostRepository;
+import com.portfolio.ohousev1.repository.PostRepository;
 import com.portfolio.ohousev1.service.PaginationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -32,36 +30,33 @@ public class PostService {
     }
 
     @Transactional
-    public Long CreatePost(PostsSaveRequestDto request){ //게시물 생성
-        Member writer = memberRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new NotFoundException(Member.class, "member not found"));
-        Post post = Post.builder()
-                .member(writer)
-                .title(request.getTitle())
-                .content(request.getContent())
-                .build();
+    public Long savePost(PostDto dto) { //게시물 생성
+        Member member = memberRepository.getReferenceById(dto.memberDto().email());
+        Post post = dto.toEntity(member);
 
-        Post savedPost = postRepository.save(post);
-        return savedPost.getId();
+        postRepository.save(post);
+        return post.getId();
     }
+
     @Transactional
-    public long updatePost(Long postId, PostsUpdateRequestDto dto){
+    public long updatePost(Long postId, PostsUpdateRequestDto dto) {
 
-        Post posts = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당게시글은 없습니다. id"+postId));
+        Post posts = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당게시글은 없습니다. id" + postId));
 
-        posts.update(dto.getTitle(), dto.getContent());
+        //posts.update(dto.getTitle(), dto.getContent());
         postRepository.save(posts);
         return posts.getId();
 
     }
+
     @Transactional
     public void deletePost(Long postNo) {
         postRepository.getReferenceById(postNo);
         postRepository.deleteById(postNo);
     }
 
-    public long getPostCount(){
-        return  postRepository.count();
+    public long getPostCount() {
+        return postRepository.count();
     }
 
 //    @Transactional

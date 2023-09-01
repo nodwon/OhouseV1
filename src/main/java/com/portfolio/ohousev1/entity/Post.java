@@ -1,6 +1,5 @@
 package com.portfolio.ohousev1.entity;
 
-import com.portfolio.ohousev1.dto.member.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -43,18 +42,15 @@ public class Post extends AuditingFields{
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private  final Set<PostComment> postComments = new LinkedHashSet<>();
 
-    @Builder
-    public Post(Member member, String title, String content) {
+    private Post(Member member, String title, String content) {
         this.member = member; // 이메일 값 설정
         this.title = title;
         this.content = content;
     }
-    public void update(String title, String content){
-        this.title = title;
-        this.content =content;
-    }
+
     public static Post of(Member member, String title, String content) {
         return new Post(member, title, content);
     }
+
 
 }

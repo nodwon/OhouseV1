@@ -45,7 +45,5 @@ public class PostComment extends AuditingFields{
         this.content = content;
     }
 
-//    public void addChildComment(PostComment child){
-//        child.set
-//    }
+
 }

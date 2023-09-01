@@ -14,10 +14,17 @@ public class HomeController {
         log.info("home controller");
         return "fragments/main";
     }
+
     @GetMapping("/login")
     public String login() {
         log.info("login controller");
-        return "fragments/login";
+        return "fragments/login_form";
     }
+//    @GetMapping("/login")
+//    public String postForm(ModelMap map, @RequestBody MemberCreateRequest memberCreateRequest){
+//        map.addAttribute("login_form", memberCreateRequest);
+//        return "fragments/login_form";
+//
+//    }
 
 }
