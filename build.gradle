@@ -27,7 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket:3.0.4'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'org.hibernate:hibernate-core:6.1.7.Final'
     implementation 'javax.persistence:javax.persistence-api:2.2'
@@ -51,7 +51,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     //JUnit4 추가
     testImplementation("org.junit.vintage:junit-vintage-engine") {

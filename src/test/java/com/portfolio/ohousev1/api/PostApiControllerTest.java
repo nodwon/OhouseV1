@@ -3,31 +3,30 @@ package com.portfolio.ohousev1.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.ohousev1.config.SecurityConfig;
 import com.portfolio.ohousev1.controller.PostApiController;
-import com.portfolio.ohousev1.dto.post.request.PostsSaveRequestDto;
-import com.portfolio.ohousev1.entity.Post;
-import com.portfolio.ohousev1.entity.constant.FormStatus;
+import com.portfolio.ohousev1.dto.post.request.PostsRequest;
 import com.portfolio.ohousev1.service.PaginationService;
 import com.portfolio.ohousev1.service.post.PostService;
+import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("View 컨트롤러 - 게시글")
 @WebMvcTest(PostApiController.class)
@@ -44,17 +43,20 @@ class PostApiControllerTest {
     @MockBean
     private PaginationService paginationService;
 
-
+    @Autowired
+    private UserDetailsService userDetailsService;
     @Test
+    @WithMockUser(roles = "USER")
+    @PreAuthorize("hasRole('ROLE_USER')") // ROLE_USER 권한이 필요한 경우
     public void newPost() throws Exception {
         // Given
-        PostsSaveRequestDto requestDto = new PostsSaveRequestDto("title", "content", "epam", "asdf");
-        when(postService.CreatePost(any())).thenReturn(1L); // Mocking postService behavior
+        PostsRequest request = new PostsRequest("title", "content");
+        when(postService.savePost(any())).thenReturn(1L); // Mocking postService behavior
 
         // When
         MvcResult result = mvc.perform(post("/posts")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(requestDto)))
+                        .content(new ObjectMapper().writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -62,6 +64,28 @@ class PostApiControllerTest {
         String responseBody = result.getResponse().getContentAsString();
         Long responseId = Long.parseLong(responseBody);
         assertThat(responseId).isGreaterThan(0L);
+    }
+    @Test
+    @WithMockUser(roles = "USER")
+    @PreAuthorize("hasRole('ROLE_USER')") // ROLE_USER 권한이 필요한 경우
+    public void newPost2() throws Exception {
+// Given
+        PostsRequest request = new PostsRequest("title", "content");
+        when(postService.savePost(any())).thenReturn(1L); // Mocking postService behavior
+
+// When
+        MvcResult result = (MvcResult) mvc.perform(post("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\n" + " \"id\": 1,\n" + " \"title\": \"title\",\n" + " \"content\": \"content\",\n" + " \"epam\": \"epam\"\n" + "}"));
+// Then
+        String responseBody = result.getResponse().getContentAsString();
+        JSONObject jsonObject = new JSONObject(responseBody);
+        assertThat(jsonObject.get("id")).isEqualTo(1L);
+        assertThat(jsonObject.get("title")).isEqualTo("title");
+        assertThat(jsonObject.get("content")).isEqualTo("content");
+        assertThat(jsonObject.get("epam")).isEqualTo("epam");
     }
 }
 

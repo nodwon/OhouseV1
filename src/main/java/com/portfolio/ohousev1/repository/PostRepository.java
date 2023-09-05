@@ -16,7 +16,7 @@ public interface PostRepository extends
 {
 
     // Page<Post> findByContentContaining(String content, Pageable pageable);
-
+    void deleteByIdAndMember_email(Long post_no, String email);
     @Override
     default void customize(QuerydslBindings bindings, QPost root) {
         bindings.excludeUnlistedProperties(true);

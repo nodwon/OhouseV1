@@ -16,8 +16,8 @@ public record PostDto(
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static  PostDto of(MemberDto memberDto,String title,String content, String img_path){
-        return  new PostDto(null, memberDto, title, content, img_path, null,null);
+    public static  PostDto of(MemberDto memberDto,String title,String content){
+        return  new PostDto(null, memberDto, title, content, null, null,null);
     }
     public static  PostDto of(MemberDto memberDto,String title,String content, String img_path, LocalDateTime createdAt, LocalDateTime modifiedAt){
         return  new PostDto(null, memberDto, title, content, img_path, createdAt,modifiedAt);

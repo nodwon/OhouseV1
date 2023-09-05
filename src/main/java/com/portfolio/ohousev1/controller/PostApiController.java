@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,9 +64,10 @@ public class PostApiController {
 
     //게시글 업데이트
     @GetMapping("/{postId}")
-    public ResponseEntity<Long> updatePost(PostsUpdateRequestDto request, @PathVariable Long postId) {
+    public ResponseEntity<Long> updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
+                                           PostsRequest postsRequest) {
 
-        Long result = postService.updatePost(postId, request);
+        Long result = postService.updatePost(postId, postsRequest.toDto(postPrincipal.toDto()));
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(result);
@@ -73,8 +75,8 @@ public class PostApiController {
 
     //게시글 삭제
     @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long postId) {
-        postService.deletePost(postId);
+    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
+        postService.deletePost(postId, postPrincipal.email());
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
     //게시글 페이지 조회

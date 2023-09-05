@@ -30,9 +30,11 @@ public class Post extends AuditingFields{
     @JoinColumn(name = "member_email")
     private Member member;
 
+    @Setter
     @Column
     private String title;
 
+    @Setter
     @Column(name = "content", length = 10000)
     private String content;
 

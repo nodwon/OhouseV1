@@ -39,20 +39,25 @@ public class PostService {
     }
 
     @Transactional
-    public long updatePost(Long postId, PostsUpdateRequestDto dto) {
+    public long updatePost(Long postId, PostDto dto) {
+            Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당게시글은 없습니다. id" + postId));
+            Member member = memberRepository.getReferenceById(dto.memberDto().email());
+            if(post.getMember().equals(member)){
+                if (dto.title() != null){ post.setTitle(dto.title());}
+                if (dto.content() != null){post.setContent(dto.content());}
+                postRepository.flush();
+            }
+            postRepository.save(post);
 
-        Post posts = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당게시글은 없습니다. id" + postId));
 
-        //posts.update(dto.getTitle(), dto.getContent());
-        postRepository.save(posts);
-        return posts.getId();
-
+            return post.getId();
     }
 
     @Transactional
-    public void deletePost(Long postNo) {
+    public void deletePost(Long postNo, String email) {
         postRepository.getReferenceById(postNo);
-        postRepository.deleteById(postNo);
+
+        postRepository.deleteByIdAndMember_email(postNo, email);
     }
 
     public long getPostCount() {

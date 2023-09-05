@@ -13,34 +13,20 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class memberService {
+public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-    public memberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Optional<MemberDto> searchMember(String name) {
-        return memberRepository.findById(name)
-                .map(MemberDto::from);
-    }
-
     public Optional<MemberDto> searchEmail(String email) {
-        return memberRepository.findById(email)
+        return memberRepository.findByEmail(email)
                 .map(MemberDto::from);
     }
-
-    //    @Transactional
-//    public long createMember(MemberCreateRequest request){
-//        Member member = memberRepository.save(request.toEntity());
-//        validate(member);
-//        member.update(passwordEncoder.encode(request.getPassword()));
-//        return member.getMemberNo();
-//    }
     @Transactional
     public MemberDto saveMember(String email, String password, String name, String nickname, LocalDate birthday) {
         String EncodePassword = passwordEncoder.encode(password);

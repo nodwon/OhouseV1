@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@5.0.8/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <form role="post_form" action="/posts" method="post" th:object="${postsSaveRequestDto}">
+    <form role="post_form" action="/posts" method="post" th:object="${PostRequest}">
     <div class="row mb-3 justify-content-md-center">
             <label class="col-sm-2 col-lg-1 col-form-label text-sm-end" for="title">제목</label>
             <div class="col-sm-8 col-lg-9">
