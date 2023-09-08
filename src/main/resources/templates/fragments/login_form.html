@@ -21,67 +21,72 @@
         <link href="../css/login.css" rel="stylesheet" type="text/css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('.message a').click(function () {
-                    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-                });
+            $('.message a').click(function(){
+                $('.form').animate({height: "toggle", opacity: "toggle"}, "slow");
             });
-            const url = '/signup';
-            const data = {
-                // Your JSON data here
-            };
 
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+            // const url = '/signup';
+            // const data = {
+            //     // Your JSON data here
+            // };
+            // const url = '/signup';
+            // const data = {
+            //     // Your JSON data here
+            // };
+            //
+            // fetch(url, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(data)
+            // })
+            //     .then(response => response.json())
+            //     .then(data => console.log(data))
+            //     .catch(error => console.error('Error:', error));
 
         </script>
-        <script type="module" src="js/login.js"></script>
+        <script src="js/login.js" type="module"></script>
     </head>
     <div class="login-page">
         <a aria-label="오늘의집" class="login_logo" href="#">
             <img alt="path" height="100" src="../img/ohouse_logo.jpg" width="360"/>
         </a>
         <div class="form">
-            <form action="members/signup" class="register-form" method="post" object="MemberCreateRequest">
-                <input field="*{email}" id="register-email" name="register-email" placeholder="email address"
-                       type="text"/>
-                <input field="*{password}" id="register-password" name="register-password" placeholder="password"
-                       type="password"/>
-                <input field="*{name}" id="register-name" name="register-name" placeholder="name" type="text"/>
-                <input field="*{nickname}" id="nickname" name="nickname" placeholder="nickname" type="text"/>
-                <input field="*{birthday}" id="birthday" name="birthday" placeholder="birthday" type="date"/>
-                <button class="btn btn-primary" type="submit">생성</button>
-                <p class="message">Already registered? <a class="toggle-form" data-target=".login-form" href="#"
-                                                          onclick="toggleEvent()">Sign In</a></p>
-            </form>
+<!--            <form th:action="@{/members/signup}" class="register-form" method="post" object="MemberCreateRequest">-->
+<!--                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>-->
+<!--                <input field="email" id="register-email" name="register-email" placeholder="email address"-->
+<!--                       type="text"/>-->
+<!--                <input field="password" id="register-password" name="register-password" placeholder="password"-->
+<!--                       type="password"/>-->
+<!--                <input field="name" id="register-name" name="register-name" placeholder="name" type="text"/>-->
+<!--                <input field="nickname" id="nickname" name="nickname" placeholder="nickname" type="text"/>-->
+<!--                <input field="birthday" id="birthday" name="birthday" placeholder="birthday" type="date"/>-->
+<!--                <button class="btn btn-primary" type="submit">생성</button>-->
+<!--                <p class="message">Already registered? <a class="toggle-form" data-target=".login-form" href="#">Sign In</a></p>-->
+<!--            </form>-->
             <form class="login_form" method="post" th:action="@{/login}">
                 <div th:if="${param.error}">
                     <div class="alert alert-danger">
-                        사용자ID 또는 비밀번호를 확인해 주세요.
+                        사용자 ID 또는 비밀번호를 확인해 주세요.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="login_email">이메일 ID</label>
-                    <input class="form-control" id="login_email" name="login_email" placeholder="email" type="text"/>
+                    <label class="form-label" for="email">이메일 ID</label>
+                    <input class="form-control" id="email" name="email" placeholder="email" type="text"/>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="login_password">비밀번호</label>
-                    <input class="form-control" id="login_password" name="login_password" placeholder="login_password"
+                    <label class="form-label" for="password">비밀번호</label>
+                    <input class="form-control" id="password" name="password" placeholder="password"
                            type="password"/>
                 </div>
-                <button class="btn btn-primary" href="/"type="submit">로그인</button>
+                <!-- CSRF 토큰을 폼에 추가 -->
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                <button class="btn btn-primary" href="/" type="submit">로그인</button>
                 <p class="message">Not registered? <a class="toggle-form" data-target=".register-form" href="#">Create an account</a></p>
                 <a class="btn-login join_btn btn_click" id="kakao-login-btn">
-                    <img alt="카카오"
-                         src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="max-width: 40%; height: auto;">
+                    <img alt="카카오" src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"
+                         style="max-width: 40%; height: auto;">
                 </a>
             </form>
         </div>

@@ -4,6 +4,11 @@ import com.portfolio.ohousev1.dto.member.MemberDto;
 import com.portfolio.ohousev1.dto.member.request.MemberUpdateRequest;
 import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +18,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -22,18 +28,16 @@ public class MemberService {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
     public Optional<MemberDto> searchEmail(String email) {
         return memberRepository.findByEmail(email)
                 .map(MemberDto::from);
     }
     @Transactional
     public MemberDto saveMember(String email, String password, String name, String nickname, LocalDate birthday) {
-        String EncodePassword = passwordEncoder.encode(password);
+        String encodedPassword = passwordEncoder.encode(password);
         return MemberDto.from(
-                memberRepository.save(Member.of(email, EncodePassword, name, nickname, birthday))
-        );
-
+                    memberRepository.save(Member.of(email, encodedPassword, name, nickname, birthday))
+            );
     }
 
     @Transactional
@@ -68,4 +72,5 @@ public class MemberService {
 //            throw new IllegalStateException("비밀번호가 8자이상이 아닙니다.");
 //        }
 //    }
+
 }

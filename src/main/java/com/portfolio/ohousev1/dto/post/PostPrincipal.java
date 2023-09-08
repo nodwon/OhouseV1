@@ -13,43 +13,43 @@ import java.util.stream.Collectors;
 
 public record PostPrincipal(
         String email,
-        String password,
+        String Password,
         Collection<? extends GrantedAuthority> authorities,
         String name,
         String nickname,
-        LocalDate Birthday
+        LocalDate birthday
 )implements UserDetails {
-    public static PostPrincipal of(String email, String password, String name, String nickname, LocalDate Birthday){
+    public static PostPrincipal of(String email, String Password, String name, String nickname, LocalDate birthday){
         Set<RoleType> roleTypes = Set.of(RoleType.USER);
         return new PostPrincipal(
                 email,
-                password,
+                Password,
                 roleTypes.stream()
                         .map(RoleType::getName)
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList()),
                 name,
                 nickname,
-                Birthday
+                birthday
         );
 
     }
     public static PostPrincipal from(MemberDto dto){
         return PostPrincipal.of(
                 dto.email(),
-                dto.password(),
+                dto.Password(),
                 dto.name(),
                 dto.nickname(),
-                dto.Birthday()
+                dto.birthday()
         );
     }
     public MemberDto toDto(){
         return MemberDto.of(
                 email,
-                password,
+                Password,
                 name,
                 nickname,
-                Birthday
+                birthday
         );
     }
     @Override
@@ -59,12 +59,12 @@ public record PostPrincipal(
 
     @Override
     public String getPassword() {
-        return password;
+        return Password;
     }
 
     @Override
     public String getUsername() {
-        return name;
+        return email;
     }
 
     @Override

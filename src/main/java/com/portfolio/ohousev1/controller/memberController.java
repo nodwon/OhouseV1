@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -20,9 +17,14 @@ public class memberController {
     private final MemberService memberService;
 
 
+    @GetMapping("/logout")
+    public String login() {
+        log.info("logout controller");
+        return "redirect:/";
+    }
     @PostMapping("/signup")
     public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto request) {
-        MemberDto result = memberService.saveMember(request.email(),request.password(),request.name(),request.nickname(),request.Birthday());
+        MemberDto result = memberService.saveMember(request.email(),request.Password(),request.name(),request.nickname(),request.birthday());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(result);
     }

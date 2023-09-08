@@ -8,19 +8,19 @@ import java.time.LocalDateTime;
 
 public record MemberDto (
      String email,
-     String nickname,
-     String password,
+     String Password,
      String name,
-     LocalDate Birthday,
-     LocalDateTime CreatedAt,
+     String nickname,
+     LocalDate birthday,
+     LocalDateTime createdAt,
      LocalDateTime modifiedAt
 )
 {
-    public  static MemberDto of(String email, String nickname, String password, String name,LocalDate Birthday){
-        return new MemberDto(email, nickname,password,name,Birthday,null,null);
+    public  static MemberDto of(String email,String Password, String name, String nickname,LocalDate birthday){
+        return new MemberDto(email,Password,name,nickname,birthday,null,null);
     }
-    public  static MemberDto of( String email, String nickname, String password, String name, LocalDate birthday, LocalDateTime createdAt, LocalDateTime modifiedAt){
-        return new MemberDto(email, nickname,password,name,birthday,createdAt,modifiedAt);
+    public  static MemberDto of(String email,String Password, String name, String nickname,LocalDate birthday, LocalDateTime createdAt, LocalDateTime modifiedAt){
+        return new MemberDto(email,Password,name,nickname,birthday,createdAt,modifiedAt);
     }
     public static MemberDto from(Member entity){
         return new MemberDto(
@@ -37,10 +37,10 @@ public record MemberDto (
     public Member toEntity() {
         return Member.of(
                 email,
-                password,
+                Password,
                 name,
                 nickname,
-                Birthday
+                birthday
         );
     }
 
