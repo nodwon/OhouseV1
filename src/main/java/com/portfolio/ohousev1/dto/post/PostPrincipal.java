@@ -1,7 +1,7 @@
 package com.portfolio.ohousev1.dto.post;
 
 import com.portfolio.ohousev1.dto.member.MemberDto;
-import lombok.Getter;
+import com.portfolio.ohousev1.entity.constant.RoleType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +25,7 @@ public record PostPrincipal(
                 email,
                 Password,
                 roleTypes.stream()
-                        .map(RoleType::getName)
+                        .map(RoleType::getValue)
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList()),
                 name,
@@ -86,14 +86,5 @@ public record PostPrincipal(
     public boolean isEnabled() {
         return true;
     }
-    public enum  RoleType{
-        USER("ROLE_USER");
 
-        @Getter
-        private final String name;
-
-        RoleType(String name){
-            this.name =name;
-        }
-    }
 }

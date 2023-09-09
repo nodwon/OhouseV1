@@ -46,25 +46,42 @@
             //     .catch(error => console.error('Error:', error));
 
         </script>
-        <script src="js/login.js" type="module"></script>
+        <script src="/js/login.js" type="module"></script>
     </head>
     <div class="login-page">
         <a aria-label="오늘의집" class="login_logo" href="#">
             <img alt="path" height="100" src="../img/ohouse_logo.jpg" width="360"/>
         </a>
         <div class="form">
-<!--            <form th:action="@{/members/signup}" class="register-form" method="post" object="MemberCreateRequest">-->
-<!--                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>-->
-<!--                <input field="email" id="register-email" name="register-email" placeholder="email address"-->
-<!--                       type="text"/>-->
-<!--                <input field="password" id="register-password" name="register-password" placeholder="password"-->
-<!--                       type="password"/>-->
-<!--                <input field="name" id="register-name" name="register-name" placeholder="name" type="text"/>-->
-<!--                <input field="nickname" id="nickname" name="nickname" placeholder="nickname" type="text"/>-->
-<!--                <input field="birthday" id="birthday" name="birthday" placeholder="birthday" type="date"/>-->
-<!--                <button class="btn btn-primary" type="submit">생성</button>-->
-<!--                <p class="message">Already registered? <a class="toggle-form" data-target=".login-form" href="#">Sign In</a></p>-->
-<!--            </form>-->
+            <!-- 회원 가입 폼 -->
+            <form th:action="@{/members/signup}" class="register-form" method="post">
+                <div class="mb-3">
+                    <label class="form-label" for="register-email">이메일 주소</label>
+                    <input class="form-control" id="register-email" name="email" placeholder="email address" type="text"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="register-password">비밀번호</label>
+                    <input class="form-control" id="register-password" name="password" placeholder="password" type="password"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="register-name">이름</label>
+                    <input class="form-control" id="register-name" name="name" placeholder="name" type="text"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="nickname">닉네임</label>
+                    <input class="form-control" id="nickname" name="nickname" placeholder="nickname" type="text"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="birthday">생년월일</label>
+                    <input class="form-control" id="birthday" name="birthday" placeholder="birthday" type="date"/>
+                </div>
+                <!-- CSRF 토큰을 폼에 추가 -->
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                <button class="btn btn-primary" type="submit">생성</button>
+                <p class="message">이미 등록하셨나요? <a class="toggle-form" data-target=".login_form" href="#">로그인</a></p>
+            </form>
+
+            <!-- 로그인 폼 -->
             <form class="login_form" method="post" th:action="@{/login}">
                 <div th:if="${param.error}">
                     <div class="alert alert-danger">
@@ -77,19 +94,18 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="password">비밀번호</label>
-                    <input class="form-control" id="password" name="password" placeholder="password"
-                           type="password"/>
+                    <input class="form-control" id="password" name="password" placeholder="password" type="password"/>
                 </div>
                 <!-- CSRF 토큰을 폼에 추가 -->
                 <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
                 <button class="btn btn-primary" href="/" type="submit">로그인</button>
-                <p class="message">Not registered? <a class="toggle-form" data-target=".register-form" href="#">Create an account</a></p>
+                <p class="message">아직 가입하지 않으셨나요? <a class="toggle-form" data-target=".register-form" href="#">계정 만들기</a></p>
                 <a class="btn-login join_btn btn_click" id="kakao-login-btn">
                     <img alt="카카오" src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"
                          style="max-width: 40%; height: auto;">
                 </a>
             </form>
         </div>
-    </div>
+        </div>
 </th:block>
 </html>

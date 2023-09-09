@@ -1,17 +1,12 @@
 package com.portfolio.ohousev1.config;
 
 
-import com.portfolio.ohousev1.dto.post.PostPrincipal;
-import com.portfolio.ohousev1.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -21,7 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig  {
+public class SecurityConfig {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -33,6 +28,7 @@ public class SecurityConfig  {
 
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
@@ -40,7 +36,7 @@ public class SecurityConfig  {
                 .headers((headers) -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
-// login 설정
+        // login 설정
         http
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/login")
@@ -58,13 +54,11 @@ public class SecurityConfig  {
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService(MemberService memberService) {
-        return email -> memberService
-                .searchEmail(email) // MemberService에서 email을 기반으로 사용자 정보를 가져오는 메서드를 호출하도록 가정
-                .map(PostPrincipal::from)
-                .orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다 - email: " + email));
-
-
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(MemberService memberService) {
+//        return email -> memberService
+//                .searchEmail(email) // MemberService에서 email을 기반으로 사용자 정보를 가져오는 메서드를 호출하도록 가정
+//                .map(PostPrincipal::from)
+//                .orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다 - email: " + email));
+//    }
 }

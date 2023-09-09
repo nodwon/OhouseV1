@@ -3,12 +3,13 @@ package com.portfolio.ohousev1.service.member;
 import com.portfolio.ohousev1.dto.member.MemberDto;
 import com.portfolio.ohousev1.dto.member.request.MemberUpdateRequest;
 import com.portfolio.ohousev1.entity.Member;
+import com.portfolio.ohousev1.entity.constant.RoleType;
 import com.portfolio.ohousev1.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @Slf4j
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
@@ -28,16 +29,18 @@ public class MemberService {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
     public Optional<MemberDto> searchEmail(String email) {
         return memberRepository.findByEmail(email)
                 .map(MemberDto::from);
     }
+
     @Transactional
     public MemberDto saveMember(String email, String password, String name, String nickname, LocalDate birthday) {
         String encodedPassword = passwordEncoder.encode(password);
         return MemberDto.from(
-                    memberRepository.save(Member.of(email, encodedPassword, name, nickname, birthday))
-            );
+                memberRepository.save(Member.of(email, encodedPassword, name, nickname, birthday))
+        );
     }
 
     @Transactional
@@ -63,6 +66,19 @@ public class MemberService {
         if (password.length() < 8) {
             throw new IllegalStateException("비밀번호가 8자이상이 아닙니다.");
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Could not found user" + email));
+
+        log.info("Success find member {}", member);
+        return User.builder()
+                .username(member.getEmail())
+                .password(passwordEncoder.encode(member.getPassword()))
+                .roles(RoleType.USER.getValue())
+                .build();
     }
 //    private void validate(String email, String password){ // 이메일 @확인
 //        if(!email.contains("@")){
