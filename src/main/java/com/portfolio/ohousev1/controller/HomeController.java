@@ -28,6 +28,11 @@ public class HomeController {
         return "fragments/login_form";
     }
 
+    @GetMapping("/signup")
+    public String signup() {
+        log.info("login controller");
+        return "fragments/sign_up";
+    }
 
 
 }
