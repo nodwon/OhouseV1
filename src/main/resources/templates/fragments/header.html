@@ -50,7 +50,7 @@
                                 <a class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" th:href="@{/members/logout}">로그아웃</a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-sm btn-outline-secondary" th:href="@{/signup}">회원가입</a>
+                                <a class="btn btn-sm btn-outline-secondary" sec:authorize="isAnonymous()" th:href="@{/signup}">회원가입</a>
                             </li>
                             <li class="nav-item">
                                 <a class="btn btn-sm btn-outline-secondary" sec:authorize="isAnonymous()" th:href="@{/login}">글쓰기</a>

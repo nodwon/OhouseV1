@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,10 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @Slf4j
-public class MemberService implements UserDetailsService {
-
+public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
@@ -36,10 +37,13 @@ public class MemberService implements UserDetailsService {
     }
 
     @Transactional
-    public MemberDto saveMember(String email, String password, String name, String nickname, LocalDate birthday) {
-        String encodedPassword = passwordEncoder.encode(password);
+    public MemberDto saveMember(String email, String Password, String name, String nickname, LocalDate birthday) {
+        if(Password == null){
+            throw new IllegalArgumentException("Password cannot be null");
+        }
+        String encodePassword = passwordEncoder.encode(Password);
         return MemberDto.from(
-                memberRepository.save(Member.of(email, encodedPassword, name, nickname, birthday))
+                memberRepository.save(Member.of(email, encodePassword, name, nickname, birthday))
         );
     }
 
@@ -68,18 +72,22 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Could not found user" + email));
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Member member = memberRepository.findByEmail(email)
+//                .orElseThrow(() -> new UsernameNotFoundException("Could not found user" + email));
+//
+//        log.info("Success find member {}", member);
+//        return User.builder()
+//                .username(member.getEmail())
+//                .password(passwordEncoder.encode(member.getPassword()))
+//                .roles(RoleType.USER.getValue())
+//                .build();
+//    }
 
-        log.info("Success find member {}", member);
-        return User.builder()
-                .username(member.getEmail())
-                .password(passwordEncoder.encode(member.getPassword()))
-                .roles(RoleType.USER.getValue())
-                .build();
-    }
+//    public String getNickname(String email){
+//        Optional<String>
+//    }
 //    private void validate(String email, String password){ // 이메일 @확인
 //        if(!email.contains("@")){
 //            throw new IllegalStateException("@포함되어 있지 않습니다.");

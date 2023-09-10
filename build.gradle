@@ -39,6 +39,8 @@ dependencies {
     implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
     implementation "com.querydsl:querydsl-core"
     implementation "com.querydsl:querydsl-collections"
+    implementation 'com.bingzer.android.driven:driven:1.0.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.1'
     annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta" // querydsl JPAAnnotationProcessor 사용 지정
     annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
     // java.lang.NoClassDefFoundError (javax.annotation.Generated) 대응 코드

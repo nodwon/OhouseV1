@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RequiredArgsConstructor
 @RequestMapping("/posts")
 @Controller
@@ -37,6 +39,7 @@ public class PostApiController {
 //    }
 
     //게시글 form 가져오기
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/form")
     public String postForm(ModelMap map) {
         map.addAttribute("formStatus", FormStatus.CREATE);
@@ -45,16 +48,18 @@ public class PostApiController {
     }
 
     //게시글 등록
+    @PreAuthorize("isAuthenticated()")
     @PostMapping
-    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @RequestBody PostsRequest request) {
+    public ResponseEntity<?> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
         Long result = postService.savePost(request.toDto(postPrincipal.toDto()));
-
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(result);
     }
 
+
     // 게시글 업데이트 form
-    @GetMapping("form/{postId}")
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(value = "form/{postId}")
     public String updatePostForm(@PathVariable Long postId, ModelMap map) {
         PostsResponse post = PostsResponse.from(postService.getPost(postId));
         map.addAttribute("post", post);
@@ -63,8 +68,9 @@ public class PostApiController {
     }
 
     //게시글 업데이트
-    @GetMapping("/{postId}")
-    public ResponseEntity<Long> updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(value ="/{postId}", consumes = "application/json")
+    public ResponseEntity<?> updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
                                            PostsRequest postsRequest) {
 
         Long result = postService.updatePost(postId, postsRequest.toDto(postPrincipal.toDto()));

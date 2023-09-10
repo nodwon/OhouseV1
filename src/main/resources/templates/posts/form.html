@@ -8,10 +8,9 @@
     <header class="py-5 text-center" id="post header">
         <h1>게시글 작성</h1>
     </header>
-    <script src="https://cdn.jsdelivr.net/npm/vue@5.0.8/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <form role="post_form" action="/posts" method="post" th:object="${PostRequest}">
+    <form role="post_form" action="/posts" method="post" th:object="${Postsrequest}">
+        <!-- CSRF 토큰 필드 추가 -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <div class="row mb-3 justify-content-md-center">
             <label class="col-sm-2 col-lg-1 col-form-label text-sm-end" for="title">제목</label>
             <div class="col-sm-8 col-lg-9">
@@ -26,7 +25,7 @@
         </div>
         <div class="row mb-5 justify-content-md-center">
             <div class="col-sm-10 d-grid gap-2 d-sm-flex justify-content-sm-end">
-                <button class="btn btn-primary" id="submit-button" type="submit">저장</button>
+                <button class="btn btn-primary" id="submit-button" type="submit" href="/">저장</button>
                 <button class="btn btn-secondary" id="cancel-button" type="button">취소</button>
             </div>
         </div>

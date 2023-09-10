@@ -2,10 +2,11 @@ package com.portfolio.ohousev1.entity.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 
 @Getter
 @RequiredArgsConstructor
-public enum RoleType {
+public enum RoleType  {
 
     GUEST("GUEST", "손님"),
     ADMIN("ADMIN", "관리자"),

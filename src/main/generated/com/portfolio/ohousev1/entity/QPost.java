@@ -31,8 +31,6 @@ public class QPost extends EntityPathBase<Post> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath imgPath = createString("imgPath");
-
     public final QMember member;
 
     //inherited

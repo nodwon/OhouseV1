@@ -30,7 +30,7 @@ public class HomeController {
 
     @GetMapping("/signup")
     public String signup() {
-        log.info("login controller");
+        log.info("signup controller");
         return "fragments/sign_up";
     }
 

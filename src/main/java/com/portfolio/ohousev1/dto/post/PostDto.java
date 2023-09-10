@@ -12,15 +12,15 @@ public record PostDto(
         MemberDto memberDto,
         String title,
         String content,
-        String img_path,
+//        String img_path,
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
     public static  PostDto of(MemberDto memberDto,String title,String content){
-        return  new PostDto(null, memberDto, title, content, null, null,null);
+        return  new PostDto(null, memberDto, title, content, null, null);
     }
-    public static  PostDto of(MemberDto memberDto,String title,String content, String img_path, LocalDateTime createdAt, LocalDateTime modifiedAt){
-        return  new PostDto(null, memberDto, title, content, img_path, createdAt,modifiedAt);
+    public static  PostDto of(MemberDto memberDto,String title,String content, LocalDateTime createdAt, LocalDateTime modifiedAt){
+        return  new PostDto(null, memberDto, title, content, createdAt,modifiedAt);
     }
 
     public  static PostDto from(Post entity){
@@ -29,7 +29,6 @@ public record PostDto(
                 MemberDto.from(entity.getMember()),
                 entity.getTitle(),
                 entity.getContent(),
-                entity.getImgPath(),
                 entity.getCreatedAt(),
                 entity.getModifiedAt()
         );

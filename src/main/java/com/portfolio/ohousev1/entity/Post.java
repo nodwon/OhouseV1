@@ -38,8 +38,8 @@ public class Post extends AuditingFields{
     @Column(name = "content", length = 10000)
     private String content;
 
-    @Column(nullable = false)
-    private String imgPath;
+//    @Column(nullable = false)
+//    private String imgPath;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private  final Set<PostComment> postComments = new LinkedHashSet<>();

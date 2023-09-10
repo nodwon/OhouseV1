@@ -1,23 +1,42 @@
 package com.portfolio.ohousev1.repository;
 
+import com.portfolio.ohousev1.OhouseV1Application;
+import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.Post;
 import org.junit.After;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+@DisplayName("JPA 연결 테스트")
+//@Import(PostRepositoryTest.TestJpaConfig.class)
 @SpringBootTest
 public class PostRepositoryTest {
 
-    @Autowired
-    PostRepository postRepository;
+    private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
+
+    public PostRepositoryTest(@Autowired PostRepository postRepository,
+                              @Autowired MemberRepository memberRepository) {
+        this.postRepository = postRepository;
+        this.memberRepository = memberRepository;
+    }
 
     @After
     public void cleanUp(){
@@ -27,8 +46,8 @@ public class PostRepositoryTest {
     @Test
     public void 게시글저장및불러오기() throws Exception {
         //given
-        String title ="테스트게시글";
-        String content ="테스트 본문";
+        String title ="test-title";
+        String content ="test-content";
         //when
 
         //then
@@ -37,5 +56,24 @@ public class PostRepositoryTest {
         assertThat(post.getTitle()).isEqualTo(title);
         assertThat(post.getContent()).isEqualTo(content);
     }
-
+    @DisplayName("insert 테스트")
+    @Test
+    public void insert() throws Exception {
+        //given
+        long previousCount = postRepository.count();
+        Member member = memberRepository.save(Member.of("newEmail.com","new password","newname","newnickname", LocalDate.now()));
+        //when
+        Post post = Post.of(member, "newtitle", "newContent");
+        postRepository.save(post);
+        //then
+        assertThat(postRepository.count()).isEqualTo(previousCount+1);
+    }
+//    @EnableJpaAuditing
+//    @TestConfiguration
+//    static class TestJpaConfig {
+//        @Bean
+//        AuditorAware<String> auditorAware() {
+//            return () -> Optional.of("d@gmail.com");
+//        }
+//    }
 }
