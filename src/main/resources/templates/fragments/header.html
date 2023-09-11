@@ -6,6 +6,7 @@
         <meta content="webkit" name="renderer">
         <meta content="width=device-width, initial-scale=1" name="viewport">
         <link href="/css/blog.css" rel="stylesheet" type="text/css">
+        <link href="/css/styles.css" rel="stylesheet" type="text/css">
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="/css/bootstrap.rtl.min.css" rel="stylesheet" type="text/css">
         <link href="https://getbootstrap.com/docs/5.3/examples/blog/" rel="canonical">
@@ -23,25 +24,20 @@
         <header class="border-bottom lh-1 py-3">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 pt-1">
-                    <a class="link-secondary" href="/">Ohouse</a>
+                    <a class="link-secondary"  id= "big" href="/">오늘의집</a>
                     <a class="btn btn-sm btn-outline-secondary" href="/">커뮤니티</a>
                     <a class="btn btn-sm btn-outline-secondary" href="/shop">쇼핑</a>
                 </div>
-                <div class="col-4 text-center">
-                    <a class="blog-header-logo text-body-emphasis text-decoration-none" href="/">오늘의 집</a>
+                <div class="col-lg-3 col-md-2 col-sm-3 p-0">
+                    <label for="search-value" hidden>통합검색</label>
+                    <input type="text" placeholder="통합검색" class="form-control" id="search-value" name="searchValue">
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
-                    <a aria-label="Search" class="link-secondary" href="/main">
-                        <svg class="mx-3" fill="none" height="20" role="img" stroke="currentColor"
-                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                             width="20"
-                             xmlns="http://www.w3.org/2000/svg"><title>Search</title>
-                            <circle cx="10.5" cy="10.5" r="7.5"/>
-                            <path d="M21 21l-5.2-5.2"/>
-                        </svg>
-                    </a>
                     <nav class="navbar navbar-expand-lg ">
                         <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" th:href="@{/posts/myPage}">마이페이지</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="btn btn-sm btn-outline-secondary" href="/cart">장바구니</a>
                             </li>
@@ -60,6 +56,7 @@
                     </nav>
                 </div>
             </div>
+            <title>오늘의집 Clone</title>
         </header>
         <!--네비게이션 바-->
         <div class="nav-scroller py-1 mb-3 border-bottom">

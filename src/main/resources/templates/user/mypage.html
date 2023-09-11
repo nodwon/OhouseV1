@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/header :: header}"></div>
+<body>
+<main class="container">
+    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+    <div class="row">
+        <table class="table" id="article-table">
+            <thead>
+            <tr>
+                <th class="postCount"><a>게시글번호</a></th>
+                <th class="title col-2"><a>제목</a></th>
+                <th class="member_nickname"><a>닉네임</a></th>
+                <th class="created-at"><a>작성일</a></th>
+                <th class="modified-at"><a>수정일</a></th>
+                <th class="modified-at"><a>수정</a></th>
+                <th class="delete"><a>삭제</a></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="posts, loop : ${Posts}">
+                <!--                <td th:text="${loop.count}"></td>-->
+                <td th:text="${posts.postNo}"></td>
+                <td th:text="${posts.title}"></td>
+                <td th:text="${posts.nickname}"></td>
+                <td th:text="${posts.createdAt}"></td>
+                <td th:text="${posts.modifiedAt}"><
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="#"
+                       role="button" th:href="@{{id}/update (id=${posts.postNo})}">수정
+                    </a>
+                </td>
+                <td>
+                    <a data-postid="${posts.postNo}" href="#" id="deleteButton">
+                        <button style="background-color: red; color: white" type="submit">삭제</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="row">
+        <nav aria-label="Page navigation" id="pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <div th:replace="~{fragments/header :: header}"></div>
-<title>게시글 작성</title>
-<meta charset="utf-8">
 <body>
 <div class="container">
     <header class="py-5 text-center" id="post header">
         <h1>게시글 작성</h1>
     </header>
-    <form role="post_form" action="/posts" method="post" th:object="${Postsrequest}">
+    <form  id ="post-form "role="post_form" action="/posts" method="post" th:object="${Postsrequest}">
         <!-- CSRF 토큰 필드 추가 -->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <div class="row mb-3 justify-content-md-center">

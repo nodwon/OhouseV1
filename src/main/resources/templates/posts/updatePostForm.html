@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/header :: header}"></div>
+<body>
+<div class="container">
+    <header class="py-5 text-center" id="post header">
+        <h1>게시글 수정</h1>
+    </header>
+    <div style="text-align: right;">
+        <p id="created">생성일자: <span th:text="${post.createdAt}">게시물 생성일자</span></p>
+        <p id="nickname">닉네임: <span th:text="${post.nickname}">게시물 작성자 닉네임</span></p>
+    </div>
+    <form method="post" th:object="${post}">
+        <!-- CSRF 토큰 필드 추가 -->
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+        <!-- 제목 (수정 가능) -->
+        <label for="title">제목:</label>
+        <input id="title" name="title" th:value="${post.title}" type="text"/>
+
+        <!-- 본문 (수정 가능) -->
+        <label for="content">본문:</label>
+        <textarea cols="50" id="content" name="content" rows="4" th:text="${post.content}"></textarea>
+
+        <!-- 수정, 취소, 삭제 버튼 -->
+        <div style="text-align: right;">
+            <button th:object="${formStatus}" type="submit">수정</button>
+            <a th:href="@{/posts/myPage}">
+                <button type="button">취소</button>
+            </a>
+            <a data-postid="${post.postNo}" href="#" id="deleteButton">
+                <button style="background-color: red; color: white" type="submit">삭제</button>
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+<div th:replace="~{fragments/footer :: footer}"/>
+</html>

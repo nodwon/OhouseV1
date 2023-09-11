@@ -73,7 +73,7 @@
             <div class="col-md-8">
                 <h3 class="pb-4 mb-4 fst-italic border-bottom">
                     주간 베스트 게시물
-                    <a href="/post_list" size="1%">더보기</a>
+<!--                    <a href="/post_list" size="1%">더보기</a>-->
                 </h3>
 
                 <!--여기서 부터 게시물리스트-->
@@ -224,31 +224,42 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-6 wow fadeInUp" data-wow-delay=".6s"
-                         style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
-                        <div class="col-9">
-                            <div class="pagination text-small text-uppercase text-extra-dark-gray">
-                                <ul>
-                                    <li><a href="#!"><i
-                                            class="fas fa-long-arrow-alt-left me-1 d-none d-sm-inline-block"></i>
-                                        Prev</a></li>
-                                    <li class="active"><a href="#!">1</a></li>
-                                    <li><a href="#!">2</a></li>
-                                    <li><a href="#!">3</a></li>
-                                    <li><a href="#!">Next <i
-                                            class="fas fa-long-arrow-alt-right ms-1 d-none d-sm-inline-block"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="row mt-6 wow fadeInUp" data-wow-delay=".6s"-->
+<!--                         style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">-->
+<!--                        <div class="col-9">-->
+<!--                            <div class="pagination text-small text-uppercase text-extra-dark-gray">-->
+<!--                                <ul>-->
+<!--                                    <li><a href="#!"><i-->
+<!--                                            class="fas fa-long-arrow-alt-left me-1 d-none d-sm-inline-block"></i>-->
+<!--                                        Prev</a></li>-->
+<!--                                    <li class="active"><a href="#!">1</a></li>-->
+<!--                                    <li><a href="#!">2</a></li>-->
+<!--                                    <li><a href="#!">3</a></li>-->
+<!--                                    <li><a href="#!">Next <i-->
+<!--                                            class="fas fa-long-arrow-alt-right ms-1 d-none d-sm-inline-block"></i></a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
 
                 <!-- 페이지네이션-->
-                <nav aria-label="Pagination" class="blog-pagination">
-                    <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
-                    <a aria-disabled="true" class="btn btn-outline-secondary rounded-pill disabled">Newer</a>
-                </nav>
+                <div class="row">
+                    <nav id="pagination" aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+<!--                <nav aria-label="Pagination" class="blog-pagination">-->
+<!--                    <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>-->
+<!--                    <a aria-disabled="true" class="btn btn-outline-secondary rounded-pill disabled">Newer</a>-->
+<!--                </nav>-->
             </div>
             <!-- 사이드바-->
             <div th:replace="~{fragments/sidebar :: sidebar}"/>

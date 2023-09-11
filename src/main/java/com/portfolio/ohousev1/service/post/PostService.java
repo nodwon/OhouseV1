@@ -1,15 +1,17 @@
 package com.portfolio.ohousev1.service.post;
 
 import com.portfolio.ohousev1.dto.post.PostDto;
-import com.portfolio.ohousev1.dto.post.request.PostsUpdateRequestDto;
 import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.Post;
+import com.portfolio.ohousev1.entity.constant.SearchType;
 import com.portfolio.ohousev1.repository.MemberRepository;
 import com.portfolio.ohousev1.repository.PostRepository;
 import com.portfolio.ohousev1.service.PaginationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,18 @@ public class PostService {
     private final MemberRepository memberRepository;
     private final PaginationService paginationService;
 
+
+    @Transactional
+    public Page<PostDto> searchPosts(SearchType searchType, String searchKeyword, Pageable pageable){
+        if(searchKeyword ==null|| searchKeyword.isBlank()){
+            return  postRepository.findAll(pageable).map(PostDto::from);
+        }
+        return switch (searchType){
+            case TITLE -> postRepository.findByTitleContaining(searchKeyword, pageable).map(PostDto::from);
+            case CONTENT -> postRepository.findByContentContaining(searchKeyword,pageable).map(PostDto::from);
+            case NICKNAME -> postRepository.findByMember_NicknameContaining(searchKeyword,pageable).map(PostDto::from);
+        };
+    }
     @Transactional
     public PostDto getPost(Long postId) {
         return postRepository.findById(postId)
@@ -64,7 +78,4 @@ public class PostService {
         return postRepository.count();
     }
 
-//    @Transactional
-//    public Page<PostDto> searchArticles(Pageable pageable) {
-//    }
 }

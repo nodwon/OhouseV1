@@ -4,6 +4,8 @@ import com.portfolio.ohousev1.entity.Post;
 import com.portfolio.ohousev1.entity.QPost;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -14,8 +16,10 @@ public interface PostRepository extends
         QuerydslPredicateExecutor<Post>,
         QuerydslBinderCustomizer<QPost> // querydsl 제작
 {
+    Page<Post> findByTitleContaining(String title, Pageable pageable);
+    Page<Post> findByContentContaining(String content, Pageable pageable);
+    Page<Post> findByMember_NicknameContaining(String nickname, Pageable pageable);
 
-    // Page<Post> findByContentContaining(String content, Pageable pageable);
     void deleteByIdAndMember_email(Long post_no, String email);
     @Override
     default void customize(QuerydslBindings bindings, QPost root) {

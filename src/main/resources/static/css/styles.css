@@ -1,0 +1,74 @@
+#big {
+    font-size: 20px; /* 글자 크기를 20px로 설정 */
+    color: black; /* 글자 색상을 검정색으로 설정 */
+    font-family: '폰트 이름', sans-serif; /* 원하는 폰트 이름으로 설정, 존재하는 폰트의 이름으로 대체하세요 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+/* styles.css */
+
+/* styles.css */
+
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 게시글 수정 폼 스타일 */
+#post-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    text-align: center; /* 중앙 정렬 */
+}
+
+h1 {
+    font-size: 24px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"],
+button[type="button"] {
+    padding: 10px 20px 10px  10px;
+    background-color: rgb(53, 197, 240); /* 색상 변경 */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: right;
+
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: #43A047;
+}
+
+/* 게시물 정보 스타일 */
+#created #nickname {
+    text-align: right; /* 오른쪽 정렬 */
+}
+#deleteButton{
+    background-color: rgb(255, 0, 0); /* 색상 변경 */
+}
+/* 추가적인 스타일을 필요에 따라 여기에 추가할 수 있습니다. */
