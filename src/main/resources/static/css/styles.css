@@ -14,12 +14,17 @@ body {
     background-color: #f0f0f0;
 }
 
-.container {
-    margin-top: 20px;
+#list #mainlist{
+    margin-top: 10px;
     background-color: #fff;
-    padding: 20px;
+    padding: 5px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container {
+    margin-top: 10px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
 }
 
 /* 게시글 수정 폼 스타일 */

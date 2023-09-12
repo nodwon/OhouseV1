@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.stream.Stream;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -35,6 +37,10 @@ public class PostService {
             case CONTENT -> postRepository.findByContentContaining(searchKeyword,pageable).map(PostDto::from);
             case NICKNAME -> postRepository.findByMember_NicknameContaining(searchKeyword,pageable).map(PostDto::from);
         };
+    }
+    @Transactional
+    public Page<PostDto> AllPost(Pageable pageable){
+        return postRepository.findAll(pageable).map(PostDto::from);
     }
     @Transactional
     public PostDto getPost(Long postId) {
