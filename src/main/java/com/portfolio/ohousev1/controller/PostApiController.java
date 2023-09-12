@@ -50,11 +50,12 @@ public class PostApiController {
 
 
     //게시글 detail페이지
-//    @GetMapping("/{postId}")
-//    public String post(@PathVariable Long postId, ModelMap map){
-//        PostsResponse postsResponse = PostsResponse.from(postService.getPost())
-//        map.addAttribute("posts");
-//    }
+    @GetMapping("/{postId}")
+    public String post(@PathVariable Long postId, ModelMap map){
+        PostsResponse postsResponse = PostsResponse.from(postService.getPost(postId));
+        map.addAttribute("post",postsResponse);
+        return "posts/detail";
+    }
 
     //게시글 form 가져오기
     @PreAuthorize("isAuthenticated()")

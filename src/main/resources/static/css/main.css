@@ -1,30 +1,30 @@
 
-/*a.btn {*/
-/*    background: #0096a0;*/
-/*    border-radius: 4px;*/
-/*    box-shadow: 0 2px 0px 0 rgba(0,0,0,0.25);*/
-/*    color: #FFFFFF;*/
-/*    display: inline-block;*/
-/*    padding: 6px 30px 8px;*/
-/*    position: relative;*/
-/*    text-decoration: none;*/
-/*    transition: all 0.1s 0s ease-out;*/
-/*}*/
+div.card.a.btn {
+    background: #0096a0;
+    border-radius: 4px;
+    box-shadow: 0 2px 0px 0 rgba(0,0,0,0.25);
+    color: #FFFFFF;
+    display: inline-block;
+    padding: 6px 30px 8px;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.1s 0s ease-out;
+}
 
-/*.no-touch a.btn:hover {*/
-/*    background: #0096a0,2.5;*/
-/*    box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);*/
-/*    transform: translateY(-2px);*/
-/*    transition: all 0.25s 0s ease-out;*/
-/*}*/
+div.card.no-touch a.btn:hover {
+    background: #0096a0,2.5;
+    box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);
+    transform: translateY(-2px);
+    transition: all 0.25s 0s ease-out;
+}
 
-/*.no-touch a.btn:active,*/
-/*a.btn:active {*/
-/*    background: #0096a0,2.5;*/
-/*    box-shadow: 0 1px 0px 0 rgba(255,255,255,0.25);*/
-/*    transform: translate3d(0,1px,0);*/
-/*    transition: all 0.025s 0s ease-out;*/
-/*}*/
+div.card.no-touch a.btn:active,
+div.card.a.btn:active {
+    background: #0096a0,2.5;
+    box-shadow: 0 1px 0px 0 rgba(255,255,255,0.25);
+    transform: translate3d(0,1px,0);
+    transition: all 0.025s 0s ease-out;
+}
 .more-link{
     float: right; /* 오른쪽 정렬 */
     font-size: 20px; /* 글자 크기 변경 */
@@ -71,6 +71,10 @@ div.card-title {
     padding: 6px 15px 10px;
     position: relative;
     z-index: 0;
+}
+div.card-title.h2.a{
+    text-decoration: none; /* 밑줄 제거 */
+    color: #1a1d20;
 }
 
 a.toggle-info {

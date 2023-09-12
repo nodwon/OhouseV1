@@ -28,8 +28,9 @@
                                 <span class="right"></span>
                             </a>
                             <h2>
-                                <span th:text="${post.title}"></span>
+                                <a th:text="${post.title}" th:href="@{/posts/{id} (id=${post.postNo})}"></a>
                             </h2>
+
                             <a>
                                 <span th:text="${post.nickname()}"></span>
                             </a>

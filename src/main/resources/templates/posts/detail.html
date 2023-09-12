@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/header :: header}"></div>
+<body>
+<div class="container">
+    <header class="py-5 text-center" id="post header">
+        <h1 th:text="${post.title}"></h1>
+    </header>
+    <div style="text-align: right;">
+        <p id="created">생성일자: <span th:text="${post.createdAt}">게시물 생성일자</span></p>
+        <p id="nickname">닉네임: <span th:text="${post.nickname}">게시물 작성자 닉네임</span></p>
+    </div>
+
+    <div for="content" th:text="${post.content}">
+
+    </div>
+    <!-- CSRF 토큰 필드 추가 -->
+    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+    <!-- 수정 버튼 -->
+    <a class="btn btn-primary" href="#" role="button"
+       th:href="@{{id}/update (id=${post.postNo})}">수정
+<!--       th:if="${post.memberNo == session.getAttribute('userId')}"-->
+    </a>
+
+    <!-- 삭제 버튼 -->
+    <a data-postid="${posts.postNo}" href="#" id="deleteButton">
+<!--       th:if="${post.memberNo == session.getAttribute('userId')}">-->
+        <button style="background-color: red; color: white" type="submit">삭제</button>
+    </a>
+
+    <!-- 취소 버튼 -->
+    <a href="/">
+        <button type="button">취소</button>
+    </a>
+
+</div>
+</div>
+
+</body>
+<div th:replace="~{fragments/footer :: footer}"/>
+
+</html>
