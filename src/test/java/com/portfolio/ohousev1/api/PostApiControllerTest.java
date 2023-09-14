@@ -46,8 +46,7 @@ class PostApiControllerTest {
     @Autowired
     private UserDetailsService userDetailsService;
     @Test
-    @WithMockUser(roles = "USER")
-    @PreAuthorize("hasRole('ROLE_USER')") // ROLE_USER 권한이 필요한 경우
+    @PreAuthorize("isAuthenticated()")
     public void newPost() throws Exception {
         // Given
         PostsRequest request = new PostsRequest("title", "content");

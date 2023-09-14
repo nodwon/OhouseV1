@@ -28,6 +28,7 @@ public class PostComment extends AuditingFields{
     @ManyToOne(optional = false)
     private Member member; // 유저 정보 (ID)
 
+    @Setter
     @Column(name = "parent_comment_id",updatable = false)
     private Long parentCommentId; // 부모 댓글 ID
 
@@ -37,13 +38,18 @@ public class PostComment extends AuditingFields{
     private Set<PostComment> childComments = new LinkedHashSet<>();
     @Setter @Column(name = "content", length = 500) private String content; // 본문
 
-    @Builder
-    public PostComment(Post post,Member member, String content, Long parentCommentId) {
+    private PostComment(Post post,Member member, String content, Long parentCommentId) {
         this.member = member; // 이메일 값 설정
         this.post =post;
         this.parentCommentId = parentCommentId;
         this.content = content;
     }
-
+    public static PostComment of(Post post, Member member, String content){
+        return new PostComment(post,member,content, null);
+    }
+    public void addChildComment(PostComment child){
+        child.setParentCommentId(this.getId());
+        this.getChildComments().add(child);
+    }
 
 }

@@ -68,12 +68,15 @@ public class PostRepositoryTest {
         //then
         assertThat(postRepository.count()).isEqualTo(previousCount+1);
     }
-//    @EnableJpaAuditing
-//    @TestConfiguration
-//    static class TestJpaConfig {
-//        @Bean
-//        AuditorAware<String> auditorAware() {
-//            return () -> Optional.of("d@gmail.com");
-//        }
-//    }
+    @DisplayName("DELETE 테스트")
+    @Test
+    public void Delete() throws Exception {
+        //given
+        Post post = postRepository.findById(1L).orElseThrow();
+        long previous = postRepository.count();
+        //when
+        postRepository.delete(post);
+        //then
+        assertThat(postRepository.count()).isEqualTo(previous-1);
+    }
 }

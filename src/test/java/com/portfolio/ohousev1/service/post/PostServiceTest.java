@@ -2,6 +2,7 @@ package com.portfolio.ohousev1.service.post;
 
 import com.portfolio.ohousev1.repository.MemberRepository;
 import com.portfolio.ohousev1.repository.PostRepository;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +23,13 @@ public class PostServiceTest {
     @Mock
     private PostRepository postRepository;
 
-    private EntityManager em;
+    @Test
+    public void Article() throws Exception {
+        //given
 
+        //when
+
+        //then
+    }
 
 }
