@@ -11,6 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -26,10 +28,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 class PostCommentServiceTest {
 
-
+    @InjectMocks
     private PostCommentService postCommentService;
+    @Mock
     private PostRepository postRepository;
+    @Mock
     private PostCommentRepository postCommentRepository;
+    @Mock
     private MemberRepository memberRepository;
 
     @DisplayName("게시글 조회하면 댓글리스트")
@@ -48,7 +53,7 @@ class PostCommentServiceTest {
         //then
         assertThat(actual).hasSize(2);
         assertThat(actual)
-                .extracting("id", "articleId", "parentCommentId", "content")
+                .extracting("id", "post_no", "parentCommentId", "content")
                 .containsExactlyInAnyOrder(
                         tuple(1L, 1L, null, "parent content"),
                         tuple(2L, 1L, 1L, "child content")

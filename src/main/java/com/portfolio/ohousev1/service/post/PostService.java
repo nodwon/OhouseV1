@@ -1,5 +1,6 @@
 package com.portfolio.ohousev1.service.post;
 
+import com.portfolio.ohousev1.dto.Comment.PostWithCommentDto;
 import com.portfolio.ohousev1.dto.post.PostDto;
 import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.Post;
@@ -27,7 +28,6 @@ public class PostService {
     private final PaginationService paginationService;
 
 
-    @Transactional
     public Page<PostDto> searchPosts(SearchType searchType, String searchKeyword, Pageable pageable){
         if(searchKeyword ==null|| searchKeyword.isBlank()){
             return  postRepository.findAll(pageable).map(PostDto::from);
@@ -38,11 +38,16 @@ public class PostService {
             case NICKNAME -> postRepository.findByMember_NicknameContaining(searchKeyword,pageable).map(PostDto::from);
         };
     }
-    @Transactional
     public Page<PostDto> AllPost(Pageable pageable){
         return postRepository.findAll(pageable).map(PostDto::from);
     }
-    @Transactional
+
+    public PostWithCommentDto getPostWithComments(Long post_no){
+        return postRepository.findById(post_no)
+                .map(PostWithCommentDto::from)
+                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 -post-no" + post_no));
+    }
+
     public PostDto getPost(Long postId) {
         return postRepository.findById(postId)
                 .map(PostDto::from)

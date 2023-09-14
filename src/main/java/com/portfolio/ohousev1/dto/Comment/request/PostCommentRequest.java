@@ -12,7 +12,7 @@ public record PostCommentRequest(
         return PostCommentRequest.of(post_no,null, content);
     }
     public static PostCommentRequest of(Long post_no, Long parentCommentId, String content){
-        return PostCommentRequest.of(post_no,null, content);
+        return new PostCommentRequest(post_no,parentCommentId, content);
     }
 
     public PostCommentDto toDto(MemberDto memberDto){

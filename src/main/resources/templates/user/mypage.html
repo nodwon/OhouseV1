@@ -22,7 +22,9 @@
             <tr th:each="posts, loop : ${Posts}">
                 <!--                <td th:text="${loop.count}"></td>-->
                 <td th:text="${posts.postNo}"></td>
-                <td th:text="${posts.title}"></td>
+                <td>
+                    <a th:text="${posts.title}" th:href="@{'/posts/' + ${posts.postNo}}">게시물 보기</a>
+                </td>
                 <td th:text="${posts.nickname}"></td>
                 <td th:text="${posts.createdAt}"></td>
                 <td th:text="${posts.modifiedAt}"><

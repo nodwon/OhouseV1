@@ -49,4 +49,6 @@ public class PostCommentService {
     public void deletePostComment(Long postCommentId, String email){
         postCommentRepository.deleteByIdAndMember_Email(postCommentId, email);
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.portfolio.ohousev1.controller;
 
+import com.portfolio.ohousev1.dto.Comment.response.PostWithCommentResponse;
 import com.portfolio.ohousev1.dto.post.PostPrincipal;
 import com.portfolio.ohousev1.dto.post.request.PostsRequest;
 import com.portfolio.ohousev1.dto.post.response.PostsResponse;
@@ -48,12 +49,13 @@ public class PostApiController {
         return "user/mypage";
     }
 
-
-    //게시글 detail페이지
+    //게시글 detail페이지 with 댓글
     @GetMapping("/{postId}")
     public String post(@PathVariable Long postId, ModelMap map){
-        PostsResponse postsResponse = PostsResponse.from(postService.getPost(postId));
-        map.addAttribute("post",postsResponse);
+        PostWithCommentResponse posts = PostWithCommentResponse.from(postService.getPostWithComments(postId));
+        map.addAttribute("post",posts);
+        map.addAttribute("postComments", posts.postCommentResponse());
+        map.addAttribute("totalCount", postService.getPostCount());
         return "posts/detail";
     }
 
