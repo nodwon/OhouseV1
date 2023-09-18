@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record PostWithCommentDto(
-        Long post_no,
+        Long postId,
         MemberDto memberDto,
         Set<PostCommentDto> postCommentDtos,
         String title,
@@ -17,8 +17,8 @@ public record PostWithCommentDto(
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static  PostWithCommentDto of(Long post_no, MemberDto memberDto, Set<PostCommentDto> postCommentDtos, String title, String content,LocalDateTime createdAt, LocalDateTime modifiedAt){
-        return new PostWithCommentDto(post_no,memberDto,postCommentDtos,title,content,createdAt,modifiedAt);
+    public static  PostWithCommentDto of(Long postId, MemberDto memberDto, Set<PostCommentDto> postCommentDtos, String title, String content,LocalDateTime createdAt, LocalDateTime modifiedAt){
+        return new PostWithCommentDto(postId,memberDto,postCommentDtos,title,content,createdAt,modifiedAt);
     }
     public static PostWithCommentDto from(Post entity){
         return new PostWithCommentDto(

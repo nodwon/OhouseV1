@@ -1,61 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/header :: header}"></div>
 <body>
 <div class="container">
-    <header class="py-5 text-center" id="post header">
+    <header class="py-5 text-center" id="post-header">
         <h1 th:text="${post.title}"></h1>
     </header>
-    <div style="text-align: right;">
-        <p id="created">생성일자: <span th:text="${post.created_at()}">게시물 생성일자</span></p>
-        <p id="nickname">닉네임: <span th:text="${post.nickname}">게시물 작성자 닉네임</span></p>
-        <p id="count">조회수: <span th:text="${totalCount}">게시물 작성자 닉네임</span></p>
-    </div>
-    <div for="content" th:text="${post.content}" style="text-decoration: underline;"></div>
-      <!-- CSRF 토큰 필드 추가 -->
-    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
-    <!-- 수정 버튼 -->
-    <a class="btn btn-primary" href="#" role="button"
-       th:href="@{{id}/update (id=${post.post_no})}">수정
-<!--       th:if="${post.memberNo == session.getAttribute('userId')}"-->
-    </a>
+    <section>
+        <div style="text-align: right;">
+            <p id="created">생성일자: <span th:text="${post.created_at}">게시물 생성일자</span></p>
+            <p id="nickname">닉네임: <span th:text="${post.nickname}">게시물 작성자 닉네임</span></p>
+            <p id="count">조회수: <span th:text="${totalCount}">게시물 조회수</span></p>
+        </div>
+    </section>
+    <section class="container">
+        <div class="content-container">
+            <div for="content" style="text-decoration: underline;" th:text="${post.content}"></div>
+            <!-- CSRF 토큰 필드 추가 -->
+            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+            <!-- 수정 버튼 -->
+            <a class="btn btn-primary" href="#" role="button"
+               th:href="@{/posts/{id}/update(id=${post.postId})}">수정
+                <!-- th:if="${post.memberNo == session.getAttribute('userId')}" -->
+            </a>
 
-    <!-- 삭제 버튼 -->
-    <a data-postid="${posts.postNo}" href="#" id="deleteButton">
-<!--       th:if="${post.memberNo == session.getAttribute('userId')}">-->
-        <button style="background-color: red; color: white" type="submit">삭제</button>
-    </a>
+            <!-- 삭제 버튼 -->
+            <a data-postid="${post.postId}" href="#" id="deleteButton">
+                <!-- th:if="${post.memberNo == session.getAttribute('userId')}" -->
+                <button style="background-color: red; color: white" type="submit">삭제</button>
+            </a>
 
-    <!-- 취소 버튼 -->
-    <a href="/">
-        <button type="button">취소</button>
-    </a>
+            <!-- 취소 버튼 -->
+            <a href="/">
+                <button type="button">취소</button>
+            </a>
+        </div>
+    </section>
+    <section class="commentALL">
+        <!-- 댓글 갯수 표시 -->
+        <p class="comment-count">
+            댓글 갯수: <span th:text="${postComments.size()}">5</span>
+        </p>
 
-    <div class="comment-count">
-        댓글 갯수: 5
-    </div>
+        <!-- 댓글 입력 및 목록 -->
+        <div class="container">
+            <!-- 댓글 입력 form -->
+            <form id="comment-form" role="form" th:action="@{/comments/new}" method="post" th:object="${PostCommentRequest}">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <!-- post_no 설정 -->
+                <input type="hidden" name="post_no" th:value="${post.postId()}" /> <!-- 예시로 1로 설정, 실제 데이터에 따라 변경하세요 -->
+                <!-- parent_comment_id 설정 -->
+                <input type="hidden" name="parent_comment_id" th:value="${parentCommentId}" /> <!-- 예시로 2로 설정, 부모 댓글 ID에 따라 변경하세요 -->
+                <div class="comment-row">
+                    <div class="comment-nickname">사용자1:</div>
+                    <input class="content" id="content" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다." type="text" />
+                    <button class="btn btn-primary" id="submit-button" type="submit">입력</button>
+                </div>
+            </form>
 
-    <!-- 댓글 입력 textarea -->
-    <div class="comment-input">
-        <textarea id="commentTextarea" rows="3" placeholder="댓글을 입력하세요"></textarea>
-        <button id="postCommentButton">댓글 작성</button>
-    </div>
 
-    <!-- 댓글 목록 -->
-    <div class="comment-container">
-        <!-- 댓글 1 -->
-        <div class="comment">
-            <span class="comment-id">사용자1:</span>
-            <span class="comment-text">이 글 정말 좋아요!</span>
-            <span class="comment-time">1시간 전</span>
-            <div class="comment-actions">
-                <a href="#">좋아요</a>
-                <a href="#">답글 달기</a>
-                <a href="#">신고</a>
+            <!-- 댓글 목록 -->
+            <div th:each="comment, iterStat : ${postComments}" style="padding-bottom: 40px;">
+                <div class="commentlist">
+                    <span class="comment-id" th:text="${comment.nickname}"></span>
+                    <span class="comment-text" th:text="${comment.content}"></span>
+                    <span class="comment-time" th:text="${comment.createdAt}"></span>
+                    <div class="comment-actions">
+                        <a href="#">좋아요</a>
+                        <a href="#">답글 달기</a>
+                        <a href="#">신고</a>
+                    </div>
+                </div>
             </div>
         </div>
-
-</div>
+    </section>
 </div>
 
 </body>

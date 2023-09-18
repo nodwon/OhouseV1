@@ -9,37 +9,46 @@ import java.time.LocalDateTime;
 
 public record PostCommentDto(
         Long id,
-        Long post_no,
         MemberDto memberDto,
-        Long parentCommentId,
+        Long post_no,
         String content,
+        Long parentCommentId,
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 
-) {
-    public static  PostCommentDto of(Long post_no, MemberDto memberDto, String content){
-        return PostCommentDto.of(post_no, memberDto, null, content);
+        ) {
+    public static  PostCommentDto of(Long post_no,MemberDto memberDto, String content){
+        return PostCommentDto.of(post_no, memberDto, null,content );
     }
 
     public static PostCommentDto of(Long post_no, MemberDto memberDto, Long parentCommentId, String content) {
-        return  PostCommentDto.of(null, post_no, memberDto, parentCommentId, content, null,null);
+        return  PostCommentDto.of(null,memberDto,post_no,content,parentCommentId,null,null);
     }
 
-    public static PostCommentDto of(Long id, Long post_no, MemberDto memberDto, Long parentCommentId, String content, LocalDateTime createdAt, LocalDateTime modifiedAt) {
-        return  new PostCommentDto(id, post_no, memberDto, parentCommentId, content,createdAt, modifiedAt);
-    }
+    public static PostCommentDto of(Long id, //현재 여기가 문제임
+                                    MemberDto memberDto,
+                                    Long post_no,
+                                    String content,
+                                    Long parentCommentId,
+                                    LocalDateTime createdAt,
+                                    LocalDateTime modifiedAt) {
+        return  new PostCommentDto(id,memberDto,post_no,content,parentCommentId,createdAt,modifiedAt);
 
+
+    }
     public static  PostCommentDto from(PostComment entity){
         return  new PostCommentDto(
                 entity.getId(),
-                entity.getPost().getId(),
                 MemberDto.from(entity.getMember()),
-                entity.getParentCommentId(),
+                entity.getPost().getId(),
                 entity.getContent(),
+                entity.getParentCommentId(),
                 entity.getCreatedAt(),
                 entity.getModifiedAt()
         );
     }
+
+
 
     public PostComment toEntity(Post post, Member member){
         return PostComment.of(

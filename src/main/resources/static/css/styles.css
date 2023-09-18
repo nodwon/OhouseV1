@@ -77,3 +77,68 @@ button[type="button"]:hover {
     background-color: rgb(255, 0, 0); /* 색상 변경 */
 }
 /* 추가적인 스타일을 필요에 따라 여기에 추가할 수 있습니다. */
+
+* {
+    box-sizing: border-box;
+}
+
+.warning {
+    background-color: orange;
+    color: #fff;
+    padding: 2em;
+}
+.comment-row {
+    display: flex;
+    align-items: center;
+}
+
+.comment-nickname {
+    flex: 1;
+    padding: 10px;
+}
+
+.comment-input {
+    flex: 8;
+    appearance: none;
+    border: 0;
+    border-left: 3px solid transparent;
+    background-color: #FFF;
+    padding: 10px;
+    height: 44px;
+    transition: .65s ease;
+    font-size: 14px;
+}
+
+.comment-input:focus {
+    border-color: gray;
+    background-color: #FFF;
+}
+
+.comment-input::placeholder {
+    color: gray;
+}
+
+.comment-btn {
+    flex: 1;
+    background-color: gray;
+    height: 44px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.comment-input::placeholder {
+    color: gray;
+}
+
+
+.comment-btn:focus:active {
+    border: 0;
+}
+.commentlist {
+    padding: 20px 20px 20px 20px;
+}

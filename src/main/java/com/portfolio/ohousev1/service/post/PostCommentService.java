@@ -1,7 +1,6 @@
 package com.portfolio.ohousev1.service.post;
 
 import com.portfolio.ohousev1.dto.Comment.PostCommentDto;
-import com.portfolio.ohousev1.dto.Comment.PostWithCommentDto;
 import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.Post;
 import com.portfolio.ohousev1.entity.PostComment;
@@ -25,14 +24,24 @@ public class PostCommentService {
     private final PostCommentRepository postCommentRepository;
     private  final MemberRepository memberRepository;
 
-    public List<PostCommentDto> searchPostComments(Long post_no){
+    public List<PostCommentDto> searchPostComments( Long post_no){
         return postCommentRepository.findByPost_Id(post_no)
                 .stream()
                 .map(PostCommentDto::from).toList();
     }
     @Transactional
-    public  void savePostComment(PostCommentDto dto){
+    public void savePostComment(PostCommentDto dto){
         try {
+            Long postId = dto.post_no();
+            if (postId == null) {
+                log.warn("댓글 저장 실패. postId가 null입니다.");
+
+            }
+
+            String email = dto.memberDto().email();
+            if (email == null) {
+                log.warn("댓글 저장 실패. email이 null입니다.");
+            }
             Post post = postRepository.getReferenceById(dto.post_no());
             Member member = memberRepository.getReferenceById(dto.memberDto().email());
             PostComment postComment = dto.toEntity(post, member);

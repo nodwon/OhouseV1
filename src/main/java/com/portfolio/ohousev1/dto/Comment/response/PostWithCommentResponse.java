@@ -13,7 +13,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public record PostWithCommentResponse(
-        Long post_no,
+        Long postId,
         String title,
         String content,
         LocalDateTime created_at,
@@ -24,8 +24,8 @@ public record PostWithCommentResponse(
         Set<PostCommentResponse> postCommentResponse
 ) {
 
-    public static PostWithCommentResponse of( Long post_no, String title, String content, LocalDateTime created_at, LocalDateTime modified_at, String email, String nickname, String name,Set<PostCommentResponse> postCommentResponse){
-        return new PostWithCommentResponse(post_no, title, content, created_at, modified_at, email, nickname, name, postCommentResponse);
+    public static PostWithCommentResponse of( Long postId, String title, String content, LocalDateTime created_at, LocalDateTime modified_at, String email, String nickname, String name,Set<PostCommentResponse> postCommentResponse){
+        return new PostWithCommentResponse(postId, title, content, created_at, modified_at, email, nickname, name, postCommentResponse);
     }
     public  static PostWithCommentResponse from(PostWithCommentDto dto){
         String nickname = dto.memberDto().nickname();
@@ -34,7 +34,7 @@ public record PostWithCommentResponse(
         }
 
         return  new PostWithCommentResponse(
-                dto.post_no(),
+                dto.postId(),
                 dto.title(),
                 dto.content(),
                 dto.createdAt(),

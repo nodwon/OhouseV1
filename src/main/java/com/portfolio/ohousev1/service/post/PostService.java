@@ -42,10 +42,10 @@ public class PostService {
         return postRepository.findAll(pageable).map(PostDto::from);
     }
 
-    public PostWithCommentDto getPostWithComments(Long post_no){
-        return postRepository.findById(post_no)
+    public PostWithCommentDto getPostWithComments(Long postId){
+        return postRepository.findById(postId)
                 .map(PostWithCommentDto::from)
-                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 -post-no" + post_no));
+                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 -postId" + postId));
     }
 
     public PostDto getPost(Long postId) {

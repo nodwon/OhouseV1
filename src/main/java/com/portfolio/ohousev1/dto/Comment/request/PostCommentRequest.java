@@ -2,6 +2,7 @@ package com.portfolio.ohousev1.dto.Comment.request;
 
 import com.portfolio.ohousev1.dto.Comment.PostCommentDto;
 import com.portfolio.ohousev1.dto.member.MemberDto;
+import com.portfolio.ohousev1.entity.Post;
 
 public record PostCommentRequest(
         Long post_no,
