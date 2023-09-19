@@ -11,11 +11,12 @@ public record PostsResponse(
         String title,
         String content,
         String nickname,
+        String email,
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static PostsResponse of(Long id, Long memberNo,String title, String content,  String nickname,LocalDateTime createdAt,LocalDateTime modifiedAt) {
-        return new PostsResponse(id, memberNo,title, content, nickname,createdAt, modifiedAt);
+    public static PostsResponse of(Long id, Long memberNo,String title, String content,String email,  String nickname,LocalDateTime createdAt,LocalDateTime modifiedAt) {
+        return new PostsResponse(id, memberNo,title, content, nickname,email,createdAt, modifiedAt);
     }
 
     public static PostsResponse from(PostDto dto) {
@@ -27,6 +28,7 @@ public record PostsResponse(
                 dto.title(),
                 dto.content(),
                 nickname,
+                dto.memberDto().toEntity().getEmail(),
                 //                dto.img_path(),
                 dto.createdAt(),
                 dto.modifiedAt()

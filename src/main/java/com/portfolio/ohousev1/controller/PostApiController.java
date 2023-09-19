@@ -21,6 +21,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import java.net.URI;
 import java.util.List;
@@ -33,6 +35,7 @@ public class PostApiController {
     private final PostService postService;
 
     private final PaginationService paginationService;
+
 
     @GetMapping("/myPage")
     public  String posts(

@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/comments")
@@ -26,10 +23,13 @@ public class PostCommentController {
         return "redirect:/posts/" + postCommentRequest.post_no();
     }
 
-    public String deletePostComment(@PathVariable Long commentId, @AuthenticationPrincipal PostPrincipal postPrincipal, Long post_no){
+    @DeleteMapping("/delete/{commentId}/post_no/{postNo}")
+    public String deletePostComment(@PathVariable Long commentId,
+                                    @PathVariable Long postNo,
+                                    @AuthenticationPrincipal PostPrincipal postPrincipal){
         postCommentService.deletePostComment(commentId, postPrincipal.getUsername());
 
-        return "redirect:/posts/" + post_no;
+        return "redirect:/posts/" + postNo;
     }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/header :: header}"></div>
 <body>
 <div class="container">
@@ -19,21 +19,20 @@
             <!-- CSRF 토큰 필드 추가 -->
             <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
             <!-- 수정 버튼 -->
-            <a class="btn btn-primary" href="#" role="button"
+
+            <a sec:authorize="isAuthenticated()"
+               th:if="${#authentication.getName() == post.email()}"
+               class="btn btn-primary" href="#" role="button"
                th:href="@{/posts/{id}/update(id=${post.postId})}">수정
-                <!-- th:if="${post.memberNo == session.getAttribute('userId')}" -->
             </a>
 
             <!-- 삭제 버튼 -->
-            <a data-postid="${post.postId}" href="#" id="deleteButton">
-                <!-- th:if="${post.memberNo == session.getAttribute('userId')}" -->
+            <a sec:authorize="isAuthenticated()"
+               th:if="${#authentication.getName() == post.email()}"
+               data-postid="${post.postId}" href="#" id="deleteButton">
                 <button style="background-color: red; color: white" type="submit">삭제</button>
             </a>
 
-            <!-- 취소 버튼 -->
-            <a href="/">
-                <button type="button">취소</button>
-            </a>
         </div>
     </section>
     <section class="commentALL">
@@ -50,7 +49,7 @@
                 <!-- post_no 설정 -->
                 <input type="hidden" name="post_no" th:value="${post.postId()}" /> <!-- 예시로 1로 설정, 실제 데이터에 따라 변경하세요 -->
                 <!-- parent_comment_id 설정 -->
-                <input type="hidden" name="parent_comment_id" th:value="${parentCommentId}" /> <!-- 예시로 2로 설정, 부모 댓글 ID에 따라 변경하세요 -->
+<!--                <input type="hidden" name="parent_comment_id" th:value="${parentCommentId}" /> &lt;!&ndash; 예시로 2로 설정, 부모 댓글 ID에 따라 변경하세요 &ndash;&gt;-->
                 <div class="comment-row">
                     <div class="comment-nickname">사용자1:</div>
                     <input class="content" id="content" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다." type="text" />
@@ -68,7 +67,10 @@
                     <div class="comment-actions">
                         <a href="#">좋아요</a>
                         <a href="#">답글 달기</a>
-                        <a href="#">신고</a>
+                        <div class="comment-actions" sec:authorize="isAuthenticated()"
+                             th:if="${#authentication.getName() == comment.email()}">
+                            <a href="#" th:href="@{'/comments/delete/' + ${comment.id} + '/post_no/' + ${post.postId()}}" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
+                        </div>
                     </div>
                 </div>
             </div>

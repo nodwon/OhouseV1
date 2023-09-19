@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/header :: header}"></div>
 <body>
 <main class="container">
@@ -19,8 +19,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="posts, loop : ${Posts}">
-                <!--                <td th:text="${loop.count}"></td>-->
+            <tr th:each="posts, loop : ${Posts}" sec:authorize="isAuthenticated()"
+                th:if="${#authentication.getName() == posts.email}">
                 <td th:text="${posts.postNo}"></td>
                 <td>
                     <a th:text="${posts.title}" th:href="@{'/posts/' + ${posts.postNo}}">게시물 보기</a>
