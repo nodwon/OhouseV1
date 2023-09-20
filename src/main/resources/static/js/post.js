@@ -1,10 +1,8 @@
-import axios from 'axios';
-
 // Form 클래스를 export 합니다.
 export class Form {
     constructor() {
         // 폼 데이터를 가져오는 메서드로 변경합니다.
-        this.savePost = this.getFormData;
+        this.savePost = this.savePost;
 
         // 삭제 버튼 클릭 이벤트 처리 메서드로 변경합니다.
         this.deletePost = this.handleDeleteButtonClick;
@@ -12,7 +10,6 @@ export class Form {
 
     // 폼 데이터를 가져오는 메서드
     savePost() {
-        // title과 content 필드의 값을 가져옵니다.
         let title = $("#title").val();
         let content = $("#content").val();
 
@@ -22,20 +19,26 @@ export class Form {
             content: content
             // 다른 필드도 추가해야 할 수 있습니다.
         };
+        $("#post-form").on("submit", function (e) {
+            e.preventDefault(); // 기본 동작 막기
+            // title과 content 필드의 값을 가져옵니다.
+            // 게시물 저장 요청을 보냅니다.
+            debugger
+            $.ajax({
+                url: '/posts',
+                type: 'POST',
+                data: $(this).serialize(), // 폼 데이터 직렬화
+                success: function (data) {
 
-        // 게시물 저장 요청을 보냅니다.
-        axios.post('/posts', JSON.stringify(data), {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        }).then((res) => {
-            if (res.status === 201) {
-                // 게시물 저장 성공 시 메인 페이지로 이동합니다.
-                window.location.href = '/';
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
+                        location.href = '/';
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error(errorThrown);
+                }
+            });
+
+            });
     }
 
     // 삭제 버튼 클릭 이벤트 처리 메서드

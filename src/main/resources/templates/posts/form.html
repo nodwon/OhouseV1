@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/header :: header}"></div>
+<script type="module" src="/js/post.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <body>
 <div class="container">
     <header class="py-5 text-center" id="post header">
@@ -23,7 +27,7 @@
         </div>
         <div class="row mb-5 justify-content-md-center">
             <div class="col-sm-10 d-grid gap-2 d-sm-flex justify-content-sm-end">
-                <button class="btn btn-primary" id="submit-button" type="submit" onclick="savePost()">저장</button>
+                <button class="btn btn-primary" id="submit-button" type="submit" onclick="savePost()" >저장</button>
                 <button class="btn btn-secondary" id="cancel-button" type="button" href="/">취소</button>
             </div>
         </div>
@@ -31,4 +35,37 @@
 </div>
 </body>
 <div th:replace="~{fragments/footer :: footer}"/>
+<script>
+    function      savePost() {
+        let title = $("#title").val();
+        let content = $("#content").val();
+        console.log("JavaScript 파일이 실행되었습니다.");
+
+        // 데이터 객체 생성
+        let data = {
+            title: title,
+            content: content
+            // 다른 필드도 추가해야 할 수 있습니다.
+        };
+        $("#post-form").on("submit", function (e) {
+            e.preventDefault(); // 기본 동작 막기
+            // title과 content 필드의 값을 가져옵니다.
+            // 게시물 저장 요청을 보냅니다.
+            $.ajax({
+                url: '/posts',
+                type: 'POST',
+                data: $(this).serialize(), // 폼 데이터 직렬화
+                success: function (data) {
+
+                    location.href = '/';
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error(errorThrown);
+                }
+            });
+
+        });
+    }
+</script>
 </html>
