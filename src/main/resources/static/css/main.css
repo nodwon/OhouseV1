@@ -199,3 +199,56 @@ div.flap1 {
 div.flap2 {
     transition: all 0.3s 0.2s ease-out;
 }
+.comment-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-actions a {
+    color: black;
+    text-decoration: none;
+    margin-right: 10px; /* 링크 사이의 간격을 조절할 수 있습니다. */
+}
+.commentlist {
+    display: flex; /* Flexbox 레이아웃 사용 */
+    justify-content: space-between; /* 요소 간의 간격을 동일하게 설정 */
+    align-items: center; /* 요소를 수직 중앙에 정렬 */
+    font-size: 15px; /* 글자 크기 설정 (1rem은 기본 크기) */
+}
+
+. commentlist comment-id {
+    flex: 1; /* 남은 공간을 모두 차지 */
+}
+
+. commentlist comment-text {
+    flex: 8; /* 남은 공간의 8배 크기 */
+}
+
+. commentlist comment-time {
+    flex: 1; /* 남은 공간을 모두 차지 */
+}
+.comment-row {
+    display: flex; /* Flexbox 레이아웃 사용 */
+    justify-content: space-between; /* 요소 간의 간격을 동일하게 설정 */
+    align-items: center; /* 요소를 수직 중앙에 정렬 */
+    font-size: 1rem; /* 글자 크기 설정 (1rem은 기본 크기) */
+}
+
+. comment-row comment-nickname {
+    flex: 1; /* 남은 공간을 모두 차지 */
+}
+
+. comment-row content {
+    flex: 8; /* 남은 공간의 8배 크기 */
+}
+
+.comment-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-actions a {
+    color: black;
+    text-decoration: none;
+    margin-right: 10px; /* 링크 사이의 간격을 조절할 수 있습니다. */
+}

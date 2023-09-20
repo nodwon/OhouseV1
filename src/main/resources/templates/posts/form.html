@@ -23,7 +23,7 @@
         </div>
         <div class="row mb-5 justify-content-md-center" id="app">
             <div class="col-sm-10 d-grid gap-2 d-sm-flex justify-content-sm-end">
-                <button class="btn btn-primary" id="submit-button" type="submit" onclick="savePost()">저장</button>
+                <button class="btn btn-primary" id="submit-button" type="submit" v-on:click="savePost()">저장</button>
                 <button class="btn btn-secondary" id="cancel-button" type="button" href="/">취소</button>
             </div>
         </div>
@@ -31,4 +31,5 @@
 </div>
 </body>
 <div th:replace="~{fragments/footer :: footer}"/>
+
 </html>
