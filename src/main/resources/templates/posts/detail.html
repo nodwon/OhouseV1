@@ -2,6 +2,9 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/header :: header}"></div>
 <body>
+<div id="app">
+    <post-form></post-form>
+</div>
 <div class="container">
     <header class="py-5 text-center" id="post-header">
         <h1 th:text="${post.title}"></h1>
@@ -47,7 +50,7 @@
             <form id="comment-form" role="form" th:action="@{/comments/new}" method="post" th:object="${PostCommentRequest}">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 <!-- post_no 설정 -->
-                <input type="hidden" name="post_no" th:value="${post.postId()}" /> <!-- 예시로 1로 설정, 실제 데이터에 따라 변경하세요 -->
+                <input type="hidden" name="post_no" th:value="${post.postId()}" />
                 <!-- parent_comment_id 설정 -->
 <!--                <input type="hidden" name="parent_comment_id" th:value="${parentCommentId}" /> &lt;!&ndash; 예시로 2로 설정, 부모 댓글 ID에 따라 변경하세요 &ndash;&gt;-->
                 <div class="comment-row">
