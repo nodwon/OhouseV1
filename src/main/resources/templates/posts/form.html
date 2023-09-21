@@ -3,7 +3,6 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <script type="module" src="/js/detail.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/js/detail.js"></script>
 <body>
 <div class="container">
     <header class="py-5 text-center" id="post header">
@@ -36,18 +35,4 @@
 </div>
 </body>
 <div th:replace="~{fragments/footer :: footer}"/>
-<script>
-    new Vue({
-        el: '#app',
-        methods: {
-            savePost() {
-                // Assuming you want to redirect to '/'
-                location.href = '/';
-            },
-            cancelPost() {
-                // Handle cancel logic if needed
-            }
-        }
-    });
-</script>
 </html>

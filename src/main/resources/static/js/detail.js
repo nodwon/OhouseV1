@@ -10,19 +10,26 @@ class Detail {
     }
 
     saveEvent() {
+        function getCsrfToken() {
+            return $('#csrf-token').val();
+        }
+        const csrfToken = getCsrfToken();
+
         $('#submit-button').on('click', (e) => {
             e.preventDefault(); // 기본 동작 중단
-            let title = $('#title').val();
+                let title = $('#title').val();
             let content = $('#content').val();
             const data = {
                 title: title,
                 content: content,
             };
             debugger
-
             $.ajax({
                 type: 'POST',
                 url: '/posts',
+                headers:{
+                    'X-CSRF-TOKEN': csrfToken, // CSRF 토큰을 헤더에 추가
+                },
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
@@ -33,6 +40,7 @@ class Detail {
                 alert(JSON.stringify(error));
             });
             console.log(data);
+
         });
     }
 
