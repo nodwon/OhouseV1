@@ -23,8 +23,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponents;
 
 import java.net.URI;
 import java.util.List;
@@ -75,21 +73,21 @@ public class PostApiController {
     }
 
     //게시글 등록 나중에 고치기
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping
-//    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
-//        Long result = postService.savePost(request.toDto(postPrincipal.toDto()));
-//
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(result);
-//    }
     @PreAuthorize("isAuthenticated()")
     @PostMapping
-    public String newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
-         postService.savePost(request.toDto(postPrincipal.toDto()));
+    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
+        Long result = postService.savePost(request.toDto(postPrincipal.toDto()));
 
-        return "fragments/main";
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(result);
     }
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping
+//    public String newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
+//         postService.savePost(request.toDto(postPrincipal.toDto()));
+//
+//        return "fragments/main";
+//    }
 
 
     // 게시글 업데이트 form 가져오기

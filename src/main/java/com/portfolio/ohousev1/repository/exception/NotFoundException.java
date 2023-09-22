@@ -1,4 +1,4 @@
-package com.portfolio.ohousev1.exception;
+package com.portfolio.ohousev1.repository.exception;
 
 public class NotFoundException extends RuntimeException {
     public <T> NotFoundException(Class<T> type, String message)  {

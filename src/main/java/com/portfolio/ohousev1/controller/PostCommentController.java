@@ -23,7 +23,7 @@ public class PostCommentController {
         return "redirect:/posts/" + postCommentRequest.post_no();
     }
 
-    @DeleteMapping("/delete/{commentId}")
+    @DeleteMapping("/{commentId}/delete")
     public String deletePostComment(@PathVariable Long commentId,
                                     @PathVariable Long postNo,
                                     @AuthenticationPrincipal PostPrincipal postPrincipal){
