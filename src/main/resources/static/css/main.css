@@ -209,24 +209,35 @@ div.flap2 {
     text-decoration: none;
     margin-right: 10px; /* 링크 사이의 간격을 조절할 수 있습니다. */
 }
-.commentlist {
-    display: flex; /* Flexbox 레이아웃 사용 */
-    justify-content: space-between; /* 요소 간의 간격을 동일하게 설정 */
-    align-items: center; /* 요소를 수직 중앙에 정렬 */
-    font-size: 15px; /* 글자 크기 설정 (1rem은 기본 크기) */
-}
 
-. commentlist comment-id {
-    flex: 1; /* 남은 공간을 모두 차지 */
-}
+
+
 
 . commentlist comment-text {
     flex: 8; /* 남은 공간의 8배 크기 */
 }
 
-. commentlist comment-time {
-    flex: 1; /* 남은 공간을 모두 차지 */
+.small-button {
+    margin: 5px;
+    background: none; /* 배경 없음 */
+    border: none; /* 테두리 없음 */
+    color: gray; /* 원하는 텍스트 색상 지정 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 (클릭 가능한 요소 표시) */
 }
+
+/* small 요소에 스타일 적용 */
+.small-button small {
+    font-size: 12px; /* 원하는 폰트 크기로 조정 */
+    /* 다른 스타일 속성도 추가 가능 */
+}
+
+
+/* reply-button 스타일 */
+.small-button #reply-button {
+    font-size: 14px; /* 원하는 폰트 크기로 조정 */
+    /* 다른 스타일 속성도 추가 가능 */
+}
+
 .comment-row {
     display: flex; /* Flexbox 레이아웃 사용 */
     justify-content: space-between; /* 요소 간의 간격을 동일하게 설정 */
@@ -251,4 +262,35 @@ div.flap2 {
     color: black;
     text-decoration: none;
     margin-right: 10px; /* 링크 사이의 간격을 조절할 수 있습니다. */
+}
+
+/* style.css */
+
+/* 기본 스타일 */
+.like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+#like-icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px; /* 하트 아이콘과 텍스트 간격 조절 (원하는 크기 및 간격으로 조절 가능) */
+}
+
+/* 하트 아이콘 스타일 (기본 상태) */
+.heart-empty::before {
+    content: "\2661"; /* 하트 모양의 유니코드 문자 (빈 하트) */
+    font-size: 12px; /* 아이콘 크기 설정 */
+    color: gray; /* 빈 하트 색상 설정 */
+}
+
+/* 하트 아이콘 스타일 (선택된 상태) */
+.heart-filled::before {
+    content: "\2665"; /* 하트 모양의 유니코드 문자 (채워진 하트) */
+    font-size: 12px; /* 아이콘 크기 설정 */
+    color: blue; /* 채워진 하트 색상 설정 */
 }

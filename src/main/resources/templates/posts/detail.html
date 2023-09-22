@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/header :: header}"></div>
+<script src="/js/detail.js"></script>
 <body>
-<div id="app">
-    <post-form></post-form>
-</div>
+
 <div class="container">
     <header class="py-5 text-center" id="post-header">
         <h1 th:text="${post.title}"></h1>
     </header>
     <section>
         <div style="text-align: right;">
-            <p id="created">생성일자: <span th:text="${post.created_at}">게시물 생성일자</span></p>
+            <p id="created">생성일자: <span th:text="${#temporals.format(post.created_at, 'yy')}">게시물 생성일자</span></p>
             <p id="nickname">닉네임: <span th:text="${post.nickname}">게시물 작성자 닉네임</span></p>
             <p id="count">조회수: <span th:text="${totalCount}">게시물 조회수</span></p>
         </div>
@@ -23,16 +22,16 @@
             <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
             <!-- 수정 버튼 -->
 
-            <a sec:authorize="isAuthenticated()"
-               th:if="${#authentication.getName() == post.email()}"
-               class="btn btn-primary" href="#" role="button"
-               th:href="@{/posts/{id}/update(id=${post.postId})}">수정
+            <a class="btn btn-primary"
+               href="#"
+               role="button" sec:authorize="isAuthenticated()" th:href="@{/posts/{id}/update(id=${post.postId})}"
+               th:if="${#authentication.getName() == post.email()}">수정
             </a>
 
             <!-- 삭제 버튼 -->
-            <a sec:authorize="isAuthenticated()"
-               th:if="${#authentication.getName() == post.email()}"
-               data-postid="${post.postId}" href="#" id="deleteButton">
+            <a data-postid="${post.postId}"
+               href="#"
+               id="deleteButton" sec:authorize="isAuthenticated()" th:if="${#authentication.getName() == post.email()}">
                 <button style="background-color: red; color: white" type="submit">삭제</button>
             </a>
 
@@ -47,36 +46,70 @@
         <!-- 댓글 입력 및 목록 -->
         <div class="container">
             <!-- 댓글 입력 form -->
-            <form id="comment-form" role="form" th:action="@{/comments/new}" method="post" th:object="${PostCommentRequest}">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <form id="comment-form" method="post" role="form" th:action="@{/comments/new}"
+                  th:object="${PostCommentRequest}">
+                <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
                 <!-- post_no 설정 -->
-                <input type="hidden" name="post_no" th:value="${post.postId()}" />
+                <input name="post_no" th:value="${post.postId()}" type="hidden"/>
                 <!-- parent_comment_id 설정 -->
-<!--                <input type="hidden" name="parent_comment_id" th:value="${parentCommentId}" /> &lt;!&ndash; 예시로 2로 설정, 부모 댓글 ID에 따라 변경하세요 &ndash;&gt;-->
+                <!--                <input type="hidden" name="parent_comment_id" th:value="${parentCommentId}" /> &lt;!&ndash; 예시로 2로 설정, 부모 댓글 ID에 따라 변경하세요 &ndash;&gt;-->
                 <div class="comment-row">
                     <div class="comment-nickname" th:text="${post.nickname()}"></div>
-                    <input class="content" id="content" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다." type="text" />
+                    <input class="content" id="content" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다."
+                           type="text"/>
                     <button class="btn btn-primary" id="submit-button" type="submit">입력</button>
                 </div>
             </form>
 
 
-            <!-- 댓글 목록 -->
-            <div th:each="comment, iterStat : ${postComments}" style="padding-bottom: 40px;">
+            <!-- Parent Comments -->
+            <div style="padding-bottom: 40px;" th:each="parentComment, iterStat : ${postComments}">
                 <div class="commentlist">
-                    <span class="comment-id" th:text="${comment.nickname}"></span>
-                    <span class="comment-text" th:text="${comment.content}"></span>
-                    <span class="comment-time" th:text="${comment.createdAt}"></span>
-                </div>
-                    <div class="comment-actions">
-                        <a href="#">좋아요</a>
-                        <a href="#">답글 달기</a>
-                        <div class="comment-actions" sec:authorize="isAuthenticated()"
-                             th:if="${#authentication.getName() == comment.email()}">
-                            <a href="#" th:href="@{'/comments/delete/' + ${comment.id} + '/post_no/' + ${post.postId()}}" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a>
-                        </div>
+                    <div class="comment-id" th:text="${parentComment.nickname}"></div>
+                    <div class="comment-text" th:text="${parentComment.content}"></div>
+                    <div class="small-button">
+                        <small id="parentCreateAt"><time class="comment-time" th:text="${#temporals.format(parentComment.createdAt, 'mm')}">분전</time></small>
+                        <span class="like-button" id="like-button" onclick="likeEvent()">
+                            <span id="like-icon" class="heart-empty"></span> <!-- 하트 아이콘 -->
+                            <span id="like-text">좋아요</span>
+                        </span>
+                        <span data-target="#replyForm${iterStat.index}" data-toggle="collapse" id="reply-button" type="button">답글 달기</span>
                     </div>
-            </div>
+
+
+                </div>
+                <!-- Child Comments -->
+                <ul th:if="${parentComment.childComments}">
+                    <div class="comment-actions" sec:authorize="isAuthenticated()"
+                         th:each="childComment : ${parentComment.childComments}"
+                         th:if="${#authentication.getName() == parentComment.email()}">
+                        <strong th:text="${childComment.nickname}"></strong>
+                        <span th:text="${childComment.content}"></span>
+                        <small>
+                            <time th:datetime="${childComment.createdAt}">분전</time>
+                        </small>
+                        <p>
+                            <!-- 삭제 버튼 -->
+                            <button class="btn btn-outline-danger" onclick="return confirm('정말로 삭제하시겠습니까?')"
+                                    th:action="'/comments/' + ${childComment.id} + '/delete'"
+                                    th:method="post" type="submit">삭제
+                            </button>
+                        </p>
+                    </div>
+                </ul>
+                <!-- 답글 입력 폼 -->
+                <div class="collapse" id="replyForm${iterStat.index}">
+                    <form class="comment-form">
+                        <input class="article-id" type="hidden">
+                        <input class="parent-comment-id" th:value="${parentComment.id}" type="hidden">
+                        <textarea class="form-control comment-textbox" placeholder="답글 쓰기.." required
+                                  rows="2"></textarea>
+                        <button class="form-control btn btn-primary mt-2" type="submit">쓰기</button>
+                    </form>
+                </div>
+            </di>
+
+        </div>
         </div>
     </section>
 </div>

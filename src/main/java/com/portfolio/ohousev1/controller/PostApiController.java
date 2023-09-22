@@ -74,14 +74,21 @@ public class PostApiController {
 
     }
 
-    //게시글 등록
+    //게시글 등록 나중에 고치기
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping
+//    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
+//        Long result = postService.savePost(request.toDto(postPrincipal.toDto()));
+//
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .body(result);
+//    }
     @PreAuthorize("isAuthenticated()")
     @PostMapping
-    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
-        Long result = postService.savePost(request.toDto(postPrincipal.toDto()));
+    public String newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
+         postService.savePost(request.toDto(postPrincipal.toDto()));
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(result);
+        return "fragments/main";
     }
 
 
@@ -97,22 +104,34 @@ public class PostApiController {
 
 
     //게시글 업데이트
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/{postId}/update")
+//    public ResponseEntity<Long> updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
+//                                           @ModelAttribute PostsRequest postsRequest) {
+//
+//        Long result = postService.updatePost(postId, postsRequest.toDto(postPrincipal.toDto()));
+//
+//        return ResponseEntity.status(HttpStatus.ACCEPTED)
+//                .body(result);
+//    }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{postId}/update")
-    public ResponseEntity<Long> updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
+    public String updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
                                            @ModelAttribute PostsRequest postsRequest) {
 
-        Long result = postService.updatePost(postId, postsRequest.toDto(postPrincipal.toDto()));
+        postService.updatePost(postId, postsRequest.toDto(postPrincipal.toDto()));
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(result);
+        return "fragments/main";
     }
-
     //게시글 삭제
+//    @DeleteMapping("/{postId}/delete")
+//    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
+//        postService.deletePost(postId, postPrincipal.email());
+//        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+//    }
     @DeleteMapping("/{postId}/delete")
-    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
+    public void deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
         postService.deletePost(postId, postPrincipal.email());
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
     //게시글 페이지 조회
     // 게시글 조회
