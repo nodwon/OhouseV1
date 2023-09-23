@@ -47,7 +47,7 @@
                 <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
                 <button class="btn btn-primary" href="/" type="submit">로그인</button>
                 <p class="message">아직 가입하지 않으셨나요? <a class="signup" th:href="@{/signup}">회원가입</a></p>
-                <a class="btn-login join_btn btn_click" id="kakao-login-btn">
+                <a class="btn-login join_btn btn_click" id="kakao-login-btn" href="/oauth2/autorization/kakao">
                     <img alt="카카오" src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"
                          style="max-width: 40%; height: auto;">
                 </a>
