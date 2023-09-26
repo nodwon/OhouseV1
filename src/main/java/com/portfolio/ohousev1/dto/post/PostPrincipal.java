@@ -1,18 +1,17 @@
 package com.portfolio.ohousev1.dto.post;
 
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.portfolio.ohousev1.dto.member.MemberDto;
 import com.portfolio.ohousev1.entity.constant.RoleType;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,11 +21,18 @@ public record PostPrincipal(
         Collection<? extends GrantedAuthority> authorities,
         String name,
         String nickname,
-        LocalDate birthday
-)implements UserDetails {
+        LocalDate birthday,
+        Map<String, Object> oAuth2Attributes
+
+) implements UserDetails, OAuth2User {
+
+    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public static PostPrincipal of(String email, String Password, String name, String nickname, LocalDate birthday) {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return of(email, Password, name, nickname, birthday, Map.of());
+    }
+
+    public static PostPrincipal of(String email, String Password, String name, String nickname, LocalDate birthday, Map<String, Object> oAuth2Attributes) {
         String encodePassword = passwordEncoder.encode(Password); // 비밀번호 해싱
         Set<RoleType> roleTypes = Set.of(RoleType.USER);
         return new PostPrincipal(
@@ -38,11 +44,12 @@ public record PostPrincipal(
                         .collect(Collectors.toList()),
                 name,
                 nickname,
-                birthday
+                birthday,
+                oAuth2Attributes
         );
     }
 
-    public static PostPrincipal from(MemberDto dto){
+    public static PostPrincipal from(MemberDto dto) {
         return PostPrincipal.of(
                 dto.email(),
                 dto.Password(),
@@ -51,7 +58,18 @@ public record PostPrincipal(
                 dto.birthday()
         );
     }
-    public MemberDto toDto(){
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return oAuth2Attributes;
+    }
+
+    @Override
+    public String getName() {
+        return email;
+    }
+
+    public MemberDto toDto() {
         return MemberDto.of(
                 email,
                 Password,
@@ -60,6 +78,7 @@ public record PostPrincipal(
                 birthday
         );
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -94,6 +113,5 @@ public record PostPrincipal(
     public boolean isEnabled() {
         return true;
     }
-    private  static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 }

@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
@@ -24,6 +25,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    private final OAuth2UserService oAuth2UserService;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,28 +35,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-//        http
-//                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-//                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-//                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-//                .csrf((csrf) -> csrf
-//                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-//                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mysql/**")))
-//                .headers((headers) -> headers
-//                        .addHeaderWriter(new XFrameOptionsHeaderWriter(
-//                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations(),
-                                new AntPathRequestMatcher("/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/posts")).authenticated()) // /posts 엔드포인트에 대한 인증 필요
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers(new AntPathRequestMatcher("/mysql/**")))
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mysql/**")))
                 .headers((headers) -> headers
-                        .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
-
+                        .addHeaderWriter(new XFrameOptionsHeaderWriter(
+                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
         // login 설정
+        http
+                .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
+                        .loginPage("/login")
+                        .userInfoEndpoint()
+                        .userService(oAuth2UserService));
+
         http
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/login")
@@ -70,6 +68,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
     @Bean
     public UserDetailsService userDetailsService(MemberService memberService) {
         return email -> memberService

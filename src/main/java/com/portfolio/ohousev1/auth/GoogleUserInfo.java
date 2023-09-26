@@ -1,0 +1,49 @@
+package com.portfolio.ohousev1.auth;
+
+import java.util.Map;
+
+public class GoogleUserInfo implements  OAuth2UserInfo{
+
+    private final Map<String, Object> attributes;
+
+    public GoogleUserInfo(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public String getProviderId() {
+        return attributes.get("sub").toString();
+    }
+
+    @Override
+    public String getProvider() {
+        return "google";
+    }
+
+    @Override
+    public String getEmail() {
+        return attributes.get("email").toString();
+    }
+
+    @Override
+    public String getName() {
+        return attributes.get("name").toString();
+    }
+
+    @Override
+    public String getNickname() {
+        return attributes.get("nickname").toString();    }
+
+    @Override
+    public String getBirthday() {
+        return attributes.get("birthday").toString();
+    }
+    @Override
+    public String getBirthdayYear() {
+        return attributes.get("birthyear").toString();
+    }
+}
