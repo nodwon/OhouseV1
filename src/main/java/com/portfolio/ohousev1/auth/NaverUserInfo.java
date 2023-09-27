@@ -43,14 +43,7 @@ public class NaverUserInfo implements OAuth2UserInfo{
         return attributes.get("nickname").toString();
     }
 
-    @Override
-    public String getBirthday() {
-        return attributes.get("birthday").toString();
-    }
 
-    @Override
-    public String getBirthdayYear() {
-        return attributes.get("birthyear").toString();
-    }
+
 
 }

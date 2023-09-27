@@ -7,17 +7,20 @@ import java.time.LocalDateTime;
 
 
 public record MemberDto (
-     String email,
-     String Password,
-     String name,
-     String nickname,
-     LocalDate birthday,
-     LocalDateTime createdAt,
-     LocalDateTime modifiedAt
+        String email,
+        String Password,
+        String name,
+        String nickname,
+        LocalDate birthday,
+        LocalDateTime createdAt,
+        LocalDateTime modifiedAt
 )
 {
-    public  static MemberDto of(String email,String Password, String name, String nickname,LocalDate birthday){
+    public  static MemberDto of(String email, String Password, String name, String nickname, LocalDate birthday){
         return new MemberDto(email,Password,name,nickname,birthday,null,null);
+    }
+    public  static MemberDto of(String email, String Password, String nickname){
+        return new MemberDto(email,Password,null,nickname,null,null,null);
     }
     public  static MemberDto of(String email,String Password, String name, String nickname,LocalDate birthday, LocalDateTime createdAt, LocalDateTime modifiedAt){
         return new MemberDto(email,Password,name,nickname,birthday,createdAt,modifiedAt);

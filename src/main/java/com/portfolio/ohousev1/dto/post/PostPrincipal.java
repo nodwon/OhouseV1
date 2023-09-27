@@ -29,7 +29,7 @@ public record PostPrincipal(
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public static PostPrincipal of(String email, String Password, String name, String nickname, LocalDate birthday) {
-        return of(email, Password, name, nickname, birthday, Map.of());
+        return PostPrincipal.of(email, Password, name, nickname, birthday, Map.of());
     }
 
     public static PostPrincipal of(String email, String Password, String name, String nickname, LocalDate birthday, Map<String, Object> oAuth2Attributes) {

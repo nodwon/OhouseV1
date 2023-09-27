@@ -11,9 +11,6 @@ public interface OAuth2UserInfo {
 
     String getNickname();
 
-    String getBirthday();
-
-    String getBirthdayYear();
 
 
 }

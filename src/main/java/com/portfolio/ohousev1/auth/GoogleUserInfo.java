@@ -38,12 +38,5 @@ public class GoogleUserInfo implements  OAuth2UserInfo{
     public String getNickname() {
         return attributes.get("nickname").toString();    }
 
-    @Override
-    public String getBirthday() {
-        return attributes.get("birthday").toString();
-    }
-    @Override
-    public String getBirthdayYear() {
-        return attributes.get("birthyear").toString();
-    }
+
 }

@@ -37,10 +37,6 @@ public class Member extends AuditingFields{
     @Column
     private LocalDate birthday;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(nullable = false)
-//    private Role role;
-
     @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
@@ -59,32 +55,19 @@ public class Member extends AuditingFields{
         this.birthday = birthday;
     }
 
-    public Member(long member) {
-        super();
-    }
-
     public static Member of(String email, String password, String name, String nickname, LocalDate birthday) {
         return new Member(null,email,password,name,nickname,birthday,null,null);
     }
-
-    public Member update(String password){
-         this.Password =password;
-         return this;
-    }
-    public  Member update(String name, String nickname, String password){
+    public  Member update(String name, String nickname, String password,LocalDate birthday){
         this.name =name;
         this.nickname = nickname;
         this.Password = password;
-
+        this.birthday = birthday;
         return this;
     }
    public void setNickname(String name){
         this.nickname =name;
    }
-   public void setOauthAccessToken(String name){
-        this.nickname = name;
-   }
-
     public  static Member of(Long member_no, String email, String nickname, String password, String name, LocalDate birthday){
         return new Member(member_no, email, nickname,password,name,birthday,null,null);
     }

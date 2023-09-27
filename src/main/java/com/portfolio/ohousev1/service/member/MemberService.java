@@ -33,9 +33,7 @@ public class MemberService {
         if (Password.length() < 8) {
             throw new IllegalStateException("비밀번호가 8자이상이 아닙니다.");
         }
-        return MemberDto.from(
-                memberRepository.save(Member.of(email, Password, name, nickname, birthday))
-        );
+        return MemberDto.from(memberRepository.save(Member.of(email, Password, name, nickname, birthday)));
     }
 
 

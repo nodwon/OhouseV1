@@ -5,7 +5,6 @@ import com.portfolio.ohousev1.auth.KakaoUserInfo;
 import com.portfolio.ohousev1.auth.NaverUserInfo;
 import com.portfolio.ohousev1.auth.OAuth2UserInfo;
 import com.portfolio.ohousev1.dto.post.PostPrincipal;
-import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -15,8 +14,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Service
@@ -26,11 +23,9 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
 
     private final MemberService memberService;
-    private final MemberRepository memberRepository;
 
-    public OAuth2UserService(MemberService memberService, MemberRepository memberRepository) {
+    public OAuth2UserService(MemberService memberService) {
         this.memberService = memberService;
-        this.memberRepository = memberRepository;
     }
 
     @Override
@@ -44,30 +39,22 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
             case "naver" -> oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttributes());
             case "kakao" -> oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // nameAttributeKey
-        String providerId = oAuth2UserInfo.getProviderId();
+        String providerId = oAuth2UserInfo != null ? oAuth2UserInfo.getProviderId() : null;
         String name = provider + "_" + providerId;
         String dummyPassword = "{bcrypt}" + UUID.randomUUID();
-        String email = oAuth2UserInfo.getEmail();
+        String email = oAuth2UserInfo != null ? oAuth2UserInfo.getEmail() : null;
         String nickname = oAuth2UserInfo.getNickname();
-        String birthyear = oAuth2UserInfo.getBirthdayYear();
-        String brithdaymon = oAuth2UserInfo.getBirthday();
-        String brithdayAll = birthyear.concat(brithdaymon);
-        LocalDate birthday = LocalDate.parse(brithdayAll, formatter);
 
-        Member member = memberRepository.findMemberByEmail(email);
 
-        if (member == null) {
-            return memberService.searchEmail(email).map(PostPrincipal::from)
-                    .orElseGet(() -> PostPrincipal.from(memberService.saveMember(
-                            email,
-                            dummyPassword,
-                            name,
-                            nickname,
-                            birthday
-                    )));
-        } else return null;
+        return memberService.searchEmail(email).map(PostPrincipal::from)
+                .orElseGet(() -> PostPrincipal.from(memberService.saveMember(
+                        email,
+                        dummyPassword,
+                        name,
+                        nickname,
+                        null
+                )));
     }
 
 }

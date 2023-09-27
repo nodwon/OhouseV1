@@ -3,12 +3,14 @@ package com.portfolio.ohousev1.auth;
 import java.util.Map;
 
 public class KakaoUserInfo implements OAuth2UserInfo{
-    private final Map<String, Object> attributes; //OAuth2User.getAttributes();
-    private final Map<String, Object> attributesResponse;
+    private Map<String, Object> attributes;
+    private Map<String, Object> attributesAccount;
+    private Map<String, Object> attributesProfile;
 
     public KakaoUserInfo(Map<String, Object> attributes) {
-        this.attributes = (Map<String, Object>) attributes.get("kako_account");
-        this.attributesResponse = (Map<String, Object>) attributes.get("profile");
+        this.attributes = attributes;
+        this.attributesAccount = (Map<String, Object>) attributes.get("kakao_account");
+        this.attributesProfile = (Map<String, Object>) attributesAccount.get("profile");
     }
     @Override
     public Map<String, Object> getAttributes() {
@@ -17,13 +19,13 @@ public class KakaoUserInfo implements OAuth2UserInfo{
 
     @Override
     public String getProviderId() {
-        return attributesResponse.get("id").toString();
+        return attributes.get("id").toString();
 
     }
 
     @Override
     public String getProvider() {
-        return  "kakao";
+        return  "Kakao";
     }
 
 
@@ -42,12 +44,6 @@ public class KakaoUserInfo implements OAuth2UserInfo{
     public String getNickname() {
         return attributes.get("nickname").toString();    }
 
-    @Override
-    public String getBirthday() {
-        return attributes.get("birthday").toString();
-    }
-    @Override
-    public String getBirthdayYear() {
-        return attributes.get("birthyear").toString();
-    }
+
+
 }
