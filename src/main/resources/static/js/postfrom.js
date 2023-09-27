@@ -8,17 +8,15 @@ class postfrom {
         this.deleteEvent();
         // this.updateEvent(); // 필요한 경우 추가
     }
-
     saveEvent() {
-        function getCsrfToken() {
-            return $('#csrf-token').val();
-        }
-        const csrfToken = getCsrfToken();
 
         $('#submit-button').on('click', (e) => {
             e.preventDefault(); // 기본 동작 중단
             let title = $('#title').val();
             let content = $('#content').val();
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
+            debugger
             const data = {
                 title: title,
                 content: content,
@@ -26,8 +24,9 @@ class postfrom {
             $.ajax({
                 type: 'POST',
                 url: '/posts',
-                headers:{
-                    'X-CSRF-TOKEN': csrfToken, // CSRF 토큰을 헤더에 추가
+                beforeSend : function(xhr)
+                {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                    xhr.setRequestHeader(header, token);
                 },
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
@@ -37,6 +36,7 @@ class postfrom {
                 location.href = '/';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
+                console.error("ajax요청 실패")
             });
             console.log(data);
 

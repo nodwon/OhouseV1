@@ -4,6 +4,8 @@
     <header>
         <meta charset="utf-8">
         <meta content="webkit" name="renderer">
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <meta content="width=device-width, initial-scale=1" name="viewport">
         <link href="/css/blog.css" rel="stylesheet" type="text/css">
         <link href="/css/styles.css" rel="stylesheet" type="text/css">
