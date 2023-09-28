@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/header :: header}"></div>
-<script src="/js/detail.js"></script>
+<script type="module" src="/js/detail.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <body>
 
 <div class="container">
@@ -10,6 +11,7 @@
     </header>
     <section>
         <div style="text-align: right;">
+            <input id="post_no" th:value="${post.postId()}" type="hidden"/>
             <p id="created">생성일자: <span th:text="${#temporals.format(post.created_at, 'yy.mm.dd')}">게시물 생성일자</span></p>
             <p id="nickname">닉네임: <span th:text="${post.nickname}">게시물 작성자 닉네임</span></p>
             <p id="count">조회수: <span th:text="${totalCount}">게시물 조회수</span></p>
@@ -29,10 +31,8 @@
             </a>
 
             <!-- 삭제 버튼 -->
-            <a data-postid="${post.postId}"
-               href="#"
-               id="deleteButton" sec:authorize="isAuthenticated()" th:if="${#authentication.getName() == post.email()}">
-                <button style="background-color: red; color: white" type="submit">삭제</button>
+            <a class="btn btn-primary" role="button" id="deleteButton" sec:authorize="isAuthenticated()"  onclick="deleteEvent()"
+               style="background-color: red; color: white">삭제
             </a>
 
         </div>

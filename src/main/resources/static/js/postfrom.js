@@ -5,8 +5,7 @@ $(() => {
 class postfrom {
     constructor() {
         this.saveEvent();
-        this.deleteEvent();
-        // this.updateEvent(); // 필요한 경우 추가
+
     }
     saveEvent() {
 
@@ -43,11 +42,7 @@ class postfrom {
         });
     }
 
-    deleteEvent() {
-        // 삭제 이벤트 구현
-    }
 
-    // 필요한 경우 updateEvent 메서드 추가
 }
 
 export default postfrom;

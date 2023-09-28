@@ -128,9 +128,14 @@ public class PostApiController {
 //        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 //    }
     @DeleteMapping("/{postId}/delete")
-    public void deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
+    public ResponseEntity<String> deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
+        // 삭제 로직 수행
         postService.deletePost(postId, postPrincipal.email());
+
+        // 삭제가 성공하면 204 No Content를 반환
+        return ResponseEntity.noContent().build();
     }
+
     //게시글 페이지 조회
     // 게시글 조회
 

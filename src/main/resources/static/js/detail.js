@@ -1,15 +1,15 @@
 "use strict";
 
 $(()=>{
-    new LikeButton();
+    new detail();
 })
-class LikeButton {
+class detail {
     constructor() {
         this.likeIcon = document.getElementById("like-icon");
         this.likeButton = document.getElementById("like-button");
-        this.postNo = document.getElementById("postId");
         this.liked = false; // 좋아요 상태 (기본: 좋아요하지 않음)
         this.likeCount = 0; // 좋아요 카운트
+        this.deleteEvent();
         this.toggleReplyForm();
         this.deleteComment();
         this.setupEvents();
@@ -33,7 +33,7 @@ class LikeButton {
             likeText.style.display = "inline"; // 텍스트 보이기
         }
 
-        let likeCountElement = document.getElementById("like-count");
+        // let likeCountElement = document.getElementById("like-count");
     }
     toggleReplyForm(index) {
 
@@ -42,11 +42,48 @@ class LikeButton {
             replyForm.classList.toggle("show"); // collapse 클래스를 토글하여 보이기/숨기기
         }
     }
+    deleteEvent() {
+        // 삭제 이벤트 구현
+        let postId = $('#post_no').val();
+        let token = $("meta[name='_csrf']").attr("content");
+        let header = $("meta[name='_csrf_header']").attr("content");
+        $('#deleteButton').on('click', (e) => {
+            e.preventDefault(); // 기본 동작 중단
+            const data = {
+                postId: postId
+            };
+            fetch(`/posts/${postId}/delete`, {
+                method: 'DELETE',
+                    beforeSend : function(xhr)
+                    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                        xhr.setRequestHeader(header, token);
+                    },
+                headers: {
+                    'Content-Type': 'application/json',
+                    [header]: token // CSRF 헤더 설정
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('글이 삭제되었습니다.');
+                        location.href = '/';
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(error => {
+                    alert(JSON.stringify(error));
+                    console.error("ajax 요청 실패");
+                })
+                .catch(error => {
+                    console.error("오류 발생:", error);
+                });
+            console.log(data);
+        });
+
+    }
     deleteComment(){
-        function getCsrfToken() {
-            return $('#csrf-token').val();
-        }
-        const csrfToken = getCsrfToken();
         $('#deleteComment').on('click', (e) => {
         e.preventDefault();
         let commentId = $('#parentcommentId').val();
@@ -72,7 +109,6 @@ class LikeButton {
     }
 
 }
-export default LikeButton;
 
 
 

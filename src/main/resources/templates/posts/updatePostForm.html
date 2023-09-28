@@ -23,7 +23,7 @@
 
         <!-- 수정, 취소, 삭제 버튼 -->
         <div style="text-align: right;">
-            <button th:object="${formStatus}" type="submit">수정</button>
+            <button th:object="${formStatus}" id="submit-button" type="submit" onclick="saveEvent()">수정</button>
             <a th:href="@{/posts/myPage}">
                 <button type="button">취소</button>
             </a>
