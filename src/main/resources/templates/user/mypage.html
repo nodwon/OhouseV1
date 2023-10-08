@@ -14,6 +14,7 @@
                 <th class="created-at"><a>작성일</a></th>
                 <th class="modified-at"><a>수정일</a></th>
                 <th class="modified-at"><a>수정</a></th>
+                <th class="delete"><a>삭제</a></th>
 
             </tr>
             </thead>
@@ -31,6 +32,11 @@
                 <td>
                     <a class="btn btn-primary" href="#"
                        role="button" th:href="@{{id}/update (id=${posts.postNo})}">수정
+                    </a>
+                </td>
+                <td>
+                    <a data-postid="${posts.postNo}" href="#" id="deleteButton" onclick="deleteEvent()" >
+                        <button style="background-color: red; color: white" type="submit">삭제</button>
                     </a>
                 </td>
             </tr>

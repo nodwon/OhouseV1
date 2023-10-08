@@ -24,12 +24,12 @@ public class PostCommentController {
     }
 
     @DeleteMapping("/{commentId}/delete")
-    public ResponseEntity<String> deletePostComment(@PathVariable Long commentId,
+    public String deletePostComment(@PathVariable Long commentId,
                                     @PathVariable Long postNo,
                                     @AuthenticationPrincipal PostPrincipal postPrincipal){
         postCommentService.deletePostComment(commentId, postPrincipal.getUsername());
 
-        return ResponseEntity.noContent().build();
+        return "redirect:/posts/" + postNo;
     }
 
 }

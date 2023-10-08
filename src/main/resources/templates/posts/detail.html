@@ -2,6 +2,7 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/header :: header}"></div>
 <script type="module" src="/js/detail.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <body>
 
 <div class="container">
@@ -63,7 +64,7 @@
             <!-- Parent Comments -->
             <div style="padding-bottom: 40px;" th:each="parentComment, iterStat : ${postComments}">
                 <div class="parent-comments">
-                    <span  class="parentcommentId" th:id="parentcommentId" th:text="${parentComment.parentCommentId}" th:value="${parentComment.parentCommentId}"/>
+                    <span  class="parentcommentId" id="parentcommentId" th:text="${parentComment.parentCommentId}"/>
                     <div class="comment-id" th:text="${parentComment.nickname}"></div>
                     <div class="comment-text" th:text="${parentComment.content}"></div>
                     <div id="postId" th:text="${post.postId()}" hidden></div>
