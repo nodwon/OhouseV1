@@ -71,7 +71,6 @@ public class PostApiController {
 
     }
 
-    //게시글 등록 나중에 고치기
     @PreAuthorize("isAuthenticated()")
     @PostMapping
     public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
@@ -80,14 +79,6 @@ public class PostApiController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(result);
     }
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping
-//    public String newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
-//         postService.savePost(request.toDto(postPrincipal.toDto()));
-//
-//        return "fragments/main";
-//    }
-
 
     // 게시글 업데이트 form 가져오기
     @PreAuthorize("isAuthenticated()")
@@ -99,18 +90,6 @@ public class PostApiController {
         return "posts/updatePostForm";
     }
 
-
-    //게시글 업데이트
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/{postId}/update")
-//    public ResponseEntity<Long> updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
-//                                           @ModelAttribute PostsRequest postsRequest) {
-//
-//        Long result = postService.updatePost(postId, postsRequest.toDto(postPrincipal.toDto()));
-//
-//        return ResponseEntity.status(HttpStatus.ACCEPTED)
-//                .body(result);
-//    }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{postId}/update")
     public String updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,

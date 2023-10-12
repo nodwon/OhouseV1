@@ -1,6 +1,10 @@
 package com.portfolio.ohousev1.controller;
 
+import com.portfolio.ohousev1.dto.member.MemberDto;
+import com.portfolio.ohousev1.dto.member.request.MemberRequest;
+import com.portfolio.ohousev1.dto.member.response.MemberResponse;
 import com.portfolio.ohousev1.dto.post.response.PostsResponse;
+import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.constant.SearchType;
 import com.portfolio.ohousev1.service.post.PostService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

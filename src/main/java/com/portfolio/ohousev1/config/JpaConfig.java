@@ -20,7 +20,16 @@ public class JpaConfig {
                 .map(SecurityContext::getAuthentication)
                 .filter(Authentication::isAuthenticated)
                 .map(Authentication::getPrincipal)
-                .map(PostPrincipal.class::cast)
-                .map(PostPrincipal::getUsername);
+                .map(principal -> {
+                    if (principal instanceof PostPrincipal) {
+                        return ((PostPrincipal) principal).getUsername();
+                    } else {
+                        // 원하는 대체값 또는 오류 처리를 수행할 수 있습니다.
+                        return null; // 또는 다른 값
+                    }
+                });
+
+//                .map(PostPrincipal.class::cast)
+//                .map(PostPrincipal::getUsername);
     }
 }

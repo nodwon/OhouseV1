@@ -1,27 +1,35 @@
+"use strict";
+
 $(() => {
-    new postfrom();
+    new SignUp();
 });
 
-class postfrom {
+class SignUp {
     constructor() {
-        this.saveEvent();
+        this.GeneralSignUp();
 
     }
-    saveEvent() {
+    GeneralSignUp() {
 
-        $('#submit-button').on('click', (e) => {
+        $('#GeneralLogin').on('click', (e) => {
             e.preventDefault(); // 기본 동작 중단
-            let title = $('#title').val();
-            let content = $('#content').val();
+            let email = $('#email').val();
+            let password = $('#Password').val();
+            let name = $('#register-name').val();
+            let nickname = $('#nickname').val();
+            let birthday = $('#birthday').val();
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
             const data = {
-                title: title,
-                content: content,
+                email: email,
+                password: password,
+                name: name,
+                nickname: nickname,
+                birthday: birthday
             };
             $.ajax({
                 type: 'POST',
-                url: '/posts',
+                url: '/members/signup',
                 beforeSend : function(xhr)
                 {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
                     xhr.setRequestHeader(header, token);
@@ -30,11 +38,11 @@ class postfrom {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function () {
-                alert('글이 등록되었습니다.');
+                alert('회원가입이 되었습니다.');
                 location.href = '/';
             }).fail(function (error) {
                 alert(JSON.stringify(error));
-                console.error("ajax요청 실패")
+                console.error("ajax 요청 실패")
             });
             console.log(data);
 
@@ -44,4 +52,4 @@ class postfrom {
 
 }
 
-export default postfrom;
+export default SignUp;

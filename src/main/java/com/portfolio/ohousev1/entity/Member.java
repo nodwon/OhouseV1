@@ -1,13 +1,17 @@
 package com.portfolio.ohousev1.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.portfolio.ohousev1.entity.constant.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "member")
@@ -17,11 +21,11 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class Member extends AuditingFields{
 
+    @Id
+    @Column(name = "memberNo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_no")
     private Long MemberNo;
 
-    @Id
     @Column(name = "email", unique = true)
     private String email;
 
@@ -41,37 +45,39 @@ public class Member extends AuditingFields{
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
 
+    @Convert(converter = RoleTypesConverter.class)
+    @Column(nullable = false)
+    private Set<RoleType> roleTypes = new LinkedHashSet<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
-
     @Builder
     public Member(String email, String password, String nickname,
-                  String name,LocalDate birthday, String createBy){
+                  Set<RoleType> roleTypes,String name,LocalDate birthday){
         this.email =email;
         this.Password =password;
+        this.roleTypes =roleTypes;
         this.nickname = nickname;
         this.name = name;
         this.birthday = birthday;
     }
 
-    public static Member of(String email, String password, String name, String nickname, LocalDate birthday) {
-        return new Member(null,email,password,name,nickname,birthday,null,null);
+    public static Member of(String email, String password, Set<RoleType> roleTypes,String name, String nickname, LocalDate birthday) {
+        return new Member(null,email,password,name, nickname,birthday,null,roleTypes,null);
     }
-    public  Member update(String name, String nickname, String password,LocalDate birthday){
-        this.name =name;
-        this.nickname = nickname;
+    public  Member updatePassword(String password){
         this.Password = password;
-        this.birthday = birthday;
         return this;
     }
-   public void setNickname(String name){
+   public String updateNickname(String name){
         this.nickname =name;
+       return name;
    }
-    public  static Member of(Long member_no, String email, String nickname, String password, String name, LocalDate birthday){
-        return new Member(member_no, email, nickname,password,name,birthday,null,null);
+    public  static Member of(Long MemberNo, String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday){
+        return new Member(MemberNo, email, nickname,password,name,birthday,null,roleTypes,null);
     }
-    public  static Member of(Long id, String email, String nickname, String password, String name, LocalDate birthday,List<Post> posts,List<Order> orders){
-        return new Member(id, email, nickname,password,name,birthday,posts,orders);
+    public  static Member of(Long MemberNo, String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday,List<Post> posts,List<Order> orders){
+        return new Member(MemberNo, email, nickname,password,name,birthday,posts,roleTypes,orders);
     }
 }

@@ -44,6 +44,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<Post, QPost> posts = this.<Post, QPost>createList("posts", Post.class, QPost.class, PathInits.DIRECT2);
 
+    public final SetPath<com.portfolio.ohousev1.entity.constant.RoleType, EnumPath<com.portfolio.ohousev1.entity.constant.RoleType>> roleTypes = this.<com.portfolio.ohousev1.entity.constant.RoleType, EnumPath<com.portfolio.ohousev1.entity.constant.RoleType>>createSet("roleTypes", com.portfolio.ohousev1.entity.constant.RoleType.class, EnumPath.class, PathInits.DIRECT2);
+
     public QMember(String variable) {
         super(Member.class, forVariable(variable));
     }

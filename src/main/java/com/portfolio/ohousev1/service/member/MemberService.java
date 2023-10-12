@@ -2,6 +2,7 @@ package com.portfolio.ohousev1.service.member;
 
 import com.portfolio.ohousev1.dto.member.MemberDto;
 import com.portfolio.ohousev1.entity.Member;
+import com.portfolio.ohousev1.entity.constant.RoleType;
 import com.portfolio.ohousev1.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,30 +28,53 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberDto saveMember(String email, String Password, String name, String nickname, LocalDate birthday) {
+    public MemberDto saveMember(String email, String Password,  Set<RoleType> roleTypes, String name, String nickname, LocalDate birthday) {
         if (!email.contains("@")) {
             throw new IllegalStateException("@포함되어 있지 않습니다.");
         }
         if (Password.length() < 8) {
             throw new IllegalStateException("비밀번호가 8자이상이 아닙니다.");
         }
-        return MemberDto.from(memberRepository.save(Member.of(email, Password, name, nickname, birthday)));
+        roleTypes = Set.of(RoleType.USER);
+        memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
+        return MemberDto.from(memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday)));
+    }
+    @Transactional
+    public String signupMember(String email, String Password, Set<RoleType> roleTypes, String name, String nickname, LocalDate birthday) {
+         roleTypes = Set.of(RoleType.USER);
+    //    validateDuplicateMember(Member.of(email, Password, roleTypes,name, nickname, birthday));
+        memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
+        return email;
     }
 
+    private void validateDuplicateMember(Member member) {
+        Optional<Member> findMember = memberRepository.findByEmail(member.getEmail());
+        if (findMember != null) {
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
+    }
 
-//    @Transactional
-//    public long updateMember(String email, MemberUpdateRequest dto) {
-//
-//        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 맴버 없습니다. id" + email));
-//
-//        member.update(dto.getName(), dto.getNickname(), dto.getPassword());
-//        memberRepository.save(member);
-//        return member.getMemberNo();
-//    }
+    @Transactional
+    public long updateMember(String email, MemberDto dto) {
+
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 맴버 없습니다. id" + email));
+        Optional<Member> existingNickanme = memberRepository.findByNickname(dto.nickname());
+        if (existingNickanme.isPresent()) {
+            throw new IllegalArgumentException("이미 존재하는 닉네임입니다. 다른 닉네임을 입력해주세요.");
+        }        String updateNickname = member.updateNickname(dto.nickname());
+
+        member.updateNickname(dto.nickname());
+        member.updatePassword(dto.Password());
+
+        memberRepository.save(member);
+
+        return member.getMemberNo();
+    }
 
     public void deleteMember(String email) {
         memberRepository.deleteByEmail(email);
     }
+
 
 
 }

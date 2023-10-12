@@ -1,6 +1,7 @@
 package com.portfolio.ohousev1.dto.post;
 
 import com.portfolio.ohousev1.dto.member.MemberDto;
+import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.constant.RoleType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record PostPrincipal(
+        Long MemberNo,
         String email,
         String Password,
         Collection<? extends GrantedAuthority> authorities,
@@ -28,14 +30,14 @@ public record PostPrincipal(
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public static PostPrincipal of(String email, String Password, String name, String nickname, LocalDate birthday) {
-        return PostPrincipal.of(email, Password, name, nickname, birthday, Map.of());
+    public static PostPrincipal of(String email, String Password, Set<RoleType> roleTypes, String name, String nickname, LocalDate birthday) {
+        return PostPrincipal.of(email, Password, roleTypes,name, nickname, birthday, Map.of());
     }
 
-    public static PostPrincipal of(String email, String Password, String name, String nickname, LocalDate birthday, Map<String, Object> oAuth2Attributes) {
+    public static PostPrincipal of(String email, String Password, Set<RoleType> roleTypes,String name, String nickname, LocalDate birthday, Map<String, Object> oAuth2Attributes) {
         String encodePassword = passwordEncoder.encode(Password); // 비밀번호 해싱
-        Set<RoleType> roleTypes = Set.of(RoleType.USER);
         return new PostPrincipal(
+                null,
                 email,
                 encodePassword,
                 roleTypes.stream()
@@ -53,6 +55,7 @@ public record PostPrincipal(
         return PostPrincipal.of(
                 dto.email(),
                 dto.Password(),
+                dto.roleTypes(),
                 dto.name(),
                 dto.nickname(),
                 dto.birthday()
@@ -71,14 +74,19 @@ public record PostPrincipal(
 
     public MemberDto toDto() {
         return MemberDto.of(
+                MemberNo,
                 email,
                 Password,
+                authorities.stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .map(RoleType::valueOf)
+                        .collect(Collectors.toUnmodifiableSet())
+                ,
                 name,
                 nickname,
                 birthday
         );
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

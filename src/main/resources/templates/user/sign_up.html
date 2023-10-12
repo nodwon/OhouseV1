@@ -5,6 +5,8 @@
         <meta charset="utf-8">
         <meta content="webkit" name="renderer">
         <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link href="https://getbootstrap.com/docs/5.3/examples/blog/" rel="canonical">
         <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet">
 
@@ -19,8 +21,11 @@
                 integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
         <link href="../css/login.css" rel="stylesheet" type="text/css">
-        <script src="/js/login.js" type="module"></script>
+
     </head>
+    <script  src="/js/SignUp.js" type="module"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <div class="login-page d-flex justify-content-center align-items-center flex-column"> <!-- 수정된 부분 -->
         <div class="text-center"> <!-- 가운데 정렬을 위한 div 추가 -->
             <a aria-label="오늘의집" class="login_logo" href="/static">
@@ -29,15 +34,14 @@
         </div>
         <div class="form">
             <!-- 회원 가입 폼 -->
-            <form th:action="@{/members/signup}" class="register-form" method="post">
+            <form id="general-Login" role="general_login" action="/members/signup" class="register-form" method="post"  th:object="${MemberRequest}">
                 <div class="mb-3">
-                    <label class="form-label" for="register-email">이메일 주소</label>
-                    <input class="form-control" id="register-email" name="email" placeholder="email address" type="text"/>
+                    <label class="form-label" for="email">이메일 주소</label>
+                    <input class="form-control" id="email" name="email" placeholder="email address" type="text"/>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="password">비밀번호</label>
-<!--                    register-password-->
-                    <input class="form-control" id="password" name="password" placeholder="password" type="password"/>
+                    <label class="form-label" for="Password">비밀번호</label>
+                    <input class="form-control" id="Password" name="Password" placeholder="Password" type="Password"/>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="register-name">이름</label>
@@ -53,7 +57,7 @@
                 </div>
                 <!-- CSRF 토큰을 폼에 추가 -->
                 <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
-                <button class="btn btn-primary" type="submit">생성</button>
+                <button class="btn btn-primary" type="submit" id="GeneralLogin"  onclick="GeneralSignUp()">생성</button>
                 <p class="message">이미 아이디가 있으신가요? <a class="login" th:href="@{/login}">로그인</a></p>
                 <a class="btn-login join_btn btn_click" id="kakao-login-btn">
                     <img alt="카카오" src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"
