@@ -74,7 +74,6 @@ public record PostPrincipal(
 
     public MemberDto toDto() {
         return MemberDto.of(
-                MemberNo,
                 email,
                 Password,
                 authorities.stream()

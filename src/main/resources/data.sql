@@ -1,5 +1,5 @@
-# insert into member (email, created_at, modified_at, member_no, password, birthday, name, nickname)
-# values('d@gmail.com',now()-1,now(),1,'asdf1234','2000-01-01','test','nick test');
+# insert into member (email, created_at, modified_at, member_no, Password,role_types, birthday, name, nickname)
+# values('d@gmail.com',now()-1,now(),1,'asdf1234','USER','2000-01-01','test','nick test');
 # insert into post (created_at, modified_at, content, title, member_email)
 # VALUES('2000-01-01',now(),'test-content','test-title','d@gmail.com');
 # insert into post (created_at, modified_at, content, title, member_email)

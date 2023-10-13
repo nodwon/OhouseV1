@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -65,7 +66,11 @@ public class HomeController {
     }
 
     @GetMapping("/signup")
-    public String signup() {
+    public String signup(Model model,String email,
+                         String Password,
+                         String name,
+                         String nickname,
+                         LocalDate birthday) {
         log.info("signup controller");
         return "user/sign_up";
     }

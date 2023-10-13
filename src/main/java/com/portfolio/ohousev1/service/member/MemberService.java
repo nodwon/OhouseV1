@@ -36,23 +36,26 @@ public class MemberService {
             throw new IllegalStateException("비밀번호가 8자이상이 아닙니다.");
         }
         roleTypes = Set.of(RoleType.USER);
-        memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
+//        memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
         return MemberDto.from(memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday)));
     }
     @Transactional
-    public String signupMember(String email, String Password, Set<RoleType> roleTypes, String name, String nickname, LocalDate birthday) {
-         roleTypes = Set.of(RoleType.USER);
-    //    validateDuplicateMember(Member.of(email, Password, roleTypes,name, nickname, birthday));
+    public String signupMember(String email, String Password, String name, String nickname, LocalDate birthday) {
+        Set<RoleType> roleTypes = Set.of(RoleType.USER);
+        validateDuplicateMember(Member.of(email, Password, roleTypes,name, nickname, birthday));
         memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
         return email;
     }
 
-    private void validateDuplicateMember(Member member) {
-        Optional<Member> findMember = memberRepository.findByEmail(member.getEmail());
-        if (findMember != null) {
+    private void validateDuplicateMember(Member newMember) {
+        // 이미 가입된 이메일 주소인지 확인
+        Optional<Member> existingMember = memberRepository.findByEmail(newMember.getEmail());
+        if (existingMember.isPresent()) {
+            // 이미 가입된 회원이면 예외를 발생
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
     }
+
 
     @Transactional
     public long updateMember(String email, MemberDto dto) {

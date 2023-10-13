@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record MemberResponse(
+        Long memberNo,
         String email,
         String Password,
         String name,
@@ -17,12 +18,13 @@ public record MemberResponse(
 ) {
 
 
-    public static MemberResponse of(String email, String Password, String name, String nickname, LocalDate birthday, LocalDateTime createdAt, LocalDateTime modifiedAt) {
-        return new MemberResponse(email,Password,name, nickname,birthday,createdAt, modifiedAt);
+    public static MemberResponse of(Long memberNo,String email, String Password, String name, String nickname, LocalDate birthday, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+        return new MemberResponse(memberNo,email,Password,name, nickname,birthday,createdAt, modifiedAt);
     }
 
     public static MemberResponse from(MemberDto dto){
         return new MemberResponse(
+                null,
                 dto.email(),
                 dto.Password(),
                 dto.name(),

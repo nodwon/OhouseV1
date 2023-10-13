@@ -2,10 +2,10 @@ package com.portfolio.ohousev1.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portfolio.ohousev1.entity.constant.RoleType;
+import com.portfolio.ohousev1.entity.constant.RoleTypesConverter;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,7 +25,6 @@ public class Member extends AuditingFields{
     @Column(name = "memberNo")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long MemberNo;
-
     @Column(name = "email", unique = true)
     private String email;
 

@@ -13,7 +13,7 @@ class SignUp {
 
         $('#GeneralLogin').on('click', (e) => {
             e.preventDefault(); // 기본 동작 중단
-            let email = $('#email').val();
+            let email = $('#register-email').val();
             let password = $('#Password').val();
             let name = $('#register-name').val();
             let nickname = $('#nickname').val();
@@ -27,6 +27,7 @@ class SignUp {
                 nickname: nickname,
                 birthday: birthday
             };
+            debugger;
             $.ajax({
                 type: 'POST',
                 url: '/members/signup',

@@ -10,7 +10,6 @@ import java.util.Set;
 
 
 public record MemberDto (
-        Long MemberNo,
         String email,
         String Password,
         Set<RoleType> roleTypes,
@@ -24,24 +23,23 @@ public record MemberDto (
 
 
 
-    public  static MemberDto of(Long MemberNo,String email, String Password,Set<RoleType> roleTypes,String name, String nickname, LocalDate birthday){
-        return new MemberDto(MemberNo,email,Password, roleTypes,name,nickname,birthday,null,null);
+    public  static MemberDto of(String email, String Password,Set<RoleType> roleTypes,String name, String nickname, LocalDate birthday){
+        return new MemberDto(email,Password, roleTypes,name,nickname,birthday,null,null);
     }
-    public  static MemberDto of(Long MemberNo,String email, String Password,Set<RoleType> roleTypes, String nickname){
-        return new MemberDto(MemberNo,email,Password,roleTypes,null,nickname,null,null,null);
+    public  static MemberDto of(String email, String Password,Set<RoleType> roleTypes, String nickname){
+        return new MemberDto(email,Password,roleTypes,null,nickname,null,null,null);
     }
-    public  static MemberDto of(String email,String Password, Set<RoleType> roleTypes, String nickname){
-        return new MemberDto(null,email,Password, roleTypes,null,nickname,null,null,null);
-    }
-    public  static MemberDto of(Long memberNo,String email,String Password,Set<RoleType> roleTypes, String name, String nickname,LocalDate birthday, LocalDateTime createdAt, LocalDateTime modifiedAt){
-        return new MemberDto(memberNo,email,Password,roleTypes,name,nickname,birthday,createdAt,modifiedAt);
+//    public  static MemberDto of(Long memberNo,String email,String Password, Set<RoleType> roleTypes, String nickname){
+//        return new MemberDto(memberNo,email,Password, roleTypes,null,nickname,null,null,null);
+//    }
+    public  static MemberDto of(String email,String Password,Set<RoleType> roleTypes, String name, String nickname,LocalDate birthday, LocalDateTime createdAt, LocalDateTime modifiedAt){
+        return new MemberDto(email,Password,roleTypes,name,nickname,birthday,createdAt,modifiedAt);
     }
     public static MemberDto of(MemberDto memberDto ) {
-        return new MemberDto(memberDto.MemberNo,memberDto.email, memberDto.Password,memberDto.roleTypes, memberDto.name, memberDto.nickname, memberDto.birthday, memberDto.createdAt, memberDto.modifiedAt);
+        return new MemberDto(memberDto.email, memberDto.Password,memberDto.roleTypes, memberDto.name, memberDto.nickname, memberDto.birthday, memberDto.createdAt, memberDto.modifiedAt);
     }
     public static MemberDto from(Member entity){
         return new MemberDto(
-                entity.getMemberNo(),
                 entity.getEmail(),
                 entity.getPassword(),
                 entity.getRoleTypes(),

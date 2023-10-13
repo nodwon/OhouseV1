@@ -30,17 +30,11 @@ public class memberController {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body("잘못된 요청입니다.");
         }
-        try {
-            String member = memberService.signupMember(request.email(),request.Password(),request.roletypes(),request.name(),request.nickname(),request.birthday());
-            if (member != null) {
-                return ResponseEntity.status(HttpStatus.CREATED).body(member);
-            } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 가입 중 오류가 발생했습니다.");
-            }
-        } catch (Exception e) {
-            // 예외 처리
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
-        }
+//            String member = memberService.signupMember(request.email(),request.Password(),request.name(),request.nickname(),request.birthday());
+            MemberDto member = memberService.saveMember(request.email(),request.Password(), request.dto().roleTypes(),request.name(),request.nickname(),request.birthday());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(member);
+
     }
 
     // 업데이트
