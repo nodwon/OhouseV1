@@ -69,6 +69,15 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
           log.info("asdf"+ String.valueOf(member));
           memberRepository.save(member);
         }
+//        return memberService.searchEmail(email).map(PostPrincipal::from)
+//                .orElseGet(() -> PostPrincipal.from(memberService.saveMember(
+//                        email,
+//                        dummyPassword,
+//                        roleTypes,
+//                        name,
+//                        nickname,
+//                        null
+//                )));
         return memberService.searchEmail(email).map(PostPrincipal::from)
                 .orElseGet(() -> PostPrincipal.from(memberService.saveMember(
                         email,

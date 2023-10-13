@@ -22,9 +22,6 @@ import java.util.Set;
 public class Member extends AuditingFields{
 
     @Id
-    @Column(name = "memberNo")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long MemberNo;
     @Column(name = "email", unique = true)
     private String email;
 
@@ -63,7 +60,7 @@ public class Member extends AuditingFields{
     }
 
     public static Member of(String email, String password, Set<RoleType> roleTypes,String name, String nickname, LocalDate birthday) {
-        return new Member(null,email,password,name, nickname,birthday,null,roleTypes,null);
+        return new Member(email,password,name, nickname,birthday,null,roleTypes,null);
     }
     public  Member updatePassword(String password){
         this.Password = password;
@@ -73,10 +70,10 @@ public class Member extends AuditingFields{
         this.nickname =name;
        return name;
    }
-    public  static Member of(Long MemberNo, String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday){
-        return new Member(MemberNo, email, nickname,password,name,birthday,null,roleTypes,null);
+    public  static Member of( String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday){
+        return new Member( email, nickname,password,name,birthday,null,roleTypes,null);
     }
-    public  static Member of(Long MemberNo, String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday,List<Post> posts,List<Order> orders){
-        return new Member(MemberNo, email, nickname,password,name,birthday,posts,roleTypes,orders);
+    public  static Member of( String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday,List<Post> posts,List<Order> orders){
+        return new Member(email, nickname,password,name,birthday,posts,roleTypes,orders);
     }
 }

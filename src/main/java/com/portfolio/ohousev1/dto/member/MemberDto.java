@@ -29,9 +29,6 @@ public record MemberDto (
     public  static MemberDto of(String email, String Password,Set<RoleType> roleTypes, String nickname){
         return new MemberDto(email,Password,roleTypes,null,nickname,null,null,null);
     }
-//    public  static MemberDto of(Long memberNo,String email,String Password, Set<RoleType> roleTypes, String nickname){
-//        return new MemberDto(memberNo,email,Password, roleTypes,null,nickname,null,null,null);
-//    }
     public  static MemberDto of(String email,String Password,Set<RoleType> roleTypes, String name, String nickname,LocalDate birthday, LocalDateTime createdAt, LocalDateTime modifiedAt){
         return new MemberDto(email,Password,roleTypes,name,nickname,birthday,createdAt,modifiedAt);
     }

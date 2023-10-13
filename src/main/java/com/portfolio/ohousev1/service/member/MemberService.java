@@ -5,6 +5,8 @@ import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.constant.RoleType;
 import com.portfolio.ohousev1.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import java.util.Set;
 @Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
+    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -36,20 +39,23 @@ public class MemberService {
             throw new IllegalStateException("비밀번호가 8자이상이 아닙니다.");
         }
         roleTypes = Set.of(RoleType.USER);
-//        memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
-        return MemberDto.from(memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday)));
-    }
-    @Transactional
-    public String signupMember(String email, String Password, String name, String nickname, LocalDate birthday) {
-        Set<RoleType> roleTypes = Set.of(RoleType.USER);
-        validateDuplicateMember(Member.of(email, Password, roleTypes,name, nickname, birthday));
-        memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
-        return email;
-    }
+        validateDuplicateMember(email);
+        String encodePassword = passwordEncoder.encode(Password); // 비밀번호 해싱
 
-    private void validateDuplicateMember(Member newMember) {
+        return MemberDto.from(memberRepository.save(Member.of(email, encodePassword, roleTypes,name, nickname, birthday)));
+    }
+//    @Transactional
+//    public String signupMember(String email, String Password, String name, String nickname, LocalDate birthday) {
+//        Set<RoleType> roleTypes = Set.of(RoleType.USER);
+//        validateDuplicateMember(Member.of(email, Password, roleTypes,name, nickname, birthday));
+//        memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
+//        return email;
+//    }
+
+    private void validateDuplicateMember(String email) {
+
         // 이미 가입된 이메일 주소인지 확인
-        Optional<Member> existingMember = memberRepository.findByEmail(newMember.getEmail());
+        Optional<Member> existingMember = memberRepository.findByEmail(email);
         if (existingMember.isPresent()) {
             // 이미 가입된 회원이면 예외를 발생
             throw new IllegalStateException("이미 가입된 회원입니다.");
@@ -58,7 +64,7 @@ public class MemberService {
 
 
     @Transactional
-    public long updateMember(String email, MemberDto dto) {
+    public String updateMember(String email, MemberDto dto) {
 
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 맴버 없습니다. id" + email));
         Optional<Member> existingNickanme = memberRepository.findByNickname(dto.nickname());
@@ -71,7 +77,7 @@ public class MemberService {
 
         memberRepository.save(member);
 
-        return member.getMemberNo();
+        return member.getEmail();
     }
 
     public void deleteMember(String email) {

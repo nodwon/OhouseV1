@@ -28,18 +28,18 @@ public record PostPrincipal(
 
 ) implements UserDetails, OAuth2User {
 
-    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public static PostPrincipal of(String email, String Password, Set<RoleType> roleTypes, String name, String nickname, LocalDate birthday) {
         return PostPrincipal.of(email, Password, roleTypes,name, nickname, birthday, Map.of());
     }
 
     public static PostPrincipal of(String email, String Password, Set<RoleType> roleTypes,String name, String nickname, LocalDate birthday, Map<String, Object> oAuth2Attributes) {
-        String encodePassword = passwordEncoder.encode(Password); // 비밀번호 해싱
+//        String encodePassword = passwordEncoder.encode(Password); // 비밀번호 해싱
         return new PostPrincipal(
                 null,
                 email,
-                encodePassword,
+                Password,
                 roleTypes.stream()
                         .map(RoleType::getValue)
                         .map(SimpleGrantedAuthority::new)

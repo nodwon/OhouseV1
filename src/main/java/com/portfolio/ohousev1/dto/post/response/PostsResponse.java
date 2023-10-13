@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public record PostsResponse(
         Long postNo,
-        Long memberNo,
+//        Long memberNo,
         String title,
         String content,
         String nickname,
@@ -15,8 +15,8 @@ public record PostsResponse(
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static PostsResponse of(Long id, Long memberNo,String title, String content,String email,  String nickname,LocalDateTime createdAt,LocalDateTime modifiedAt) {
-        return new PostsResponse(id, memberNo,title, content, nickname,email,createdAt, modifiedAt);
+    public static PostsResponse of(Long id,String title, String content,String email,  String nickname,LocalDateTime createdAt,LocalDateTime modifiedAt) {
+        return new PostsResponse(id,title, content, nickname,email,createdAt, modifiedAt);
     }
 
     public static PostsResponse from(PostDto dto) {
@@ -24,7 +24,7 @@ public record PostsResponse(
 
         return new PostsResponse(
                 dto.postId(),
-                dto.memberDto().toEntity().getMemberNo(),
+//                dto.memberDto().toEntity().getMemberNo(),
                 dto.title(),
                 dto.content(),
                 nickname,
