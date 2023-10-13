@@ -6,12 +6,13 @@ import com.portfolio.ohousev1.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@RestController
 @RequestMapping("/members")
+@Controller
 @RequiredArgsConstructor
 public class memberController {
 
@@ -24,9 +25,9 @@ public class memberController {
     }
 
     @PostMapping("/signup")
-    public PostPrincipal createMember(@ModelAttribute MemberRequest request) {
-        return  PostPrincipal.from(memberService.saveMember(request.email(),request.Password(), request.dto().roleTypes(),request.name(),request.nickname(),request.birthday()));
-
+    public String createMember(@ModelAttribute MemberRequest request) {
+          PostPrincipal.from(memberService.saveMember(request.email(),request.Password(), request.dto().roleTypes(),request.name(),request.nickname(),request.birthday()));
+        return "redirect:/";
 
     }
 
