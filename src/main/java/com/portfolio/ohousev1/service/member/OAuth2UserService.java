@@ -47,7 +47,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         String name = provider + "_" + providerId;
         String dummyPassword = "{bcrypt}" + UUID.randomUUID();
         String email = oAuth2UserInfo != null ? oAuth2UserInfo.getEmail() : null;
-        String nickname = (oAuth2UserInfo.getNickname() != null) ? oAuth2UserInfo.getNickname() : null;
+        String nickname = oAuth2UserInfo.getNickname();
         Set<RoleType> roleTypes = Set.of(RoleType.USER);
         log.info("cause" + providerId, name, dummyPassword, email, nickname, roleTypes);
         return memberService.searchEmail(email).map(PostPrincipal::from)

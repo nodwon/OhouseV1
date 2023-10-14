@@ -17,7 +17,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record PostPrincipal(
-        Long MemberNo,
         String email,
         String Password,
         Collection<? extends GrantedAuthority> authorities,
@@ -35,7 +34,6 @@ public record PostPrincipal(
 
     public static PostPrincipal of(String email, String Password, Set<RoleType> roleTypes,String name, String nickname, LocalDate birthday, Map<String, Object> oAuth2Attributes) {
         return new PostPrincipal(
-                null,
                 email,
                 Password,
                 roleTypes.stream()
