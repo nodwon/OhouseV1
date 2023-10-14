@@ -25,7 +25,7 @@ public record PostCommentDto(
         return  PostCommentDto.of(null,memberDto,post_no,content,parentCommentId,null,null);
     }
 
-    public static PostCommentDto of(Long id, //현재 여기가 문제임
+    public static PostCommentDto of(Long id,
                                     MemberDto memberDto,
                                     Long post_no,
                                     String content,

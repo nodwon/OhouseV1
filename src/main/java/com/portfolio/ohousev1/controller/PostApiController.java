@@ -70,10 +70,9 @@ public class PostApiController {
         return "posts/form";
 
     }
-
     @PreAuthorize("isAuthenticated()")
     @PostMapping
-    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @ModelAttribute PostsRequest request) {
+    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @RequestBody PostsRequest request) {
         Long result = postService.savePost(request.toDto(postPrincipal.toDto()));
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -99,12 +98,6 @@ public class PostApiController {
 
         return "fragments/main";
     }
-    //게시글 삭제
-//    @DeleteMapping("/{postId}/delete")
-//    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
-//        postService.deletePost(postId, postPrincipal.email());
-//        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-//    }
     @DeleteMapping("/{postId}/delete")
     public ResponseEntity<String> deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
         // 삭제 로직 수행

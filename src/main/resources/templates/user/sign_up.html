@@ -54,10 +54,7 @@
                     <label class="form-label" for="birthday">생년월일</label>
                     <input class="form-control" id="birthday" name="birthday" placeholder="birthday" type="date"/>
                 </div>
-                <!-- CSRF 토큰을 폼에 추가 -->
-                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
-                <button class="btn btn-primary" type="submit" id="signupButton">생성</button>
-                <p class="message">이미 아이디가 있으신가요? <a class="login" th:href="@{/login}">로그인</a></p>
+                <button class="btn btn-primary" type="submit" onclick="GeneralSignUp()">생성</button>                <p class="message">이미 아이디가 있으신가요? <a class="login" th:href="@{/login}">로그인</a></p>
                 <a class="btn-login join_btn btn_click" id="kakao-login-btn">
                     <img alt="카카오" src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png"
                          style="max-width: 40%; height: auto;">
