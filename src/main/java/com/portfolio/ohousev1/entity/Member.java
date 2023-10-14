@@ -48,7 +48,7 @@ public class Member extends AuditingFields{
     @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
-    @Builder
+
     public Member(String email, String password, String nickname,
                   Set<RoleType> roleTypes,String name,LocalDate birthday){
         this.email =email;

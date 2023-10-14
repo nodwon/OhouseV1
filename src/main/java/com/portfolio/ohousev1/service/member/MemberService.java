@@ -44,13 +44,7 @@ public class MemberService {
 
         return MemberDto.from(memberRepository.save(Member.of(email, encodePassword, roleTypes,name, nickname, birthday)));
     }
-//    @Transactional
-//    public String signupMember(String email, String Password, String name, String nickname, LocalDate birthday) {
-//        Set<RoleType> roleTypes = Set.of(RoleType.USER);
-//        validateDuplicateMember(Member.of(email, Password, roleTypes,name, nickname, birthday));
-//        memberRepository.save(Member.of(email, Password, roleTypes,name, nickname, birthday));
-//        return email;
-//    }
+
 
     private void validateDuplicateMember(String email) {
 

@@ -5,9 +5,7 @@ import com.portfolio.ohousev1.dto.post.PostPrincipal;
 import com.portfolio.ohousev1.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j

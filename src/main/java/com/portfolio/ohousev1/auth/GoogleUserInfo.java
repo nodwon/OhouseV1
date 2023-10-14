@@ -6,8 +6,10 @@ public class GoogleUserInfo implements  OAuth2UserInfo{
 
     private final Map<String, Object> attributes;
 
+
     public GoogleUserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;
+
     }
     @Override
     public Map<String, Object> getAttributes() {
@@ -36,7 +38,7 @@ public class GoogleUserInfo implements  OAuth2UserInfo{
 
     @Override
     public String getNickname() {
-        return attributes.get("nickname").toString();    }
+        return (attributes.get("nickname") != null) ? attributes.get("name").toString() : null;    }
 
 
 }
