@@ -27,7 +27,6 @@ class SignUp {
                 nickname: nickname,
                 birthday: birthday
             };
-            debugger;
             $.ajax({
                 type: 'POST',
                 url: '/members/signup',

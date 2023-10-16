@@ -15,7 +15,6 @@ public class PostComment extends AuditingFields{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
     private Long id;
 
     @Setter
@@ -29,7 +28,7 @@ public class PostComment extends AuditingFields{
     private Member member; // 유저 정보 (ID)
 
     @Setter
-    @Column(name = "parent_comment_id",updatable = false)
+    @Column(updatable = false)
     private Long parentCommentId; // 부모 댓글 ID
 
     @ToString.Exclude

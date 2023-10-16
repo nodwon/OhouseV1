@@ -13,6 +13,7 @@ class detail {
         this.toggleReplyForm();
         this.deleteComment();
         this.setupEvents();
+        this.reply();
 
     }
     setupEvents() {
@@ -35,12 +36,90 @@ class detail {
 
         // let likeCountElement = document.getElementById("like-count");
     }
-    toggleReplyForm(index) {
+    // reply() {
+    //     $("#submit-button").on("click", (e) => {
+    //         e.preventDefault();
+    //         let content = $('#content').val();
+    //         let nickname = $('#ParentcommentNickname').val();
+    //         let token = $("meta[name='_csrf']").attr("content");
+    //         let header = $("meta[name='_csrf_header']").attr("content");
+    //         const data = {
+    //             nickname: nickname,
+    //             content: content,
+    //         };
+    //         $.ajax({
+    //             type: 'POST',
+    //             url: '/comments/new',
+    //             beforeSend : function(xhr)
+    //             {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+    //                 xhr.setRequestHeader(header, token);
+    //             },
+    //             dataType: 'json',
+    //             contentType: 'application/json; charset=utf-8',
+    //             data: JSON.stringify(data)
+    //         }).done(function () {
+    //             alert('댓글이 등록되었습니다.');
+    //             location.href = '/';
+    //         }).fail(function (error) {
+    //             alert(JSON.stringify(error));
+    //             console.error("ajax요청 실패")
+    //         });
+    //         console.log(data);
+    //
+    //     });
+    // }
+    toggleReplyForm() {
+        // $("#reply-button").on("click", (e)=> {
+        //     e.preventDefault();
+        //     let postId = $('#post_no').val();
+        //     let commentId = $('#comment-id').val();
+        //     let ParentCommentId = $('#parentcommentId').val();
+        //     let createdAt = $('#commentCreatedAt').val();
+        //     let content = $('#commentContent').val();
+        //     let nickname = $('#commentNickname').val();
+        //     let token = $("meta[name='_csrf']").attr("content");
+        //     let header = $("meta[name='_csrf_header']").attr("content");
+        //     let addParent = ParentCommentId+1;
+        //     debugger;
+        //     const data = {
+        //         id: postId,
+        //         content: content,
+        //         createdAt : createdAt,
+        //         nickname : nickname,
+        //         addParent :addParent,
+        //         commentId : commentId
+        //
+        //     };
+            const replyForm = document.getElementById("replyForm${iterStat.index}");
+            if (replyForm.classList.contains("show")) {
+                // 숨기기
+                replyForm.classList.add("show");
+            } else {
+                // 보이기
+                replyForm.classList.remove("show");
 
-        const replyForm = document.getElementById(`replyForm${index}`);
-        if (replyForm) {
-            replyForm.classList.toggle("show"); // collapse 클래스를 토글하여 보이기/숨기기
-        }
+            }
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '/comments/new',
+        //         beforeSend : function(xhr)
+        //         {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+        //             xhr.setRequestHeader(header, token);
+        //         },
+        //         dataType: 'json',
+        //         contentType: 'application/json; charset=utf-8',
+        //         data: JSON.stringify(data)
+        //     }).done(function () {
+        //         alert('회원가입이 되었습니다.');
+        //         location.href = '/';
+        //     }).fail(function (error) {
+        //         alert(JSON.stringify(error));
+        //         console.error("ajax 요청 실패")
+        //     });
+        //     console.log(data);
+        // });
+
+
     }
     deleteEvent() {
         // 삭제 이벤트 구현
@@ -107,6 +186,7 @@ class detail {
             }
         })
     }
+    // 리뷰 작성 버튼 클리시
 
 }
 

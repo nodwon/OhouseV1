@@ -19,7 +19,7 @@ public record PostCommentResponse(
         Set<PostCommentResponse> childComments
 ) {
     public static PostCommentResponse of(Long id, String content, LocalDateTime createdAt,LocalDateTime modifiedAt, String email, String nickname, String name) {
-        return PostCommentResponse.of(id, content, createdAt,modifiedAt, email, nickname, name, null);
+        return PostCommentResponse.of(id, content, createdAt,modifiedAt, email, nickname, name,null);
     }
     public static PostCommentResponse of(Long id, String content, LocalDateTime createdAt,LocalDateTime modifiedAt, String email, String nickname, String name, Long parentCommentId) {
         Comparator<PostCommentResponse> childCommentCompare = Comparator

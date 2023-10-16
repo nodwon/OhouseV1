@@ -20,15 +20,16 @@
                 <div class="col-md-3" th:each="post, iterStat : ${Posts}" th:if="${iterStat.index < 4}">
                     <div class="card">
                         <div class="card__image-holder">
-                            <img class="card__image" src="https://source.unsplash.com/150x100/?wave" alt="wave"  style="width: 100%; height: auto;" />
+                            <img alt="wave" class="card__image" src="https://source.unsplash.com/150x100/?wave"
+                                 style="width: 100%; height: auto;"/>
                         </div>
                         <div class="card-title">
-                            <a href="#" class="toggle-info btn">
+                            <a class="toggle-info btn" href="#">
                                 <span class="left"></span>
                                 <span class="right"></span>
                             </a>
                             <h2>
-                                <a th:text="${post.title}" th:href="@{/posts/{id} (id=${post.postNo})}"></a>
+                                <a th:href="@{/posts/{id} (id=${post.postNo})}" th:text="${post.title}"></a>
                             </h2>
 
                             <a>

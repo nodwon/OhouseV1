@@ -1,4 +1,7 @@
-
+#list .nav-item.nav-link.link-body-emphasis {
+    color: black; /* 글자 색상을 검정색으로 변경 */
+    font-weight: bold; /* 글자 굵기를 높임 */
+}
 div.card.a.btn {
     background: #0096a0;
     border-radius: 4px;
@@ -17,7 +20,13 @@ div.card.no-touch a.btn:hover {
     transform: translateY(-2px);
     transition: all 0.25s 0s ease-out;
 }
-
+#more-link {
+    float: right; /* 오른쪽 정렬 */
+    font-size: 15px;
+    color: black; /* 글자 색상을 검정색으로 변경 */
+    font-weight: bold; /* 글자 굵기를 높임 */
+    text-decoration: none; /* 하이퍼링크의 밑줄 제거 */
+}
 div.card.no-touch a.btn:active,
 div.card.a.btn:active {
     background: #0096a0,2.5;

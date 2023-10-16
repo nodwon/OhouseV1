@@ -32,12 +32,6 @@ public class PostCommentService {
     @Transactional
     public void savePostComment(PostCommentDto dto){
         try {
-            Long postId = dto.post_no();
-            if (postId == null) {
-                log.warn("댓글 저장 실패. postId가 null입니다.");
-
-            }
-
             String email = dto.memberDto().email();
             if (email == null) {
                 log.warn("댓글 저장 실패. email이 null입니다.");
@@ -55,6 +49,7 @@ public class PostCommentService {
             log.warn("댓글 저장 실패. 댓글 작성에 필요한 정보를 찾을 수 없습니다 - {}", e.getLocalizedMessage());
         }
     }
+    @Transactional
     public void deletePostComment(Long postCommentId, String email){
         postCommentRepository.deleteByIdAndMember_Email(postCommentId, email);
     }

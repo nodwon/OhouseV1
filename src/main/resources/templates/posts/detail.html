@@ -59,18 +59,18 @@
                     <button class="btn btn-primary" id="submit-button" type="submit">입력</button>
                 </div>
             </form>
-
+        </div>
 
             <!-- Parent Comments -->
             <div style="padding-bottom: 40px;" th:each="parentComment, iterStat : ${postComments}">
                 <div class="parent-comments">
                     <span  class="parentcommentId" id="parentcommentId" th:text="${parentComment.parentCommentId}"/>
-                    <div class="comment-id" th:text="${parentComment.nickname}"></div>
-                    <div class="comment-text" th:text="${parentComment.content}"></div>
-                    <div id="postId" th:text="${post.postId()}" hidden></div>
+                    <div id="postId" th:text="${parentComment.id()}" hidden></div>
+                    <div class="comment-id" id="commentNickname"th:text="${parentComment.nickname}"></div>
+                    <div class="comment-text" id="commentContent" th:text="${parentComment.content}"></div>
                     <div class="small-button">
                         <small id="parentCreateAt">
-                            <time class="comment-time" th:text="${#temporals.format(parentComment.createdAt, 'mm')}">
+                            <time class="comment-time"  id="commentCreatedAt" th:text="${#temporals.format(parentComment.createdAt, 'mm')}">
                                 분전
                             </time>
                         </small>
@@ -79,7 +79,7 @@
                             <span id="like-text">좋아요</span>
                         </span>
                         <span data-target="#replyForm${iterStat.index}" data-toggle="collapse"
-                              id="reply-button" onclick="toggleReplyForm(${iterStat.index})" type="button">답글 달기</span>
+                              id="reply-button" type="button" style="display: none">답글 달기</span>
                         <span class="btn btn-outline-danger" id="deleteComment" onclick="deleteComment()">삭제
                         </span>
                     </div>
@@ -106,24 +106,18 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 답글 입력 폼 -->
-                    <div class="collapse" id="replyForm${iterStat.index}">
-                        <form class="child-comment-form" method="post" role="form" th:action="@{/comments/new}"
-                              th:object="${PostCommentRequest}">
-                            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-                            <input name="post_no" th:value="${post.postId()}" type="hidden"/>
-                            <input class="parent-comment-id" th:value="${parentComment.id}" type="hidden">
-                            <input class="content" id="child-content" name="content"
-                                   placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다."
-                                   type="text"/>
-                            <button class="btn btn-primary" id="child-submit-button" type="submit">입력</button>
-
+                    <!-- 답글 입력 form -->
+                    <div class="reply-form" style="display: none">
+                        <form id="reply-form" method="post" th:action="@{/comments/new}" th:object="${PostCommentRequest}">
+                            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
+                            <input class="commentId" name="id" th:value="${post.postId()}" hidden></input>
+                            <input class="comment-textbox" name="content" />
+                            <input class="parent-comment-id" name="parentCommentId" type="hidden" th:value="${parentComment.parentCommentId() == null ? 1 : parentComment.parentCommentId()}" />
+                            <button class="btn btn-primary" type="submit">입력</button>
                         </form>
                     </div>
                 </div>
             </div>
-
-        </div>
     </section>
 </div>
 </div>
