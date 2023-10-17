@@ -28,11 +28,18 @@
                 <!-- 저장 버튼 -->
                 <button class="btn btn-primary" id="submit-button" type="submit" onclick="saveEvent()" >저장</button>
                 <!-- 취소 버튼 -->
-                <button class="btn btn-secondary" id="cancel-button" type="button" onclick="deleteEvent()">취소</button>
+                <button class="btn btn-secondary" id="cancel-button" type="button">취소</button>
+
             </div>
         </div>
     </form>
 </div>
 </body>
 <div th:replace="~{fragments/footer :: footer}"/>
+<script>
+    document.getElementById("cancel-button").addEventListener("click", function() {
+        location.href = "/"; // 메인 페이지의 URL로 변경하세요
+    });
+</script>
 </html>
+

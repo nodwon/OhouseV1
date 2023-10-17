@@ -126,6 +126,7 @@ class detail {
         let postId = $('#post_no').val();
         let token = $("meta[name='_csrf']").attr("content");
         let header = $("meta[name='_csrf_header']").attr("content");
+        debugger;
         $('#deleteButton').on('click', (e) => {
             e.preventDefault(); // 기본 동작 중단
             const data = {

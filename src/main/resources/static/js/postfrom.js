@@ -40,7 +40,12 @@ class postfrom {
 
         });
     }
-
+    home(){
+        $('#cancel-button').on('click', (e) => {
+            e.preventDefault(); // 기본 동작 중단
+            location.href = '/';
+        });
+    }
 
 }
 

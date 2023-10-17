@@ -18,7 +18,7 @@ public class PostCommentController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/new")
-    public String postNewPostComment(@AuthenticationPrincipal PostPrincipal postPrincipal, PostCommentRequest postCommentRequest){
+    public String postNewPostComment(@AuthenticationPrincipal PostPrincipal postPrincipal, PostCommentRequest postCommentRequest, @PathVariable Long parent){
         postCommentService.savePostComment(postCommentRequest.toDto(postPrincipal.toDto()));
         return "redirect:/posts/" + postCommentRequest.post_no();
     }

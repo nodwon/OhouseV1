@@ -99,12 +99,12 @@ public class PostApiController {
         return "fragments/main";
     }
     @DeleteMapping("/{postId}/delete")
-    public ResponseEntity<String> deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
+    public String deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
         // 삭제 로직 수행
         postService.deletePost(postId, postPrincipal.email());
 
         // 삭제가 성공하면 204 No Content를 반환
-        return ResponseEntity.noContent().build();
+        return "redirect:/";
     }
 
     //게시글 페이지 조회
