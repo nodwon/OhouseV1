@@ -4,7 +4,6 @@ import com.portfolio.ohousev1.dto.Comment.request.PostCommentRequest;
 import com.portfolio.ohousev1.dto.post.PostPrincipal;
 import com.portfolio.ohousev1.service.post.PostCommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ public class PostCommentController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/new")
-    public String postNewPostComment(@AuthenticationPrincipal PostPrincipal postPrincipal, PostCommentRequest postCommentRequest, @PathVariable Long parent){
+    public String postNewPostComment(@AuthenticationPrincipal PostPrincipal postPrincipal, PostCommentRequest postCommentRequest){
         postCommentService.savePostComment(postCommentRequest.toDto(postPrincipal.toDto()));
         return "redirect:/posts/" + postCommentRequest.post_no();
     }

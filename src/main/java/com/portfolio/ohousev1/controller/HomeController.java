@@ -1,6 +1,7 @@
 package com.portfolio.ohousev1.controller;
 
 import com.portfolio.ohousev1.dto.post.response.PostsResponse;
+import com.portfolio.ohousev1.entity.constant.SearchType;
 import com.portfolio.ohousev1.service.post.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,12 +23,14 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home() {
+
         log.info("home controller");
         return "fragments/main";
     }
     @GetMapping("/") //상품일부분가져오기
     public  String PostsList(ModelMap map ,Pageable pageable){
         Page<PostsResponse> posts = postService.AllPost(pageable).map(PostsResponse::from);
+        map.addAttribute("searchTypes", SearchType.values());
 
         map.addAttribute("Posts", posts);
         return "fragments/main";

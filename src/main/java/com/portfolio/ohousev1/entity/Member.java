@@ -70,6 +70,12 @@ public class Member extends AuditingFields{
         this.nickname =name;
        return name;
    }
+   public  Member Additional(String name, String nickname, LocalDate birthday){
+        this.name =name;
+        this.nickname = nickname;
+        this.birthday = birthday;
+        return  this;
+   }
     public  static Member of( String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday){
         return new Member( email, nickname,password,name,birthday,null,roleTypes,null);
     }

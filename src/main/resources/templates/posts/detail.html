@@ -6,7 +6,7 @@
 <body>
 
 <div class="container">
-    <header class="py-5 text-center" id="post-header">
+    <header class="py-5 text-center">
         <h1 th:text="${post.title}"></h1>
     </header>
     <section>
@@ -110,7 +110,7 @@
                     <div class="reply-form" style="display: none">
                         <form id="reply-form" method="post" th:action="@{/comments/new}" th:object="${PostCommentRequest}">
                             <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
-                            <input class="commentId" name="id" th:value="${post.postId()}" hidden></input>
+                            <input class="commentId" name="id" th:value="${post.postId()}" hidden/>
                             <input class="comment-textbox" name="content" />
                             <input class="parent-comment-id" name="parentCommentId" type="hidden" th:value="${parentComment.parentCommentId() == null ? 1 : parentComment.parentCommentId()}" />
                             <button class="btn btn-primary" type="submit">입력</button>
@@ -120,8 +120,6 @@
             </div>
     </section>
 </div>
-</div>
-
 </body>
 <div th:replace="~{fragments/footer :: footer}"/>
 

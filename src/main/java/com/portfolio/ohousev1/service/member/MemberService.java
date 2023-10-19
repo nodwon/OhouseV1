@@ -4,6 +4,7 @@ import com.portfolio.ohousev1.dto.member.MemberDto;
 import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.constant.RoleType;
 import com.portfolio.ohousev1.repository.MemberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +21,6 @@ import java.util.Set;
 public class MemberService {
     private final MemberRepository memberRepository;
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -29,20 +29,18 @@ public class MemberService {
         return memberRepository.findByEmail(email)
                 .map(MemberDto::from);
     }
+    public MemberDto getMember(String email) {
+        return memberRepository.findById(email)
+                .map(MemberDto::from)
+                .orElseThrow(() -> new EntityNotFoundException("없는 회원입니다. - postId: " + email));
+    }
 
     @Transactional
-    public MemberDto saveMember(String email, String Password,  Set<RoleType> roleTypes, String name, String nickname, LocalDate birthday) {
-        if (!email.contains("@")) {
-            throw new IllegalStateException("@포함되어 있지 않습니다.");
-        }
-        if (Password.length() < 8) {
-            throw new IllegalStateException("비밀번호가 8자이상이 아닙니다.");
-        }
+    public MemberDto saveMember(String email,String Password,  Set<RoleType> roleTypes, String name, String nickname, LocalDate birthday) {
         roleTypes = Set.of(RoleType.USER);
         validateDuplicateMember(email);
         String encodePassword = passwordEncoder.encode(Password); // 비밀번호 해싱
-
-        return MemberDto.from(memberRepository.save(Member.of(email, encodePassword, roleTypes,name, nickname, birthday)));
+        return MemberDto.from(memberRepository.save(Member.of(email,encodePassword, roleTypes,name, nickname, birthday)));
     }
 
 
@@ -56,7 +54,6 @@ public class MemberService {
         }
     }
 
-
     @Transactional
     public String updateMember(String email, MemberDto dto) {
 
@@ -64,14 +61,18 @@ public class MemberService {
         Optional<Member> existingNickanme = memberRepository.findByNickname(dto.nickname());
         if (existingNickanme.isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 닉네임입니다. 다른 닉네임을 입력해주세요.");
-        }        String updateNickname = member.updateNickname(dto.nickname());
+        } else { // 닉네임만 바꿀때
+            member.updateNickname(dto.nickname());
+        }
+        if (dto.Password() != null && !dto.Password().isEmpty()) { // 비밀번호만 바꿀때
+            String encodePassword = passwordEncoder.encode(dto.Password()); // 비밀번호 해싱
+            member.updatePassword(encodePassword);
+        }else { // oauth2 추가 사항
+            member.Additional(dto.name(), dto.nickname(), dto.birthday());
+        }
+        return dto.email();
 
-        member.updateNickname(dto.nickname());
-        member.updatePassword(dto.Password());
 
-        memberRepository.save(member);
-
-        return member.getEmail();
     }
 
     public void deleteMember(String email) {

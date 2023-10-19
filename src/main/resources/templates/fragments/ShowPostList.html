@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> House portfolio</title>
+</head>
+<body>
+<th:block th:fragment="ShowPostList" xmlns:th="http://www.thymeleaf.org">
+    <div class="container bootstrap snippets body">
+        <div class="row mb-2" style="padding: 10px 0;"><!--여기가 포스트 시작-->
+            <div class="col-md-6" th:each="post, iterStat : ${Posts}" th:if="${iterStat.index < 2}">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative">
+                    <div class="col p-4 d-flex flex-column position-static h-md-250" >
+                        <strong class="d-inline-block mb-2 text-primary-emphasis">베스트 게시물</strong>
+                        <div>
+                            <a th:href="@{/posts/{id} (id=${post.postNo})}">
+                                <img alt="wave" src="https://source.unsplash.com/500x150/?food" style="width: 100%; height: auto;" />
+                            </a>
+                            <div>
+                                <h2>
+                                    <a th:href="@{/posts/{id} (id=${post.postNo})}" th:text="${post.title}" style="text-decoration: none; color: black;"></a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

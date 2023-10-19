@@ -1,27 +1,25 @@
 $(() => {
-    new postfrom();
+    new home();
 });
 
-class postfrom {
+class home {
     constructor() {
-        this.saveEvent();
+        this.mypage();
 
     }
-    saveEvent() {
+    mypage() {
 
         $('#submit-button').on('click', (e) => {
             e.preventDefault(); // 기본 동작 중단
-            let title = $('#title').val();
-            let content = $('#content').val();
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
             const data = {
-                title: title,
-                content: content,
+                token: token,
+                header: header,
             };
             $.ajax({
-                type: 'POST',
-                url: '/posts',
+                type: 'GET',
+                url: '/mypage',
                 beforeSend : function(xhr)
                 {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
                     xhr.setRequestHeader(header, token);

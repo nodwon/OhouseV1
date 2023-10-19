@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/header :: header}"></div>
+<link href="/css/profile.css" rel="stylesheet" type="text/css">
 <body>
 <main class="container">
+    <input th:value ="${#authentication.getName()}" hidden/>
+    <div class="wrapper" sec:authorize="isAuthenticated()">
+        <div class="profile-card js-profile-card" style="flex: 1;"  sec:authorize="isAuthenticated()">
+            <div class="profile-card__img">
+                <img src="https://source.unsplash.com/500x200/?dog" alt="profile card">
+            </div>
+
+            <div class="profile-card__cnt js-profile-cnt" style="width: 70%;">
+                <div class="profile-card__name" th:text="${info.email}"></div>
+
+                <div class="profile-card__txt" th:text= "${info.nickname}"></div>
+                <div class="profile-card__txt" th:text= "${info.name}"></div>
+                <div class="profile-card__txt" th:text= "${info.birthday}"></div>
+
+                <div class="profile-card-social">
+                </div>
+
+                <div class="profile-card-ctr">
+                    <a class="profile-card__button button--blue submit" th:href="@{/members/edit}">수정</a>
+                    <button class="profile-card__button button--orange" >탈퇴</button>
+                </div>
+            </div>
+            <div class="profile-card__overlay js-message-close"></div>
+        </div>
+
     <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
-    <div class="row">
+    <div class="row" style="flex: 3;">
         <table class="table" id="article-table">
             <thead>
             <tr>
@@ -23,7 +49,7 @@
                 th:if="${#authentication.getName() == posts.email}">
                 <td th:text="${posts.postNo}"></td>
                 <td>
-                    <a th:text="${posts.title}" th:href="@{'/posts/' + ${posts.postNo}}">게시물 보기</a>
+                    <a th:text="${posts.title}" th:href="@{'/posts/' + ${posts.postNo}}" style="text-decoration: none; color: black;">게시물 보기</a>
                 </td>
                 <td th:text="${posts.nickname}"></td>
                 <td th:text="${posts.createdAt}"></td>
@@ -40,11 +66,13 @@
                     </a>
                 </td>
             </tr>
+
             </tbody>
+
         </table>
+
     </div>
-
-
+    </div>
     <div class="row">
         <nav aria-label="Page navigation" id="pagination">
             <ul class="pagination justify-content-center">

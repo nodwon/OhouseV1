@@ -11,16 +11,18 @@
             <h3 class="pb-4 mb-4 fst-italic border-bottom">
                 주간 베스트 상품
                 <span class="more-link">
-                    <a href="/shop">더보기</a>
+                    <a href="/shop" style="text-decoration: none; color: deepskyblue;">더보기</a>
                 </span>
             </h3>
             <!-- 여기서 부터 shop 리스트 -->
-            <div class="row"style="padding: 20px 0;">
+            <div class="row" style="padding: 20px 0;">
                 <div class="col-md-3" th:each="post, iterStat : ${Posts}" th:if="${iterStat.index < 4}">
                     <div class="card">
                         <div class="card__image-holder">
+                            <a th:href="@{/posts/{id} (id=${post.postNo})}">
                             <img alt="wave" class="card__image" src="https://source.unsplash.com/150x100/?wave"
                                  style="width: 100%; height: auto;"/>
+                            </a>
                         </div>
                         <div class="card-title">
                             <a class="toggle-info btn" href="#">
@@ -28,7 +30,7 @@
                                 <span class="right"></span>
                             </a>
                             <h2>
-                                <a th:text="${post.title}" th:href="@{/posts/{id} (id=${post.postNo})}"></a>
+                                <a th:text="${post.title}" th:href="@{/posts/{id} (id=${post.postNo})}" style="text-decoration: none; color: black;"></a>
                             </h2>
                             <a>
                                 <span th:text="${post.nickname()}"></span>
@@ -37,7 +39,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 여기까지 -->
         </div>
     </div>
 </th:block>
