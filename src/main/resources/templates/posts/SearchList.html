@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: header}"></div>
+</head>
+<body>
+<div class="container">
+    <h1>검색 결과</h1>
+    <!-- 여기서부터 게시물 리스트 -->
+    <div class="row" style="padding: 20px 0;">
+        <div class="col-md-3 col-sm-4 col-6" th:each="post : ${Posts}">
+            <div class="card">
+                <div class="card__image-holder">
+                    <img alt="wave" class="card__image" src="https://source.unsplash.com/150x100/?wave"
+                         style="width: 100%; height: auto;"/>
+                </div>
+                <div class="card-title">
+                    <a class="toggle-info btn" href="#">
+                        <span class="left"></span>
+                        <span class="right"></span>
+                    </a>
+                    <h2>
+                        <a th:text="${post.title}" th:href="@{/posts/{id}(id=${post.postNo})}"></a>
+                    </h2>
+                    <a>
+                        <span th:text="${post.nickname}"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pagination-bar">
+            <span th:text="'1'" class="page-number">1</span>
+            <div th:each="pageNumber : ${paginationBarNumbers}">
+                <span th:text="${pageNumber}" class="page-number"></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="~{fragments/footer :: footer}"/>
+</html>

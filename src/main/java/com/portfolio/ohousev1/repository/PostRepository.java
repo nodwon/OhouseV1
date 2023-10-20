@@ -28,6 +28,5 @@ public interface PostRepository extends
         bindings.bind(root.title).first(StringExpression::containsIgnoreCase); //대소문자 구분 없이 찾기
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase); //대소문자 구분 없이 찾기
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
-//        bindings.bind(root.member).first(StringExpression::e);
     }
 }

@@ -74,7 +74,7 @@ public class MemberService {
 
 
     }
-
+    @Transactional
     public void deleteMember(String email) {
         memberRepository.deleteByEmail(email);
     }

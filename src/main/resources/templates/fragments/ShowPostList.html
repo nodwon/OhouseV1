@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title> House portfolio</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/header :: header}"></div>
 <body>
 <th:block th:fragment="ShowPostList" xmlns:th="http://www.thymeleaf.org">
     <div class="container bootstrap snippets body">
@@ -29,4 +26,5 @@
     </div>
 </th:block>
 </body>
+<div th:replace="~{fragments/footer :: footer}"/>
 </html>

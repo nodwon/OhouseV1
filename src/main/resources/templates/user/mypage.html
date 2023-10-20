@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/header :: header}"></div>
+<script type="module" src="/js/detail.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <link href="/css/profile.css" rel="stylesheet" type="text/css">
 <body>
 <main class="container">
@@ -11,19 +13,18 @@
                 <img src="https://source.unsplash.com/500x200/?dog" alt="profile card">
             </div>
 
-            <div class="profile-card__cnt js-profile-cnt" style="width: 70%;">
-                <div class="profile-card__name" th:text="${info.email}"></div>
+            <div class="profile-card__cnt js-profile-cnt">
+                <div class="profile-card__name" id="email" th:text="${info.email}"></div>
 
-                <div class="profile-card__txt" th:text= "${info.nickname}"></div>
-                <div class="profile-card__txt" th:text= "${info.name}"></div>
-                <div class="profile-card__txt" th:text= "${info.birthday}"></div>
-
+                <div class="profile-card__txt">닉네임: <span th:text="${info.nickname}">입력해주세요</span></div>
+                <div class="profile-card__txt">이름: <span th:text="${info.name}">입력해주세요</span></div>
+                <div class="profile-card__txt">생일: <span th:text="${info.birthday}">입력해주세요</span></div>
                 <div class="profile-card-social">
                 </div>
 
                 <div class="profile-card-ctr">
                     <a class="profile-card__button button--blue submit" th:href="@{/members/edit}">수정</a>
-                    <button class="profile-card__button button--orange" >탈퇴</button>
+                    <button class="profile-card__button button--orange" id="secession" onclick="deleteMember()">탈퇴</button>
                 </div>
             </div>
             <div class="profile-card__overlay js-message-close"></div>
@@ -40,14 +41,12 @@
                 <th class="created-at"><a>작성일</a></th>
                 <th class="modified-at"><a>수정일</a></th>
                 <th class="modified-at"><a>수정</a></th>
-                <th class="delete"><a>삭제</a></th>
-
             </tr>
             </thead>
             <tbody>
             <tr th:each="posts, loop : ${Posts}" sec:authorize="isAuthenticated()"
                 th:if="${#authentication.getName() == posts.email}">
-                <td th:text="${posts.postNo}"></td>
+                <td id="post_no" th:text="${posts.postNo}"></td>
                 <td>
                     <a th:text="${posts.title}" th:href="@{'/posts/' + ${posts.postNo}}" style="text-decoration: none; color: black;">게시물 보기</a>
                 </td>
@@ -58,11 +57,6 @@
                 <td>
                     <a class="btn btn-primary" href="#"
                        role="button" th:href="@{{id}/update (id=${posts.postNo})}">수정
-                    </a>
-                </td>
-                <td>
-                    <a data-postid="${posts.postNo}" href="#" id="deleteButton" th:href="@{{id}/delete (id=${posts.postNo})}" >
-                        <button style="background-color: red; color: white" type="submit">삭제</button>
                     </a>
                 </td>
             </tr>

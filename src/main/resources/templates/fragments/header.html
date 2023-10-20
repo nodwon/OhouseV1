@@ -10,6 +10,7 @@
         <link href="/css/blog.css" rel="stylesheet" type="text/css">
         <link href="/css/styles.css" rel="stylesheet" type="text/css">
         <link href="/css/main.css" rel="stylesheet" type="text/css">
+        <link href="/css/Search.css" rel="stylesheet" type="text/css">
 
         <link href="https://getbootstrap.com/docs/5.3/examples/blog/" rel="canonical">
         <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet">
@@ -27,20 +28,35 @@
     </header>
     <body>
     <!-- 메인 header -->
-        <div class="lh-1 py-1">
-            <div class="container" id="mainlist"> <!-- 컨테이너 내부로 이동 -->
-                <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="col-auto d-none d-lg-block">
-                    <a class="link-secondary"  id= "big" href="/">오늘의집</a>
+    <div class="lh-1 py-1">
+        <div class="container" id="mainlist">
+            <div class="row flex-nowrap align-items-center">
+                <!-- 왼쪽 엘리먼트 -->
+                <div class="col-lg-3 col-md-3 col-sm-3 p-0">
+                    <a class="link-secondary" href="/">오늘의집</a>
                     <a class="btn btn-sm btn-outline-secondary" href="/postAllList">커뮤니티</a>
                     <a class="btn btn-sm btn-outline-secondary" href="/shop">쇼핑</a>
                 </div>
-                <div class="col-lg-3 col-md-2 col-sm-3 p-0">
-                    <label for="search-value" hidden>통합검색</label>
-                    <input type="text" placeholder="통합검색" class="form-control" id="search-value" name="searchValue">
+                <!-- 가운데 검색 엘리먼트 -->
+                <div class="col p-0 d-flex align-items-center">
+                    <form id="searchForm" method="GET" action="/search" class="d-flex align-items-center">
+                        <select name="searchOption" id="searchOption" class="form-select mb-5" style="width: 30%;">
+                            <option value="">전체</option>
+                            <option th:each="searchType : ${searchTypes}"
+                                    th:value="${searchType.name()}"
+                                    th:text="${searchType.description}"
+                                    th:selected="${param.searchType != null && (param.searchType.toString() == searchType.name())}"
+                            ></option>
+                        </select>
+                        <div class="input-group mx-4" style="flex-grow: 1;">
+                            <input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="검색어를 입력하세요">
+                            <button type="submit" class="btn btn-primary">검색</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-3 d-flex justify-content-end align-items-center">
-                    <nav class="navbar navbar-expand-lg ">
+                <!-- 오른쪽 엘리먼트 -->
+                <div class="col-auto d-none d-lg-block">
+                    <nav class="navbar navbar-expand-lg">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <a class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" th:href="@{/members/myPage}">마이페이지</a>
@@ -48,7 +64,7 @@
                             <li class="nav-item">
                                 <a class="btn btn-sm btn-outline-secondary" href="/cart" hidden>장바구니</a>
                             </li>
-                            <li class="nav-item" >
+                            <li class="nav-item">
                                 <a class="btn btn-sm btn-outline-secondary" sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
                                 <a class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" th:href="@{/members/logout}">로그아웃</a>
                             </li>
@@ -62,8 +78,9 @@
                         </ul>
                     </nav>
                 </div>
-                </div>
             </div>
+        </div>
+    </div>
             <title>오늘의집 Clone</title>
         </div>
         <!--네비게이션 바-->

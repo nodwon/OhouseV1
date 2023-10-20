@@ -34,23 +34,15 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PostService postService;
-    private final PaginationService paginationService;
     @GetMapping("/myPage")
-    public String MyPage(
-            Authentication authentication,
-            @RequestParam(required = false) SearchType searchType,
-            @RequestParam(required = false) String searchValue,
+    public String MyPage(Authentication authentication,
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
-            ModelMap map
-    ){
-        Page<PostsResponse> posts = postService.searchPosts(searchType, searchValue, pageable).map(PostsResponse::from);
-        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), posts.getTotalPages());
+            ModelMap map){
+        Page<PostsResponse> posts = postService.AllPost(pageable).map(PostsResponse::from);
         String email = authentication.getName();
         MemberResponse profile = MemberResponse.from(memberService.getMember(email)); // email을 사용하여 사용자 정보 검색
         map.addAttribute("info", profile);
         map.addAttribute("Posts", posts);
-        map.addAttribute("paginationBarNumbers", barNumbers);
-        map.addAttribute("searchTypes", SearchType.values());
         return "user/mypage";
     }
     @GetMapping("/logout")
@@ -84,10 +76,13 @@ public class MemberController {
         return "redirect:/";
 
     }
-    // 삭제
-//            MemberDto additon= updatePost(result.email(),update).getBody();
-//            return  ResponseEntity.status(HttpStatus.CREATED)
-//                    .body(additon);
-    // 페이지
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/{email}/delete")
+    public String DeleteMember(@PathVariable String email) {
+        memberService.deleteMember(email);
+        return "redirect:/";
+
+    }
+
 }
 

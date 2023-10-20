@@ -7,7 +7,6 @@ import com.portfolio.ohousev1.entity.Post;
 import com.portfolio.ohousev1.entity.constant.SearchType;
 import com.portfolio.ohousev1.repository.MemberRepository;
 import com.portfolio.ohousev1.repository.PostRepository;
-import com.portfolio.ohousev1.service.PaginationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.stream.Stream;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -25,9 +22,7 @@ import java.util.stream.Stream;
 public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-    private final PaginationService paginationService;
-
-
+    @Transactional
     public Page<PostDto> searchPosts(SearchType searchType, String searchKeyword, Pageable pageable){
         if(searchKeyword ==null|| searchKeyword.isBlank()){
             return  postRepository.findAll(pageable).map(PostDto::from);
@@ -38,6 +33,7 @@ public class PostService {
             case NICKNAME -> postRepository.findByMember_NicknameContaining(searchKeyword,pageable).map(PostDto::from);
         };
     }
+
     public Page<PostDto> AllPost(Pageable pageable){
         return postRepository.findAll(pageable).map(PostDto::from);
     }
