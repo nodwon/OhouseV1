@@ -1,32 +1,22 @@
 package com.portfolio.ohousev1.controller;
 
 import com.portfolio.ohousev1.dto.Comment.response.PostWithCommentResponse;
-import com.portfolio.ohousev1.dto.member.response.MemberResponse;
 import com.portfolio.ohousev1.dto.post.PostPrincipal;
 import com.portfolio.ohousev1.dto.post.request.PostsRequest;
 import com.portfolio.ohousev1.dto.post.response.PostsResponse;
 import com.portfolio.ohousev1.entity.constant.FormStatus;
-import com.portfolio.ohousev1.entity.constant.SearchType;
-import com.portfolio.ohousev1.service.PaginationService;
 import com.portfolio.ohousev1.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/posts")

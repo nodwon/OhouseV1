@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -51,7 +52,10 @@ public class PostCommentService {
     }
     @Transactional
     public void deletePostComment(Long postCommentId, String email){
-        postCommentRepository.deleteByIdAndMember_Email(postCommentId, email);
+        Optional<PostComment> comment = postCommentRepository.findById(postCommentId);
+        if (comment.isPresent()) {
+            postCommentRepository.deleteByIdAndMember_Email(postCommentId, email);
+        }
     }
 
 

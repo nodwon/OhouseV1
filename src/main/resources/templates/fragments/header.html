@@ -24,6 +24,8 @@
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="module" src="/js/Search.js"></script>
+
 
     </header>
     <body>
@@ -38,19 +40,11 @@
                     <a class="btn btn-sm btn-outline-secondary" href="/shop">쇼핑</a>
                 </div>
                 <!-- 가운데 검색 엘리먼트 -->
-                <div class="col p-0 d-flex align-items-center">
+                <div class="col p-0  align-items-center">
                     <form id="searchForm" method="GET" action="/search" class="d-flex align-items-center">
-                        <select name="searchOption" id="searchOption" class="form-select mb-5" style="width: 30%;">
-                            <option value="">전체</option>
-                            <option th:each="searchType : ${searchTypes}"
-                                    th:value="${searchType.name()}"
-                                    th:text="${searchType.description}"
-                                    th:selected="${param.searchType != null && (param.searchType.toString() == searchType.name())}"
-                            ></option>
-                        </select>
-                        <div class="input-group mx-4" style="flex-grow: 1;">
-                            <input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="검색어를 입력하세요">
-                            <button type="submit" class="btn btn-primary">검색</button>
+                        <div class="input-group mx-4" style="flex-grow: 90%;">
+                            <input type="text" th:name="searchKeyword" id="searchKeyword" class="form-control" placeholder="검색어를 입력하세요">
+                            <button type="submit" id="Search" class="btn btn-primary" onclick="SearchEvent()">검색</button>
                         </div>
                     </form>
                 </div>

@@ -75,8 +75,9 @@ public class MemberService {
 
     }
     @Transactional
-    public void deleteMember(String email) {
+    public String deleteMember(String email) {
         memberRepository.deleteByEmail(email);
+        return "redirect:/";
     }
 
 

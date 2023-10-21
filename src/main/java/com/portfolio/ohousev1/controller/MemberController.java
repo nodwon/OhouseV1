@@ -6,8 +6,6 @@ import com.portfolio.ohousev1.dto.member.request.MemberUpdateRequest;
 import com.portfolio.ohousev1.dto.member.response.MemberResponse;
 import com.portfolio.ohousev1.dto.post.response.PostsResponse;
 import com.portfolio.ohousev1.entity.constant.FormStatus;
-import com.portfolio.ohousev1.entity.constant.SearchType;
-import com.portfolio.ohousev1.service.PaginationService;
 import com.portfolio.ohousev1.service.member.MemberService;
 import com.portfolio.ohousev1.service.post.PostService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +21,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RequestMapping("/members")
@@ -76,9 +72,8 @@ public class MemberController {
         return "redirect:/";
 
     }
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{email}/delete")
-    public String DeleteMember(@PathVariable String email) {
+    @DeleteMapping("/{email}/delete")
+    public String DeleteMember( @PathVariable String email) {
         memberService.deleteMember(email);
         return "redirect:/";
 

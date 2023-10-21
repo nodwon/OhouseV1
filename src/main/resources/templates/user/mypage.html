@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/header :: header}"></div>
-<script type="module" src="/js/detail.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="/js/home.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="/css/profile.css" rel="stylesheet" type="text/css">
 <body>
 <main class="container">
@@ -14,7 +14,7 @@
             </div>
 
             <div class="profile-card__cnt js-profile-cnt">
-                <div class="profile-card__name" id="email" th:text="${info.email}"></div>
+                <div class="profile-card__name" id="email" th:text="${info.email}" th:value="${info.email}"></div>
 
                 <div class="profile-card__txt">닉네임: <span th:text="${info.nickname}">입력해주세요</span></div>
                 <div class="profile-card__txt">이름: <span th:text="${info.name}">입력해주세요</span></div>
@@ -77,6 +77,6 @@
         </nav>
     </div>
 </main>
-
+<div th:replace="~{fragments/footer :: footer}"/>
 </body>
 </html>

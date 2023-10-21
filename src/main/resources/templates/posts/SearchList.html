@@ -27,12 +27,21 @@
                     </a>
                 </div>
             </div>
+            <!-- 검색 결과가 없는 경우 메시지 표시 -->
+            <div th:if="${noResults}" class="col-md-12">
+                <p th:text="${noResults}" class="text-danger"></p>
+            </div>
         </div>
         <div class="pagination-bar">
-            <span th:text="'1'" class="page-number">1</span>
-            <div th:each="pageNumber : ${paginationBarNumbers}">
-                <span th:text="${pageNumber}" class="page-number"></span>
-            </div>
+            <nav id="pagination" aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-number" href="#">Previous</a></li>
+                <li th:each="pageNumber : ${paginationBarNumbers}">
+                    <a th:text="${pageNumber+1}" class="page-number" href="#"></a>
+                </li>
+                <li class="page-item"><a class="page-number" href="#">Next</a></li>
+            </ul>
+            </nav>
         </div>
     </div>
 </div>

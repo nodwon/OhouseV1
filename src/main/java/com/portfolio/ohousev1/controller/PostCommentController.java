@@ -34,8 +34,8 @@ public class PostCommentController {
 
     @DeleteMapping("/{commentId}/delete")
     public String deletePostComment(@PathVariable Long commentId,
-                                    @PathVariable Long postNo,
-                                    @AuthenticationPrincipal PostPrincipal postPrincipal){
+                                    @AuthenticationPrincipal PostPrincipal postPrincipal,
+                                    Long postNo){
         postCommentService.deletePostComment(commentId, postPrincipal.getUsername());
 
         return "redirect:/posts/" + postNo;
