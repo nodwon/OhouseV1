@@ -14,11 +14,12 @@ public record PostWithCommentDto(
         Set<PostCommentDto> postCommentDtos,
         String title,
         String content,
+        Integer view,
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {
-    public static  PostWithCommentDto of(Long postId, MemberDto memberDto, Set<PostCommentDto> postCommentDtos, String title, String content,LocalDateTime createdAt, LocalDateTime modifiedAt){
-        return new PostWithCommentDto(postId,memberDto,postCommentDtos,title,content,createdAt,modifiedAt);
+    public static  PostWithCommentDto of(Long postId, MemberDto memberDto, Set<PostCommentDto> postCommentDtos, String title, String content,Integer view,LocalDateTime createdAt, LocalDateTime modifiedAt){
+        return new PostWithCommentDto(postId,memberDto,postCommentDtos,title,content,view,createdAt,modifiedAt);
     }
     public static PostWithCommentDto from(Post entity){
         return new PostWithCommentDto(
@@ -29,6 +30,7 @@ public record PostWithCommentDto(
                         .collect(Collectors.toCollection(LinkedHashSet::new)),
                 entity.getTitle(),
                 entity.getContent(),
+                entity.getView(),
                 entity.getCreatedAt(),
                 entity.getModifiedAt()
         );

@@ -26,17 +26,11 @@ import java.util.stream.Stream;
 public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-//    @Transactional
-//    public Page<PostDto> searchPosts(String searchKeyword, Pageable pageable){
-//        if(searchKeyword ==null|| searchKeyword.isBlank()){
-//            return  postRepository.findAll(pageable).map(PostDto::from);
-//        }
-//        return
-//             postRepository.findByTitleContaining(searchKeyword, pageable).map(PostDto::from);
-//             postRepository.findByContentContaining(searchKeyword,pageable).map(PostDto::from);
-//             postRepository.findByMember_NicknameContaining(searchKeyword,pageable).map(PostDto::from);
-//        };
-//    }
+
+    //조회수
+    @Transactional
+    public Integer updateView(Long post_no) {return postRepository.updateView(post_no);}
+    // 검색
     @Transactional
     public Page<PostDto> searchPosts(String searchKeyword, Pageable pageable) {
         if (searchKeyword == null || searchKeyword.isBlank()) {

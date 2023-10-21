@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @Slf4j
 public class PostApiController {
-    private static final Logger logger = LoggerFactory.getLogger(PostApiController.class);
     private final PostService postService;
 
     //게시글 detail페이지 with 댓글
@@ -31,6 +30,7 @@ public class PostApiController {
     public String post(@PathVariable Long postId, ModelMap map) {
         PostWithCommentResponse posts = PostWithCommentResponse.from(postService.getPostWithComments(postId));
         map.addAttribute("post", posts);
+        postService.updateView(postId);
         map.addAttribute("postComments", posts.postCommentResponse());
         map.addAttribute("totalCount", postService.getPostCount());
         return "posts/detail";

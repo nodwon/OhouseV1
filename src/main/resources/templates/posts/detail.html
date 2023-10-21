@@ -14,7 +14,7 @@
             <input id="post_no" th:value="${post.postId()}" type="hidden"/>
             <p id="created">생성일자: <span th:text="${#temporals.format(post.created_at, 'yy.mm.dd')}">게시물 생성일자</span></p>
             <p id="nickname">닉네임: <span th:text="${post.nickname}">게시물 작성자 닉네임</span></p>
-<!--            <p id="count">조회수: <span th:text="${totalCount}">게시물 조회수</span></p>-->
+            <p id="count">조회수: <span th:text="${post.view}">게시물 조회수</span></p>
         </div>
     </section>
     <section class="container">

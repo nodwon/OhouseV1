@@ -2,7 +2,6 @@ package com.portfolio.ohousev1.dto.Comment.response;
 
 import com.portfolio.ohousev1.dto.Comment.PostCommentDto;
 import com.portfolio.ohousev1.dto.Comment.PostWithCommentDto;
-import com.portfolio.ohousev1.entity.Post;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -21,11 +20,12 @@ public record PostWithCommentResponse(
         String email,
         String nickname,
         String name,
+        Integer view,
         Set<PostCommentResponse> postCommentResponse
 ) {
 
-    public static PostWithCommentResponse of( Long postId, String title, String content, LocalDateTime created_at, LocalDateTime modified_at, String email, String nickname, String name,Set<PostCommentResponse> postCommentResponse){
-        return new PostWithCommentResponse(postId, title, content, created_at, modified_at, email, nickname, name, postCommentResponse);
+    public static PostWithCommentResponse of( Long postId, String title, String content, LocalDateTime created_at, LocalDateTime modified_at, String email, String nickname, String name,Integer view,Set<PostCommentResponse> postCommentResponse){
+        return new PostWithCommentResponse(postId, title, content, created_at, modified_at, email, nickname, name, view,postCommentResponse);
     }
     public  static PostWithCommentResponse from(PostWithCommentDto dto){
         String nickname = dto.memberDto().nickname();
@@ -42,6 +42,7 @@ public record PostWithCommentResponse(
                 dto.memberDto().email(),
                 nickname,
                 dto.memberDto().name(),
+                dto.view(),
                 organizeChildComments(dto.postCommentDtos())
         );
     }

@@ -41,17 +41,21 @@ public class Post extends AuditingFields{
 //    @Column(nullable = false)
 //    private String imgPath;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private Integer view;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private  final Set<PostComment> postComments = new LinkedHashSet<>();
 
-    private Post(Member member, String title, String content) {
+    private Post(Member member, String title, String content, Integer view) {
         this.member = member; // 이메일 값 설정
         this.title = title;
         this.content = content;
+        this.view = view;
     }
 
-    public static Post of(Member member, String title, String content) {
-        return new Post(member, title, content);
+    public static Post of(Member member, String title, String content, Integer view) {
+        return new Post(member, title, content, view);
     }
 
 

@@ -12,6 +12,7 @@ public record PostsRequest(
         String title,
         @NotEmpty(message = "내용은 필수 입력 사항입니다.")
         String content
+
 ) {
 
     public static  PostsRequest of(String title, String content) {
@@ -22,7 +23,8 @@ public record PostsRequest(
        return PostDto.of(
                memberDto,
                title,
-               content
+               content,
+               0
        );
     }
 
