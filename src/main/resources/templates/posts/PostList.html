@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{fragments/header :: header}"></div>
+<link href="/css/Search.css" rel="stylesheet" type="text/css">
 <body>
 <th:block th:posts="PostList" xmlns:th="http://www.thymeleaf.org">
     <div class="container">
@@ -13,10 +14,6 @@
                              style="width: 100%; height: auto;"/>
                     </div>
                     <div class="card-title">
-                        <a class="toggle-info btn" href="#">
-                            <span class="left"></span>
-                            <span class="right"></span>
-                        </a>
                         <h2>
                             <a th:text="${post.title}" th:href="@{/posts/{id} (id=${post.postNo})}"></a>
                         </h2>
@@ -28,12 +25,13 @@
             </div>
         </div>
     </div>
-    <div class="pagination-bar">
+<!--    <div class="pagination-bar center text-body-secondary bg-body-tertiary">-->
+    <div class="pagination-bar text-center mt-3">
         <nav id="pagination" aria-label="Page navigation">
             <ul class="pagination justify-content-center">
                 <li class="page-item"><a class="page-number" href="#">Previous</a></li>
                 <li th:each="pageNumber : ${paginationBarNumbers}">
-                    <a th:text="${pageNumber+1}" class="page-number" href="#"></a>
+                    <a th:text="${pageNumber+1}" class="page-number" href="#">1</a>
                 </li>
                 <li class="page-item"><a class="page-number" href="#">Next</a></li>
             </ul>
@@ -41,4 +39,5 @@
     </div>
 </th:block>
 </body>
+<div th:replace="~{fragments/footer :: footer}"/>
 </html>

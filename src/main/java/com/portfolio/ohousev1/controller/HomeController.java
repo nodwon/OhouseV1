@@ -35,13 +35,13 @@ public class HomeController {
         return "fragments/main";
     }
     @GetMapping("/") //상품일부분가져오기
-    public  String PostsList(ModelMap map ,Pageable pageable){
+    public  String PostsList(ModelMap map ,@PageableDefault(sort = "view", direction = Sort.Direction.DESC) Pageable pageable){
         Page<PostsResponse> posts = postService.AllPost(pageable).map(PostsResponse::from);
         map.addAttribute("Posts", posts);
         return "fragments/main";
     }
     @GetMapping("/postAllList")  //게시글 전체 가져오기
-    public  String PostsALLList(ModelMap map ,Pageable pageable){
+    public  String PostsALLList(ModelMap map ,@PageableDefault(sort = "view", direction = Sort.Direction.DESC) Pageable pageable){
         Page<PostsResponse> posts = postService.AllPost(pageable).map(PostsResponse::from);
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), posts.getTotalPages());
         map.addAttribute("paginationBarNumbers", barNumbers);
@@ -49,7 +49,7 @@ public class HomeController {
         return "posts/PostList";
     }
     @GetMapping("/shop") // 임시 쇼핑몰 상품 가져오기
-    public  String ShopALLList(ModelMap map ,Pageable pageable){
+    public  String ShopALLList(ModelMap map , @PageableDefault(sort = "view", direction = Sort.Direction.DESC) Pageable pageable){
         Page<PostsResponse> posts = postService.AllPost(pageable).map(PostsResponse::from);
 
         map.addAttribute("Posts", posts);

@@ -1,8 +1,7 @@
-.pagination-bar {
-    display: flex;
-    align-items: center;
+.card-title h2 a {
+    text-decoration: none;
+    color: black;
 }
-
 .page-number {
     margin: 5px;
     padding: 5px 10px;
@@ -14,4 +13,14 @@
 
 .page-number:hover {
     background-color: #e0e0e0;
+}
+/* 텍스트 가운데 정렬 */
+.text-center {
+    text-align: center;
+}
+
+/* 하이퍼링크 스타일 제거 및 텍스트 색상 변경 */
+.page-number {
+    text-decoration: none;
+    color: black;
 }

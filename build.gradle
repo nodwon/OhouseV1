@@ -32,8 +32,9 @@ dependencies {
     implementation 'org.hibernate:hibernate-core:6.1.7.Final'
     implementation 'javax.persistence:javax.persistence-api:2.2'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5-jakarta:2.15.1'
-
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 
     // queryDSL 설정
     implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
