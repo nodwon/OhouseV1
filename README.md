@@ -9,7 +9,7 @@
 <h2>ERD Diagram</h2>
 
 <h2>API 명세서</h2>
-![api명세서](https://github.com/nodwon/OhouseV1/assets/73088512/64ae1f89-693b-45a3-92b3-802df647f6d2)
+![api명세서2](https://github.com/nodwon/OhouseV1/assets/73088512/feb43944-fcd4-48f8-98c8-48248bbf70cf)
 
 <h2>Github 칸반 보드</h2>
 
