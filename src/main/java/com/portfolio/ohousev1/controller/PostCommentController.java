@@ -22,16 +22,6 @@ public class PostCommentController {
         return "redirect:/posts/" + postCommentRequest.post_no();
     }
 
-
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/new")
-//    public ResponseEntity<Long> postNewPostComment(@RequestBody PostCommentRequest postCommentRequest, @AuthenticationPrincipal PostPrincipal postPrincipal){
-//        Long result = postCommentService.savePostComment(postCommentRequest.toDto(postPrincipal.toDto()));
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(result);
-//    }
-
-
     @DeleteMapping("/{commentId}/delete")
     public String deletePostComment(@PathVariable Long commentId,
                                     @AuthenticationPrincipal PostPrincipal postPrincipal,
