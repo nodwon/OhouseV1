@@ -8,6 +8,7 @@ build/
 !build.gradle
 !gradlew
 !settings.gradle
+!ohouse.pem
 ### STS ###
 .apt_generated
 .classpath
