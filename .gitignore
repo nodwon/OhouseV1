@@ -3,9 +3,9 @@ HELP.md
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
-!**/src/main/**//application.yml
+#!**/src/main/**//application.yml
 !**/src/test/**/build/
-ohouse.pem
+!build.gradle
 ### STS ###
 .apt_generated
 .classpath
