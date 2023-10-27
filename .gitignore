@@ -5,10 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/main/**//application.yml
 !**/src/test/**/build/
-!build.gradle
-!gradlew
-!settings.gradle
-!ohouse.pem
+ohouse.pem
 ### STS ###
 .apt_generated
 .classpath
