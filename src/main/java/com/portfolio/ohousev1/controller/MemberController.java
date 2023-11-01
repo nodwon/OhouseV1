@@ -46,12 +46,18 @@ public class MemberController {
         log.info("logout controller");
         return "redirect:/";
     }
+//    @PostMapping("/signup")
+//    public ResponseEntity<MemberDto> createMember(@RequestBody MemberRequest request) {
+//        MemberDto result = memberService.saveMember(request.email(), request.Password(), request.dto().roleTypes(), request.name(), request.nickname(), request.birthday());
+//
+//                 return ResponseEntity.status(HttpStatus.CREATED)
+//                    .body(result);
+//
+//    }
     @PostMapping("/signup")
-    public ResponseEntity<MemberDto> createMember(@RequestBody MemberRequest request) {
-        MemberDto result = memberService.saveMember(request.email(), request.Password(), request.dto().roleTypes(), request.name(), request.nickname(), request.birthday());
-
-                 return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(result);
+    public String createMember(@ModelAttribute MemberRequest request) {
+        memberService.saveMember(request.email(),request.Password(), request.dto().roleTypes(),request.name(),request.nickname(),request.birthday());
+        return "redirect:/";
 
     }
     // 업데이트
