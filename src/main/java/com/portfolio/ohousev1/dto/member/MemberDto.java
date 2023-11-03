@@ -1,9 +1,7 @@
 package com.portfolio.ohousev1.dto.member;
 
-import com.portfolio.ohousev1.dto.post.PostPrincipal;
 import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.constant.RoleType;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;

@@ -1,15 +1,11 @@
 package com.portfolio.ohousev1.dto.post;
 
 import com.portfolio.ohousev1.dto.member.MemberDto;
-import com.portfolio.ohousev1.entity.Member;
 import com.portfolio.ohousev1.entity.constant.RoleType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;

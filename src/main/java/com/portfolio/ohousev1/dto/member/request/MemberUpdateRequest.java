@@ -23,10 +23,6 @@ public record MemberUpdateRequest(
     public static MemberUpdateRequest of(String email,String Password,String name, String nickname, LocalDate birthday) {
         return new MemberUpdateRequest(email,Password,name, nickname, birthday);
     }
-//    public static MemberUpdateRequest of(String email,String Password) {
-//        return new MemberUpdateRequest(email,Password, null, null,null);
-//    }
-
     public MemberDto dto(){
         Set<RoleType> roleTypes = Set.of(RoleType.USER);
         return MemberDto.of(email,Password,roleTypes,name,nickname,birthday);
