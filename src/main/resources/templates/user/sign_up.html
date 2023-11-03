@@ -9,7 +9,7 @@
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link href="https://getbootstrap.com/docs/5.3/examples/blog/" rel="canonical">
         <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet">
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
               integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
               rel="stylesheet">
@@ -37,11 +37,15 @@
                 <div class="mb-3">
                     <label class="form-label" for="register-email">이메일 주소</label>
                     <input class="form-control" id="register-email" name="email" placeholder="email address" type="text"/>
+                    <div class="error-class" th:errors="*{name}"></div>
+
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="Password">비밀번호</label>
                     <!--                    register-password-->
                     <input class="form-control" id="Password" name="Password" placeholder="password" type="password"/>
+                    <div class="error-class" th:errors="*{name}"></div>
+
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="register-name">이름</label>

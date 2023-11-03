@@ -7,6 +7,7 @@ import com.portfolio.ohousev1.dto.post.response.PostsResponse;
 import com.portfolio.ohousev1.entity.constant.FormStatus;
 import com.portfolio.ohousev1.service.member.MemberService;
 import com.portfolio.ohousev1.service.post.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -44,8 +46,9 @@ public class MemberController {
         return "redirect:/";
     }
     @PostMapping("/signup")
-    public String createMember(@ModelAttribute MemberRequest request) {
+    public String createMember(@Valid @ModelAttribute MemberRequest request) {
         memberService.saveMember(request.email(),request.Password(), request.dto().roleTypes(),request.name(),request.nickname(),request.birthday());
+
         return "redirect:/";
 
     }
@@ -61,7 +64,7 @@ public class MemberController {
     }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/edit")
-    public String UpdateMember(Authentication authentication, @ModelAttribute MemberUpdateRequest request) {
+    public String UpdateMember(Authentication authentication,@ModelAttribute MemberUpdateRequest request) {
         String email = authentication.getName();
         memberService.updateMember(email,request.dto());
         return "redirect:/";

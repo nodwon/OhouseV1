@@ -2,7 +2,6 @@ package com.portfolio.ohousev1.entity.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 
 @Getter
 @RequiredArgsConstructor

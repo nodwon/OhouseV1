@@ -110,7 +110,7 @@ class detail {
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function () {
-                alert('회원가입이 되었습니다.');
+                alert('작성 되었습니다.');
                 location.href = '/';
             }).fail(function (error) {
                 alert(JSON.stringify(error));

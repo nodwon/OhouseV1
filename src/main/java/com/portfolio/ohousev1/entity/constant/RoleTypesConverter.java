@@ -1,6 +1,5 @@
 package com.portfolio.ohousev1.entity.constant;
 
-import com.portfolio.ohousev1.entity.constant.RoleType;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

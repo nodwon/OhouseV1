@@ -64,6 +64,7 @@ public class HomeController {
     @GetMapping("/signup")
     public String signup() {
         log.info("signup controller");
+
         return "user/sign_up";
     }
     @GetMapping("/search")
