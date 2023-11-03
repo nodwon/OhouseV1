@@ -79,7 +79,7 @@ public class MemberController {
 
     }
     @DeleteMapping("/{email}/delete")
-    public String DeleteMember( @PathVariable String email) {
+    public String DeleteMember(@PathVariable String email) {
         memberService.deleteMember(email);
         return "redirect:/";
 
