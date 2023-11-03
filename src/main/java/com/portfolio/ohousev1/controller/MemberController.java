@@ -1,6 +1,5 @@
 package com.portfolio.ohousev1.controller;
 
-import com.portfolio.ohousev1.dto.member.MemberDto;
 import com.portfolio.ohousev1.dto.member.request.MemberRequest;
 import com.portfolio.ohousev1.dto.member.request.MemberUpdateRequest;
 import com.portfolio.ohousev1.dto.member.response.MemberResponse;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -46,14 +43,6 @@ public class MemberController {
         log.info("logout controller");
         return "redirect:/";
     }
-//    @PostMapping("/signup")
-//    public ResponseEntity<MemberDto> createMember(@RequestBody MemberRequest request) {
-//        MemberDto result = memberService.saveMember(request.email(), request.Password(), request.dto().roleTypes(), request.name(), request.nickname(), request.birthday());
-//
-//                 return ResponseEntity.status(HttpStatus.CREATED)
-//                    .body(result);
-//
-//    }
     @PostMapping("/signup")
     public String createMember(@ModelAttribute MemberRequest request) {
         memberService.saveMember(request.email(),request.Password(), request.dto().roleTypes(),request.name(),request.nickname(),request.birthday());
@@ -79,7 +68,7 @@ public class MemberController {
 
     }
     @DeleteMapping("/{email}/delete")
-    public String DeleteMember( @PathVariable String email) {
+    public String DeleteMember(@PathVariable String email) {
         memberService.deleteMember(email);
         return "redirect:/";
 
