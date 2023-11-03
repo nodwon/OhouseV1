@@ -6,6 +6,7 @@ import com.portfolio.ohousev1.dto.post.request.PostsRequest;
 import com.portfolio.ohousev1.dto.post.response.PostsResponse;
 import com.portfolio.ohousev1.entity.constant.FormStatus;
 import com.portfolio.ohousev1.service.post.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,7 +47,7 @@ public class PostApiController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping
-    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal, @RequestBody PostsRequest request) {
+    public ResponseEntity<Long> newPost(@AuthenticationPrincipal PostPrincipal postPrincipal,@Valid @RequestBody PostsRequest request) {
         Long result = postService.savePost(request.toDto(postPrincipal.toDto()));
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -66,7 +67,7 @@ public class PostApiController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{postId}/update")
     public String updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
-                             @ModelAttribute PostsRequest postsRequest) {
+                             @Valid @ModelAttribute PostsRequest postsRequest) {
 
         postService.updatePost(postId, postsRequest.toDto(postPrincipal.toDto()));
 
