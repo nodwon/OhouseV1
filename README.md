@@ -53,7 +53,8 @@
 ### DevOps
 
 - 사용 기술: AWS EC2, Nginx, AWS RDS
-
+### troubleshooting
+https://nodwon.tistory.com/category/%EC%98%A4%EB%A5%98%EB%AA%A8%EC%9D%8C%EC%A7%91/Ohouse%EB%B2%84%EA%B7%B8
 
 ## 기술
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
