@@ -156,11 +156,7 @@ class detail {
                     .then(error => {
                         alert(JSON.stringify(error));
                         console.error("ajax 요청 실패");
-                    })
-                    .catch(error => {
-                        console.error("오류 발생:", error);
                     });
-                console.log(data);
             }
         });
     }

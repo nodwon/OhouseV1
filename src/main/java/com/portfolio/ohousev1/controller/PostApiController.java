@@ -76,11 +76,11 @@ public class PostApiController {
     }
 
     @DeleteMapping("/{postId}/delete")
-    public String deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
+    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal) {
         // 삭제 로직 수행
         postService.deletePost(postId, postPrincipal.email());
 
-        return "redirect:/";
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
 
