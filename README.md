@@ -9,11 +9,6 @@
 ![오늘의 집 클론 코딩 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/3c21c3c8-943b-4398-b87f-7340d144a1af)
 ![오늘의 집 클론 코딩 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/3659f6aa-ecc5-448a-8b58-632256935e85)
 
-## 프로젝트 개요
-- **프로젝트 명칭**: ohouse clone
-- **개발 인원**: 1명
-- **개발 기간**: 2023년 8월 9일부터 2023년 10월 31일까지
-
 ## CI/CD
 
 (여기에 CI/CD에 대한 내용을 추가하세요.)
@@ -51,7 +46,6 @@
     - 메인 페이지에서 글쓰기 클릭 시 접근 가능한 페이지
 
 ### DevOps
-
 - 사용 기술: AWS EC2, Nginx, AWS RDS
 ### troubleshooting
 https://nodwon.tistory.com/category/%EC%98%A4%EB%A5%98%EB%AA%A8%EC%9D%8C%EC%A7%91/Ohouse%EB%B2%84%EA%B7%B8
