@@ -3,6 +3,7 @@ package com.portfolio.ohousev1.controller;
 import com.portfolio.ohousev1.dto.Comment.response.PostWithCommentResponse;
 import com.portfolio.ohousev1.dto.post.PostPrincipal;
 import com.portfolio.ohousev1.dto.post.request.PostsRequest;
+import com.portfolio.ohousev1.dto.post.request.PostsUpdateDto;
 import com.portfolio.ohousev1.dto.post.response.PostsResponse;
 import com.portfolio.ohousev1.entity.constant.FormStatus;
 import com.portfolio.ohousev1.service.post.PostService;
@@ -67,9 +68,9 @@ public class PostApiController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{postId}/update")
     public String updatePost(@PathVariable Long postId, @AuthenticationPrincipal PostPrincipal postPrincipal,
-                             @Valid @ModelAttribute PostsRequest postsRequest) {
+                             @Valid @ModelAttribute PostsUpdateDto updateDto) {
 
-        postService.updatePost(postId, postsRequest.toDto(postPrincipal.toDto()));
+        postService.updatePost(postId, updateDto.toDto(postPrincipal.toDto()));
 
         return "fragments/main";
     }
