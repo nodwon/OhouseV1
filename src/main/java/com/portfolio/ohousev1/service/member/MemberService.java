@@ -6,8 +6,12 @@ import com.portfolio.ohousev1.entity.constant.RoleType;
 import com.portfolio.ohousev1.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,8 +79,12 @@ public class MemberService {
 
     }
     @Transactional
-    public void deleteMember(String email) {
+    public ResponseEntity<Void> deleteMember(String email)
+    {
+
         memberRepository.deleteByEmail(email);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+
     }
 
 

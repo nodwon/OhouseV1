@@ -16,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -72,7 +74,9 @@ public class MemberController {
     }
     @DeleteMapping("/{email}/delete")
     public String DeleteMember(@PathVariable String email) {
+
         memberService.deleteMember(email);
+
         return "redirect:/";
 
     }
