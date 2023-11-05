@@ -15,7 +15,8 @@
 
 ## WBS
 
-![WBS](https://github.com/nodwon/OhouseV1/assets/73088512/f026d6a4-f5bd-4051-95d4-6d88fe802376)
+![WBS](https://github.com/nodwon/OhouseV1/assets/73088512/16f17374-19ff-485c-bdf5-6a761518dfc2)
+
 
 ## ERD Diagram
 
