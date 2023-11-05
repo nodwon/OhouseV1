@@ -15,7 +15,7 @@
 
 ## WBS
 
-(여기에 WBS에 대한 내용을 추가하세요.)
+![WBS](https://github.com/nodwon/OhouseV1/assets/73088512/7a3b98f7-3bc8-467e-8f49-fab5e45ba9b2)
 
 ## ERD Diagram
 
