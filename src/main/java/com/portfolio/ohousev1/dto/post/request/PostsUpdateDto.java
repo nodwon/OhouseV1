@@ -1,5 +1,7 @@
 package com.portfolio.ohousev1.dto.post.request;
 
+import com.portfolio.ohousev1.dto.member.MemberDto;
+import com.portfolio.ohousev1.dto.post.PostDto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -14,6 +16,13 @@ public record PostsUpdateDto(
    public static PostsUpdateDto of(String title, String content){
       return new PostsUpdateDto(title, content);
    }
-
+    public PostDto toDto(MemberDto memberDto){
+        return PostDto.of(
+                memberDto,
+                title,
+                content,
+                0
+        );
+    }
 
 }
