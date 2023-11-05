@@ -5,6 +5,26 @@
 ## 오늘의 집 클론 코딩
 
 ![오늘의 집 클론 코딩 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/3c21c3c8-943b-4398-b87f-7340d144a1af)
+![오늘의 집 클론 코딩 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/3659f6aa-ecc5-448a-8b58-632256935e85)
+
+## 개요
+프로젝트 명칭 : ohouse clone
+개발인원 :1명
+개발기간 : 23.08.09 ~ 23.10.31
+주요기능
+사용자 회원가입 페이지
+이메일과 비밀 번호로 회원가입할 수 있는 엔드 포인트
+이메일과 비밀번호에 대한 유효성 검사를 구현 및 암호화 중복검사 
+이메일 조건: @ 포함 , 비밀번호 조건: 8자 이상
+OAuth 2.0 구글,카카오,네이버 로그인
+메인 페이지 
+게시글리스트, 페이징 처리 조회순 및 검색기능
+게시글 페이지
+메인 페이지에서 글쓰기 클릭하는 페이지
+개발언어 : java 17
+개발환경 : Springboot 3.0.6 , jpa,querydsl, SpringSecurity, thymleaf, Oauth 2.0
+데이터베이스 : mysql  8.0.33
+형상관리 툴 : Github
 
 ## CI/CD
 
@@ -16,21 +36,15 @@
 
 ## ERD Diagram
 
-(여기에 ERD 다이어그램 이미지를 추가하세요.)
+![ERD Diagram](https://github.com/nodwon/OhouseV1/assets/73088512/8c61d38d-0dea-4afe-b343-42e96827b208)
 
 ## API 명세서
 
 ![API 명세서 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/19103501-f9ff-4e75-b6b6-91dea5be04ca)
 
 ## Github 칸반 보드
+![Github 칸반보드 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/533505e9-fcf5-4b36-b092-9db2b4c0bcfe)
 
-(여기에 GitHub 칸반 보드에 대한 내용을 추가하세요.)
-
-## Sequence diagram
-
-(여기에 Sequence diagram에 대한 내용을 추가하세요.)
-
-## 기능
 
 ### 게시판
 
