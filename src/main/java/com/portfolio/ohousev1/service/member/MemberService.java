@@ -79,12 +79,9 @@ public class MemberService {
 
     }
     @Transactional
-    public ResponseEntity<Void> deleteMember(String email)
+    public void deleteMember(String email)
     {
-
         memberRepository.deleteByEmail(email);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-
     }
 
 
