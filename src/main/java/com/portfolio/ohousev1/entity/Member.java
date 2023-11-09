@@ -27,12 +27,11 @@ public class Member extends AuditingFields{
 
     @Column
     private String Password;
-
+    @Column
+    private String name;
     @Column
     private String nickname;
 
-    @Column
-    private String name;
 
     @Column
     private LocalDate birthday;
@@ -49,13 +48,13 @@ public class Member extends AuditingFields{
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-    public Member(String email, String password, String nickname,
-                  Set<RoleType> roleTypes,String name,LocalDate birthday){
+    public Member(String email, String password, String name, String nickname,
+                  Set<RoleType> roleTypes,LocalDate birthday){
         this.email =email;
         this.Password =password;
         this.roleTypes =roleTypes;
-        this.nickname = nickname;
         this.name = name;
+        this.nickname = nickname;
         this.birthday = birthday;
     }
 
@@ -76,10 +75,10 @@ public class Member extends AuditingFields{
         this.birthday = birthday;
         return  this;
    }
-    public  static Member of( String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday){
-        return new Member( email, nickname,password,name,birthday,null,roleTypes,null);
+    public  static Member of( String email,String name, String nickname, String password, Set<RoleType> roleTypes,  LocalDate birthday){
+        return new Member( email, name,nickname,password,birthday,null,roleTypes,null);
     }
-    public  static Member of( String email, String nickname, String password, Set<RoleType> roleTypes, String name, LocalDate birthday,List<Post> posts,List<Order> orders){
-        return new Member(email, nickname,password,name,birthday,posts,roleTypes,orders);
+    public  static Member of( String email,String name, String nickname, String password, Set<RoleType> roleTypes,  LocalDate birthday,List<Post> posts,List<Order> orders){
+        return new Member(email,name, nickname,password,birthday,posts,roleTypes,orders);
     }
 }
