@@ -9,7 +9,7 @@ name: CI/CD
 
 on:
   push:
-    branches: [master],[devlop]
+    branches: master
 
 jobs:
   build:
@@ -22,7 +22,6 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: amazon-corretto
 
       - name: Build
         run: ./gradlew build
