@@ -34,7 +34,7 @@
 
             <!-- 삭제 버튼 -->
             <a class="btn btn-primary" role="button" id="deleteButton" sec:authorize="isAuthenticated()"  onclick="deleteEvent()"
-               style="background-color: red; color: white">삭제
+               style="background-color: red; color: white" th:if="${#authentication.getName() == post.email()}"  >삭제
             </a>
 
         </div>
@@ -55,7 +55,7 @@
                 <input name="post_no" th:value="${post.postId()}" type="hidden"/>
                 <!-- parent_comment_id 설정 -->
                 <div class="comment-row">
-                    <div class="comment-nickname" th:text="${post.nickname()}"></div>
+                    <div class="comment-nickname" th:text="${#authentication.getName()}"></div>
                     <input class="content" id="content" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다."
                            type="text"/>
                     <button class="btn btn-primary" id="submit-button" type="submit">입력</button>
