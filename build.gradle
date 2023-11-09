@@ -32,11 +32,6 @@ dependencies {
     implementation 'org.hibernate:hibernate-core:6.1.7.Final'
     implementation 'javax.persistence:javax.persistence-api:2.2'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5-jakarta:2.15.1'
-    implementation 'com.mysql.cj:mysql-connector-java:8.0.29'
-    implementation 'com.amazon.redshift:redshift-jdbc42:1.2.1.1001' // 실제 버전에 따라 변경
-
-
-
 
     // queryDSL 설정
     implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
