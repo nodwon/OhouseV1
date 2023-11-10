@@ -22,24 +22,12 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
-
+          java-package: jdk
+          distribution: zulu
+      - name: Set execute permission on gradlew
+        run: chmod +x gradlew
       - name: Build
-        run: ./gradlew build
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id:
-          aws-secret-access-key:
-          aws-region: ap-east-1
-
-      - name: Deploy to S3
         run: |
-          aws s3 cp build/libs/my-app-1.0.0.jar s3://my-bucket/my-app-1.0.0.jar
+            cd $GITHUB_WORKSPACE
+            ./gradlew build
+
