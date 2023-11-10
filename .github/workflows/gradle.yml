@@ -27,5 +27,5 @@ jobs:
       - name: Build
         run: |
             cd $GITHUB_WORKSPACE
-            ~\study\OhouseV1\gradlew
+            \study\OhouseV1\gradlew
 
