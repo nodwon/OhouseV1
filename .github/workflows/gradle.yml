@@ -25,5 +25,8 @@ jobs:
           java-package: jdk
           distribution: zulu
       - name: Build
-        run: ./gradlew build
+        run: |
+          cd path/to/project
+          ./gradlew build
+      
 
