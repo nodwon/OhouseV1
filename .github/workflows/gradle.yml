@@ -27,5 +27,5 @@ jobs:
       - name: Build
         run: |
             cd $GITHUB_WORKSPACE
-          https://github.com/nodwon/OhouseV1/blob/d73181d34b202004b8c792767c0d11daaafdf305/gradlew
+            ~\study\OhouseV1\gradlew
 
