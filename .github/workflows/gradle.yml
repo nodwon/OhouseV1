@@ -23,7 +23,7 @@ jobs:
         with:
           java-version: 17
           java-package: jdk
-          distribution: AzulZuluOpenJDK
+          distribution: AdoptOpenJDK
       - name: Build
         run: ./gradlew build
 
