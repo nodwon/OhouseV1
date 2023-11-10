@@ -40,3 +40,6 @@ out/
 .vscode/
 src/main/resources/application.yml
 ohouse.pem
+git rm --cached src/main/resources/application.yml
+
+git rm --cached src/main/resources/application.yml.log
