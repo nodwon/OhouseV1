@@ -1,0 +1,14 @@
+5f040ec8b31b05b7423b515951a7ca24a341e97c commit	refs/heads/develop
+92f5d5ba0c4a434857348ebcb3f3bf04c1ffc5ad commit	refs/heads/feature/board
+92f5d5ba0c4a434857348ebcb3f3bf04c1ffc5ad commit	refs/heads/feature/member
+92f5d5ba0c4a434857348ebcb3f3bf04c1ffc5ad commit	refs/heads/feature/shop
+92f5d5ba0c4a434857348ebcb3f3bf04c1ffc5ad commit	refs/heads/hotfixes
+92f5d5ba0c4a434857348ebcb3f3bf04c1ffc5ad commit	refs/heads/main
+5f040ec8b31b05b7423b515951a7ca24a341e97c commit	refs/remotes/origin/develop
+57a2e8f8e2cae6a06f79851d92559dedd941b5d4 commit	refs/remotes/origin/feature/board
+63018efc5135874f933d3f70da5b99342ff36371 commit	refs/remotes/origin/feature/member
+92f5d5ba0c4a434857348ebcb3f3bf04c1ffc5ad commit	refs/remotes/origin/feature/shop
+5f040ec8b31b05b7423b515951a7ca24a341e97c commit	refs/remotes/origin/master
+5492ffb00fa3ace81be0100f13e0222d87bd561a commit	refs/remotes/origin/nodwon-patch-1
+fc31914a5edc99cd019d2284eb32f42b78b64569 commit	refs/remotes/origin/nodwon-patch-2
+c38d1d9d038d78f5a2da63c88485af07acb041f2 commit	refs/remotes/origin/sub
