@@ -6,8 +6,8 @@
 
 ## 오늘의 집 클론 코딩
 
-![오늘의 집 클론 코딩 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/3c21c3c8-943b-4398-b87f-7340d144a1af)
-![오늘의 집 클론 코딩 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/3659f6aa-ecc5-448a-8b58-632256935e85)
+![오늘의 집 클론 코딩 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/2bbb2c29-0369-461d-b66a-212549043af3)
+![이미지](https://github.com/nodwon/OhouseV1/assets/73088512/cbb7f055-2923-442d-97b4-8f48362299dc)
 
 ## CI/CD
 
@@ -15,19 +15,18 @@
 
 ## WBS
 
-![WBS](https://github.com/nodwon/OhouseV1/assets/73088512/16f17374-19ff-485c-bdf5-6a761518dfc2)
-
+![WBS](https://github.com/nodwon/OhouseV1/assets/73088512/09180a64-a0d6-487d-819e-a256bc47b84a)
 
 ## ERD Diagram
+![ERD](https://github.com/nodwon/OhouseV1/assets/73088512/279c7ce2-161f-45ee-bbaf-1e798dbe8f9e)
 
-![ERD Diagram](https://github.com/nodwon/OhouseV1/assets/73088512/8c61d38d-0dea-4afe-b343-42e96827b208)
 
 ## API 명세서
 
-![API 명세서 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/19103501-f9ff-4e75-b6b6-91dea5be04ca)
+![API](https://github.com/nodwon/OhouseV1/assets/73088512/4828e57f-0155-4f4c-aaa8-6f20024c6234)
 
 ## Github 칸반 보드
-![Github 칸반보드 이미지](https://github.com/nodwon/OhouseV1/assets/73088512/533505e9-fcf5-4b36-b092-9db2b4c0bcfe)
+![kan](https://github.com/nodwon/OhouseV1/assets/73088512/89de72b8-4fb2-45ee-ab66-c872e1f1348f)
 
 
 ## 프로젝트 개요
