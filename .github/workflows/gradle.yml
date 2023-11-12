@@ -27,7 +27,7 @@ jobs:
           java-package: jdk
           distribution: zulu
       - name: Set execute permission on gradlew
-        run: chmod +x gradlew
+#        run: chmod +x gradlew
       - name: Build
         run: |
             cd $GITHUB_WORKSPACE
