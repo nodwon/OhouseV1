@@ -32,4 +32,9 @@ jobs:
         run: |
             cd $GITHUB_WORKSPACE
             ./gradlew build
+          - name: Checkout
+      - uses: actions/checkout@v1
+        with:
+         token: TOKEN
+         submodules: recursive
 
