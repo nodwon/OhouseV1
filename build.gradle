@@ -81,7 +81,7 @@ clean {
 
 task copyPrivate(type: Copy) {
     copy {
-        from './submodules/config'
+        from './subpath'
         include "*.yml"
         into 'src/main/resources'
     }
