@@ -1,5 +1,5 @@
 [submodule "subpath"]
 	path = subpath
 	url = https://github.com/nodwon/OhouseV1_sub.git
-    update = checkout
+    update = true
 
