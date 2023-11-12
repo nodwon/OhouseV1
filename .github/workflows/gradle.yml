@@ -26,6 +26,7 @@ jobs:
           java-version: 17
           java-package: jdk
           distribution: zulu
+
       - name: Build
         run: |
             cd $GITHUB_WORKSPACE
