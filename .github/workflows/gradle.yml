@@ -44,6 +44,8 @@ jobs:
           java-version: 17
           java-package: jdk
           distribution: zulu
+      - name: Set execute permission on gradlew
+        run: chmod +x gradlew
 
       # 2. Spring Boot 애플리케이션 빌드
       - name: Build with Gradle
