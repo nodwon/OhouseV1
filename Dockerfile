@@ -4,6 +4,8 @@
 FROM azul/zulu-openjdk:17
 VOLUME /tmp
 
+LABEL titie = "DockerOhouse"
+
 # JAR_FILE 변수에 값을 저장
 ARG JAR_FILE=./build/libs/*.jar
 

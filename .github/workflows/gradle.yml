@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      ## Copy
+      - name: Copy yml
       - uses: actions/checkout@v3
       - run: touch ./src/main/resources/application.yml
       - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
@@ -51,41 +53,35 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean bootJar
 
-      # 3. Docker 이미지 빌드
-      - name: Docker image build
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-epic_elion:latest .
+      - name: Docker Compose 설정
+        run: docker-compose --version
+        shell: bash
 
-
-
-        # 4. DockerHub 로그인
-      - name: Docker login
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      # 5. Docker Hub 이미지 푸시
-      - name: Docker Hub push
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo
+      - name: Docker 이미지 빌드 및 푸시
+        run: |
+          docker build -t ohouse .
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker tag ohouse ${{ secrets.DOCKER_USERNAME }}/ohouse:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/ohouse:latest
 
   # 위 과정에서 푸시한 이미지를 ec2에서 풀받아서 실행시키는 과정
-  run-docker-image-on-ec2:
+  deploy:
     # build-docker-image (위)과정이 완료되어야 실행됩니다.
     needs: build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       # 1. 최신 이미지를 풀받습니다
       - name: Docker pull
-        run: sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo
+        run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/ohouse
 
       # 2. 기존의 컨테이너를 중지시킵니다
       - name: Docker stop container
-        run: sudo docker stop github-actions-demo 2>/dev/null || true
+        run: sudo docker stop ohouse 2>/dev/null || true
 
       # 3. 최신 이미지를 컨테이너화하여 실행시킵니다
       - name: Docker run new container
-        run: sudo docker run --name github-actions-demo --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo
+        run: sudo docker run --name ohouse --rm -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/ohouse
 
       # 4. 미사용 이미지를 정리합니다
       - name: Delete old docker image
