@@ -21,8 +21,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      ## Copy
-      - name: Copy yml
       - uses: actions/checkout@v3
       - run: touch ./src/main/resources/application.yml
       - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
@@ -64,25 +62,18 @@ jobs:
           docker tag ohouse ${{ secrets.DOCKER_USERNAME }}/ohouse:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/ohouse:latest
 
-  # 위 과정에서 푸시한 이미지를 ec2에서 풀받아서 실행시키는 과정
   deploy:
-    # build-docker-image (위)과정이 완료되어야 실행됩니다.
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 최신 이미지를 풀받습니다
-      - name: Docker pull
-        run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/ohouse
+      - name: SSH 클라이언트 설정
+        run: sudo apt-get install -y openssh-client
 
-      # 2. 기존의 컨테이너를 중지시킵니다
-      - name: Docker stop container
-        run: sudo docker stop ohouse 2>/dev/null || true
+      - name: EC2로 파일 복사
+        run: |
+          scp -o StrictHostKeyChecking=no -r .env docker-compose.yml ${{ secrets.DOCKER_COMPOSE_PATH }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_IP }}:~/
 
-      # 3. 최신 이미지를 컨테이너화하여 실행시킵니다
-      - name: Docker run new container
-        run: sudo docker run --name ohouse --rm -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/ohouse
-
-      # 4. 미사용 이미지를 정리합니다
-      - name: Delete old docker image
-        run: sudo docker system prune -f
+      - name: EC2로 SSH 접속 및 배포
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_IP }} 'cd ~ && docker-compose up -d'
