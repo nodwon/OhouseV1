@@ -86,7 +86,7 @@ jobs:
             scp -o StrictHostKeyChecking=no -r .env docker-compose.yml ec2-user@${{ secrets.EC2_HOST }}:~/
 
       - name: SSH into EC2 and Deploy
-        uses: OhouseV1/ssh-action@master
+        uses: OhouseV1/action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
