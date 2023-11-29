@@ -67,13 +67,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: SSH 클라이언트 설정
-        run: sudo apt-get install -y openssh-client
+      - name: Login to AWS
+        uses: docker/login-action@v2
+        id: deploy-prod
+        if: contains(github.ref, 'master')
+        with:
+          registry: ${{ secrets.DOCKER_REPO }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: EC2로 파일 복사
-        run: |
-          scp -o StrictHostKeyChecking=no -r .env docker-compose.yml ${{ secrets.DOCKER_COMPOSE_PATH }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_IP }}:~/
+      - name: Copy Files to EC2
+        uses: OhouseV1/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            scp -o StrictHostKeyChecking=no -r .env docker-compose.yml ec2-user@${{ secrets.EC2_HOST }}:~/
 
-      - name: EC2로 SSH 접속 및 배포
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_IP }} 'cd ~ && docker-compose up -d'
+      - name: SSH into EC2 and Deploy
+        uses: OhouseV1/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            sudo docker-compose -f application.yml down
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/ohouse
+            sudo docker-compose -f application up -d
+            sudo docker image prune -f
+  
