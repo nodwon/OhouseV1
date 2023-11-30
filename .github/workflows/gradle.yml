@@ -96,4 +96,3 @@ jobs:
             sudo docker pull ${{ secrets.DOCKER_REPO }}/ohouse
             sudo docker-compose -f application up -d
             sudo docker image prune -f
-  
