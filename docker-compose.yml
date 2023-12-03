@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  ohouse:
+    image: nodwon/ohouse:latest
+    ports:
+      - "8080:8080"
+    restart: always

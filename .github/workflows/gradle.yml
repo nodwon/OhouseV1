@@ -9,10 +9,10 @@ name: CI/CD
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    branches:
+      - master
+      - develop
+      -
 permissions:
   contents: read
 
@@ -51,27 +51,34 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean bootJar
 
-
-      - name: Docker 이미지 빌드 및 푸시
+      ## docker build & push to production
+      - name: Docker 이미지 빌드 및 푸시 master
+        if: contains(github.ref, 'master')
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t nodwon/ohouse .
-          docker push nodwon/ohouse
+          docker build Dockerfile-prod -t ${{ secrets.DOCKER_REPO }}/ohouse .
+          docker push ${{ secrets.DOCKER_REPO }}/ohouse
+
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy
+      - name: Deploy to prod
         uses: appleboy/ssh-action@master
+        id: deploy-prod
+        if: contains(github.ref, 'master')
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.USERNAME }}
+          username: ec2-user
           key: ${{ secrets.PRIVATE_KEY }}
+          envs: GITHUB_SHA
           script: |
-            docker pull nodwon/ohouse
-            docker stop server
-            docker run -v /path/to/host/ssh:/root/.ssh -d --rm --name server -p 8080:8080 nodwon/ohouse
-            docker run -d --rm --name server -p 8080:8080 nodwon/ohouse
+            sudo docker rm -f $(docker ps -qa)
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/ohouse
+            docker-compose up -d
+            docker image prune -f
+
+      
 
