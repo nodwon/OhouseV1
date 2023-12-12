@@ -1,7 +1,7 @@
 # OhouseDocker Dockerfile
 
 # Use the official OpenJDK 17 base image
-FROM azul/zulu-openjdk:17
+FROM eclipse-temurin:17-jdk-alpine
 VOLUME /tmp
 
 LABEL titie = "DockerOhouse"
