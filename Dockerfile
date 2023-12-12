@@ -2,7 +2,7 @@
 
 # Use the official OpenJDK 17 base image
 FROM eclipse-temurin:17-jdk-alpine
-WORKDIR /app
+WORKDIR /tmp
 ARG JAR_FILE=./build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 EXPOSE 8080
