@@ -46,8 +46,8 @@ jobs:
       - name: Docker 이미지 빌드 및 푸시 master
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t nodwon/OhouseV1 .
-          docker push nodwon/OhouseV1:latest
+          docker build -t nodwon/ohouse .
+          docker push nodwon/ohouse:latest
 
 
   deploy:
@@ -56,11 +56,11 @@ jobs:
 
     steps:
       - name: Deploy to prod
-        run: docker pull nodwon/OhouseV1:latest
+        run: docker pull nodwon/ohouse:latest
       - name : Delete old container
-        run : docker rm -f OhouseV1-container
+        run : docker rm -f ohouse-container
       - name : Run docker container
-        run: docker run -d -p 8080:8080 --name OhouseV1-container nodwon/OhouseV1:latest
+        run: docker run -d -p 8080:8080 --name ohouse-container nodwon/ohouse:latest
 
       
 
