@@ -49,7 +49,6 @@ jobs:
           docker build -t nodwon/ohouse .
           docker push nodwon/ohouse:latest
 
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
