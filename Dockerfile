@@ -2,7 +2,6 @@
 
 # Use the official OpenJDK 17 base image
 FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
 
 # JAR_FILE 변수에 값을 저장
 ARG JAR_FILE=./build/libs/*.jar
