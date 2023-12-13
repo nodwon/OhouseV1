@@ -60,7 +60,7 @@ jobs:
       - name : Delete old container
         run : docker rm -f ohouse-container
       - name : Run docker container
-        run: docker run -d -p 8080:8080 --name ohouse-container nodwon/ohouse:latest
+        run: docker run -d -p 8080:8080 --name ohouse-container nodwon/ohouse
 
       
 
