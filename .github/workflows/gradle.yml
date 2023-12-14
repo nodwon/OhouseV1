@@ -60,5 +60,7 @@ jobs:
           docker stop ohouse-container || true
           docker rm -f ohouse-container || true
           docker run -d -p 8080:8080 --name ohouse-container nodwon/ohouse:latest
-      
 
+      - name: SSH into EC2 and check Docker status
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_IP }} 'docker ps'
