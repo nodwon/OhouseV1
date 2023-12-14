@@ -1,16 +1,11 @@
 # OhouseDocker Dockerfile
 
 # Use the official OpenJDK 17 base image
-FROM eclipse-temurin:17-jdk-alpine as builder
-WORKDIR /build
-COPY build.gradle settings.gradle /build/
-RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true
-
-
-#APP
 FROM eclipse-temurin:17-jdk-alpine
-WORKDIR /app
 
-# 빌더 이미지에서 jar 파일만 복사
-COPY --from=builder /build/build/libs/*-SNAPSHOT.jar ./app.jar
-CMD ["java","-jar","app.jar"]
+# JAR_FILE 변수에 값을 저장
+ARG JAR_FILE=./build/libs/*-SNAPSHOT.jar
+# 변수에 저장된 것을 컨테이너 실행시 이름을 app.jar파일로 변경하여 컨테이너에 저장
+COPY ${JAR_FILE} app.jar
+# 빌드된 이미지가 run될 때 실행할 명령어
+ENTRYPOINT ["java","-jar","/app.jar"]
