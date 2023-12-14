@@ -54,13 +54,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to prod
-        run: |
-          docker pull nodwon/ohouse:latest
-          docker stop ohouse-container || true
-          docker rm -f ohouse-container || true
-          docker run -d -p 8080:8080 --name ohouse nodwon/ohouse:latest
+    - name: Deploy to prod
+      run: |
+        docker pull nodwon/ohouse:latest
+        docker stop ohouse-container || true
+        docker rm -f ohouse-container || true
+        docker run -d -p 8080:8080 --name ohouse-container nodwon/ohouse:latest
 
-      - name: SSH into EC2 and check Docker status
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_IP }} 'docker ps'
+
