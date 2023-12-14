@@ -58,6 +58,6 @@ jobs:
     - name: Deploy to prod
       run: |
         docker pull nodwon/ohouse:latest
-        docker rm -f ohouse-container || true
+        docker rm -f ohouse-container
         docker run -d -p 8080:8080 --name ohouse-container nodwon/ohouse:latest
 
