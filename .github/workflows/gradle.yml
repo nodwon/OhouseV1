@@ -45,6 +45,7 @@ jobs:
       ## docker build & push to production
       - name: Docker 이미지 빌드 및 푸시 master
         run: |
+          sudo service docker start
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -t nodwon/ohouse:latest  .
           docker push nodwon/ohouse:latest
