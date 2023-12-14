@@ -16,10 +16,7 @@ configurations {
         extendsFrom annotationProcessor
     }
 }
-// gradle 시 꼭 해주어야 됨
-jar {
-    enabled = false
-}
+
 repositories {
     mavenCentral()
 }
