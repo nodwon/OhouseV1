@@ -34,7 +34,8 @@ jobs:
       - name: Gradle Clean
         run: |
           chmod +x gradlew
-          ./gradlew clean
+          ./gradlew clean build -x test
+
       ## docker build & push to production
       - name: Docker 이미지 빌드 및 푸시 master
         run: |
