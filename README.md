@@ -11,7 +11,7 @@
 
 ## CI/CD
 
-(여기에 CI/CD에 대한 내용을 추가하세요.)
+![ohouse draw](https://github.com/nodwon/OhouseV1/assets/73088512/da96cba0-cd48-46f1-af7b-ec94402601ee)
 
 ## WBS
 
@@ -46,7 +46,7 @@
     - 메인 페이지에서 글쓰기 클릭 시 접근 가능한 페이지
 
 ### DevOps
-- 사용 기술: AWS EC2, Nginx, AWS RDS
+- 사용 기술: AWS EC2, gitaction,Docker, AWS RDS
 ### troubleshooting
 https://nodwon.tistory.com/category/%EC%98%A4%EB%A5%98%EB%AA%A8%EC%9D%8C%EC%A7%91/Ohouse%EB%B2%84%EA%B7%B8
 
