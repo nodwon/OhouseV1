@@ -50,7 +50,7 @@ jobs:
 
     steps:
       - name: Pull Docker image
-        run: docker pull nodwon/ohouse:latest
+        run: sudo docker pull nodwon/ohouse:latest
 
       - name: Stop and remove existing container (if exists)
         run: docker stop ohouse-container || true && docker rm ohouse-container || true
