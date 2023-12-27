@@ -20,9 +20,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: touch ./src/main/resources/application.yml
-      - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
-      - run: cat ./src/main/resources/application.yml
+        with:
+          token: ${{ secrets.ACTION_TOKEN }}
+          submodules: true
 
       # jdk
       - name: Set up Java 17
