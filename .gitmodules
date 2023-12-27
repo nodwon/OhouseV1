@@ -1,5 +1,5 @@
-[submodule "subpath"]
-	path = subpath
+[submodule "sub"]
+	path = sub
 	url = https://github.com/nodwon/OhouseV1_sub.git
     update = merge  # 혹은 checkout 등으로 유효한 값으로 설정
 
